@@ -1,0 +1,128 @@
+ .check-des {
+     margin-left: 0;
+      margin-right: -28px!important;
+  }
+.site-navbar .site-navigation .login {
+    margin: 0 6px 0 0; 
+}
+.input-wrap .icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.site-navbar-wrap {
+    background: #fff !important;
+    position: fixed;
+    z-index: 99;
+    width: 100%;
+    padding: 10px 15px;
+    margin-bottom: 100px;
+    left: 0;
+    -webkit-transition: .3s all ease;
+    -o-transition: .3s all ease;
+    transition: .3s all ease;
+}
+
+.site-navbar-wrap.scrolled {
+    padding: 1px 15px;
+    -webkit-box-shadow: 0 0 30px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 30px -5px rgba(0, 0, 0, 0.1);
+}
+
+.input-wrap .icon {
+    position: absolute;
+    right: 92%;
+    top: 50%; 
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.search-category b {
+    color: #fb236a;
+    float: right;
+}
+.site-blocks-cover .search-category p a {
+    color: #fff;
+    float: right;
+}
+.site-mobile-menu .site-nav-wrap .arrow-collapse {
+    position: absolute;
+    left: 0!important;
+    right: unset;
+}
+.owl-item { 
+    margin-left: 29px!important;
+}
+
+@media (max-width: 1199.98px){
+.section-heading h2 {
+    padding-top: 0;
+} 
+.section-heading h2 {
+    padding-top: 40px;
+}
+}
+.e_profile{
+    position:relative; 
+    top: 15px; 
+    right: 14rem;
+  }
+
+  .pad {
+    padding-top: 50px;
+}
+
+.form-check-inline .form-check-input {
+  position: absolute;
+  margin-top: -1px;
+  right: -20px;
+  }
+  
+  .form-check-inline {
+  padding-right: 25px;
+  }
+   
+  .radio{
+    position: absolute;
+    right: -14px!important;
+  }
+ .edit-img{
+        position: relative;
+        top: 71px;
+        right: -52px;
+    }
+.steps>li {
+  position: relative;  
+  padding-right: 36px!important;
+  padding-bottom: 10px;
+  }
+  
+  .steps>li:after {
+  content: none;
+  position: absolute;
+  right: 11px!important;
+  top: 6px;
+  width: 6px;
+  height: 12px;
+  border: solid #303030;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
