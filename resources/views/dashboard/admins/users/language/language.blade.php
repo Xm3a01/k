@@ -11,7 +11,7 @@
 <div class="page-head">
         <!-- BEGIN PAGE TITLE -->
         <div class="page-title">
-            <h1> جدول المستخدمين
+            <h1> جدول اللغات
             </h1>
         </div> 
     </div>
@@ -37,26 +37,7 @@
                             <i class="icon-social-dribbble font-green hide"></i>
                             <span class="caption-subject font-dark bold uppercase">جدول اللغات</span>
                         </div>
-                        <div class="actions">
-                            <div class="btn-group pull-left">
-                                <button class="btn green btn-outline dropdown-toggle"
-                                    data-toggle="dropdown">الادوات
-                                    <i class="fa fa-angle-down"></i>
-                                </button>
-                                <ul class="dropdown-menu pull-right" style="font-family: hacen">
-                                    <li>
-                                        <a href="javascript:;"> طباعة </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;"> طباعة ملف PDF </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;"> تصدير إلي إكسل </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                         </div>
                     <div class="portlet-body">
                         <div class="table-toolbar pull-left">
                             <div class="btn-group">

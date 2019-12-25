@@ -66,16 +66,12 @@
             
                 <div class="form-group col-md-12 mb-1">
                     <label for="inputEmail4">{{ __('Role') }}</label>
-                    <input class="form-control" v-model="role" list="roles" placeholder="{{__('Role')}}" name = "role" autocomplete="off">
-                    <datalist id="roles" v-if="role">
-                        @foreach ($roles as $role) 
-                         @if(app()->getLocale() == 'ar')   
-                         <option value="{{$role->ar_name}}">
-                         @else
-                         <option value = "{{$role->name}}">
-                         @endif
-                         @endforeach 
-                    </datalist>
+                       <select name="role_id" class="form-control" >
+                           <option selected disabled >{{ __('Role') }}</option>
+                           @foreach ($roles as $role)
+                               <option value="{{$role->id}}"> {{app()->getLocale() == 'ar' ? $role->ar_name : $role->name}} </option>
+                           @endforeach
+                       </select>
                     </div>
                     <div class="form-group  col-md-12">
                         <label for="password"  > {{ __('Password') }} </label>

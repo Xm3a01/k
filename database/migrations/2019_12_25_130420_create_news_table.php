@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateWhyusesTable extends Migration
+class CreateNewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,8 +15,10 @@ class CreateWhyusesTable extends Migration
     {
         Schema::create('news', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('contant')->nullable();
+            $table->string('ar_title')->nullable();
+            $table->string('title')->nullable();
             $table->string('ar_contant')->nullable();
+            $table->string('contant')->nullable();
             $table->string('photo')->nullable();
             $table->timestamps();
         });

@@ -13,11 +13,11 @@
     <!-- BEGIN PAGE BREADCRUMB -->
     <ul class="page-breadcrumb breadcrumb">
         <li>
-            <a href="index.html">الرئيسية</a>
+            <a href="/dashboard">الرئيسية</a>
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span class="active">إضافة مجال جديد  </span>
+            <span class="active">  تعديل المشرف  </span>
         </li>
     </ul>
     <!-- END PAGE BREADCRUMB -->
@@ -29,7 +29,7 @@
             <div class="portlet-title">
                     <div class="caption">
                         <i class="icon-social-dribbble font-green hide"></i>
-                        <span class="caption-subject font-dark bold uppercase">إضافة مجال جديد</span>
+                        <span class="caption-subject font-dark bold uppercase">تعديل المشرف </span>
                     </div>
                  </div> 
         <div class="portlet-body form">
@@ -42,7 +42,8 @@
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" placeholder="ادخل إسم التخصص " name="name" value="{{$admin->name}}">
                                     </div>
-                            </div> 
+                                </div>  
+                            
                             <div class="form-group">
                                     <label class="col-md-3 control-label">البريد اللاكتروني</label>
                                     <div class="col-md-6">

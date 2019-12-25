@@ -71,6 +71,7 @@ Route::group(['prefix' => 'dashboard' , 'middleware' => 'auth:admin'] , function
     Route::get('all/notfy','Dashboard\Admin\BrowseController@notfyAll')->name('all.notfy');
     Route::get('show/notfy/{id}','Dashboard\Admin\BrowseController@notfyShow')->name('show.notfy');
     Route::resource('advs','Dashboard\Admin\AdvController')->except('create');
+    Route::resource('news','Dashboard\Admin\NewsController')->except(['create' , 'show']);
     
 
 
@@ -166,12 +167,3 @@ Route::get('/migrate', function() {
 });
 
 // Route::view('test','test');
-
-Route::get('test', function() {
-  $cities = App\City::all();
- return view('test' , compact('cities'));
-});
-
-Route::post('test_one', function(Request $request) {
-    return $request->role_id;
-  })->name('test_one');

@@ -1,5 +1,5 @@
 <!-- BEGIN CORE PLUGINS -->
-<script src="{{asset('js/app.js')}}" type="text/javascript"></script>
+{{-- <script src="{{asset('js/app.js')}}" type="text/javascript"></script> --}}
 <script src="{{asset('vendor/js/jquery.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendor/js/bootstrap.min.js')}}" type="text/javascript"></script>
 

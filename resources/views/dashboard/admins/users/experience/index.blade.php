@@ -32,33 +32,47 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="portlet light bordered">
-                    <div class="portlet-title">
-                        <div class="caption">
-                            <i class="icon-social-dribbble font-green hide"></i>
-                            <span class="caption-subject font-dark bold uppercase">جدول الخبرات</span>
-                        </div>
-                        <div class="actions">
-                            <div class="btn-group pull-left">
-                                <button class="btn green btn-outline dropdown-toggle"
-                                    data-toggle="dropdown">الادوات
-                                    <i class="fa fa-angle-down"></i>
-                                </button>
-                                <ul class="dropdown-menu pull-right" style="font-family: hacen">
-                                    <li>
-                                        <a href="javascript:;"> طباعة </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;"> طباعة ملف PDF </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;"> تصدير إلي إكسل </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="portlet-title"> 
+                                    <div class="actions"> 
+                                        <div class="btn-group">
+                                            <a class="btn red btn-outline btn-circle" href="javascript:;" data-toggle="dropdown">
+                                                <i class="fa fa-share"></i>
+                                                <span class="hidden-xs"> الادوات</span>
+                                                <i class="fa fa-angle-down"></i>
+                                            </a>
+                                            <ul class="dropdown-menu pull-right" id="sample_3_tools">
+                                                <li>
+                                                    <a href="javascript:;" data-action="0" class="tool-action">
+                                                        <i class="icon-printer"></i> Print</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" data-action="1" class="tool-action">
+                                                        <i class="icon-check"></i> Copy</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" data-action="2" class="tool-action">
+                                                        <i class="icon-doc"></i> PDF</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" data-action="3" class="tool-action">
+                                                        <i class="icon-paper-clip"></i> Excel</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" data-action="4" class="tool-action">
+                                                        <i class="icon-cloud-upload"></i> CSV</a>
+                                                </li>
+                                                <li class="divider"> </li>
+                                                <li>
+                                                    <a href="javascript:;" data-action="5" class="tool-action">
+                                                        <i class="icon-refresh"></i> Reload</a>
+                                                </li>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                     <div class="portlet-body"> 
-                        <table id="users-table" class="table table-hover table-striped">
+                        <table id="sample_3" class="table table-hover table-bordered table-striped "  >
                         <thead>
                             <tr>
                                 <th> # </th>
@@ -79,10 +93,10 @@
                             <tr>
                                 <td>{{$experience->id}}</td>
                                 <td>{{$experience->user->ar_name}}</td>
-                                <td>{{$experience->ar_role}}</td>
-                                <td>{{$experience->ar_sub_special}}</td>
+                                <td>{{$experience->role->ar_name}}</td>
+                                <td>{{$experience->sub_special->ar_name}}</td>
                                 <td>{{$experience->expert_year.' سنوات'}}</td>
-                                <td>{{$experience->ar_level}}</td>
+                                <td>{{$experience->level->ar_name}}</td>
                                 <td>{{$experience->start_month .'/'.$experience->start_year }}</td>
                                 <td>{{$experience->end_month .'/'.$experience->end_year }}</td>
                                 <td>{{ $experience->ar_summary }}</td>
@@ -90,11 +104,11 @@
                                 <form action="{{route('experiences.destroy', $experience->id)}}" method="POST">
                                     @csrf {{ method_field('DELETE') }}
                                     <a href="{{route('experiences.edit', $experience->id)}}"
-                                        class="btn dark btn-sm btn-outline sbold uppercase">
-                                        <i class="fa fa-edit"> تعديل </i>
+                                        class="btn btn-info p-2 sbold uppercase">
+                                        <i class="fa fa-edit"></i>
                                     </a>
-                                    <button type="submit" class="btn red btn-sm btn-outline sbold uppercase">
-                                        <i class="fa fa-edit">حذف</i>
+                                    <button type="submit" class="btn btn-danger p-2 sbold uppercase">
+                                        <i class="fa fa-trash"></i>
                                     </button>
                                 </form>
 
@@ -102,6 +116,7 @@
                                 </tr>
                                     @endforeach
                                 </tbody>
+                                {{$experiences->links()}}
                             </table>
                     </div>
                 </div>
@@ -114,6 +129,7 @@
 
 <!-- BEGIN SCRIPTS -->
 @section('scripts')
+<script src="{{asset('vendor/js/table-datatables-buttons.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('vendor/js/datatable.js') }}"></script>
 <script src="{{ asset('vendor/plugins/datatables/datatables.min.js') }}"></script>
 <script src="{{ asset('vendor/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}"></script>

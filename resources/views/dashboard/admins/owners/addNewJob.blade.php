@@ -30,96 +30,101 @@
                     <div class="caption">
                         <i class="icon-social-dribbble font-green hide"></i>
                         <span class="caption-subject font-dark bold uppercase">إضافة وظيفة جديدة</span>
-                    </div>
-                 </div> 
+                </div>
+            </div> 
         <div class="portlet-body form">
             <form class="form-horizontal" role="form" method="POST" action="{{route('jobs.store')}}">
                 @csrf
                 <div class="form-body"> 
                   <input  type="hidden" name="owner_id" value="{{$owner->id}}">
+
+                  <div class="form-group">
+                        <label class="col-md-3 control-label">الدور الوظيفي</label>
+                        <div class="col-md-6">
+                         <select name="role_id" id="inputState" class="form-control">
+                            <option selected disabled>الدور الوظيفي</option>
+                            @foreach ($roles as $role)  
+                            <option value="{{ $role->id }}">{{ $role->ar_name }}</option>
+                            @endforeach
+                          </select>
+                        </div>      
+                   </div>
                     <div class="form-group">
-                            <label class="col-md-3 control-label">الدور الوظيفي</label>
+                         <label class="col-md-3 control-label">المستوى الوظيفي</label>
                             <div class="col-md-6">
-                             <select name="role_id" id="inputState" class="form-control">
-                                @foreach ($roles as $role)  
-                                <option value="{{ $role->id }}">{{ $role->ar_name }}</option>
+                             <select name="level_id" id="inputState" class="form-control">
+                                <option selected disabled>المستوى الوظيفي</option>
+                                @foreach ($levels as $level)  
+                                <option value="{{ $level->id }}">{{ $level->ar_name }}</option>
                                 @endforeach
                               </select>
                             </div>      
                         </div>
 
+
+                <div class="form-group">
+                        <label class="col-md-3 control-label"> الدوله</label>
+                        <div class="col-md-6">
+                            <select name="country_id" id="inputState" class="form-control">
+                            <option selected disabled>الدوله</option>
+                            @foreach ($countries as $country) 
+                            <option value="{{ $country->id }}">{{ $country->ar_name }}</option>
+                            @endforeach
+                            </select>
+                        </div>
+                    </div>
                         <div class="form-group">
-                                <label class="col-md-3 control-label">المستوى الوظيفي</label>
+                                <label class="col-md-3 control-label">المدينه </label>
                                 <div class="col-md-6">
-                                 <select name="level_id" id="inputState" class="form-control">
-                                    @foreach ($levels as $level)  
-                                    <option value="{{ $level->id }}">{{ $level->ar_name }}</option>
+                                    <select name="city_id" id="inputState" class="form-control">
+                                    <option selected disabled>المدينه</option>
+                                    @foreach ($cities as $city)   
+                                    <option value="{{ $city->id }}">{{ $city->ar_name }}</option>
                                     @endforeach
-                                  </select>
+                                    </select>
                                 </div>      
                             </div>
 
-
                             <div class="form-group">
-                                    <label class="col-md-3 control-label"> الدوله</label>
+                                    <label class="col-md-3 control-label"> التخصص الاساسي</label>
                                     <div class="col-md-6">
-                                     <select name="country_id" id="inputState" class="form-control">
-                                        @foreach ($countries as $country) 
-                                        <option value="{{ $country->id }}">{{ $country->ar_name }}</option>
+                                        <select name="special_id" id="inputState" class="form-control">
+                                        <option selected disabled>التخصص الاساسي</option>
+                                        @foreach ($specials as $special) 
+                                        <option value="{{ $special->id }}">{{ $special->ar_name }}</option>
                                         @endforeach
-                                      </select>
+                                        </select>
                                     </div>      
                                 </div>
 
                                 <div class="form-group">
-                                        <label class="col-md-3 control-label">المدينه </label>
+                                        <label class="col-md-3 control-label"> التخصص الفرعي</label>
                                         <div class="col-md-6">
-                                         <select name="city_id" id="inputState" class="form-control">
-                                            @foreach ($cities as $city)   
-                                            <option value="{{ $city->id }}">{{ $city->ar_name }}</option>
-                                            @endforeach
-                                          </select>
-                                        </div>      
-                                    </div>
-
-                                    <div class="form-group">
-                                            <label class="col-md-3 control-label"> التخصص الاساسي</label>
-                                            <div class="col-md-6">
-                                             <select name="special_id" id="inputState" class="form-control">
-                                                @foreach ($specials as $special) 
-                                                <option value="{{ $special->id }}">{{ $special->ar_name }}</option>
-                                                @endforeach
-                                              </select>
-                                            </div>      
-                                        </div>
-
-                                        <div class="form-group">
-                                                <label class="col-md-3 control-label">الدور الوظيفي</label>
-                                                <div class="col-md-6">
-                                                 <select name="sub_special_id" id="inputState" class="form-control">
-                                                    @foreach ($sub_specials as $sub_special)  
+                                            <select name="sub_special_id" id="inputState" class="form-control">
+                                                <option selected disabled>التخصص</option>
+                                                @foreach ($sub_specials as $sub_special)  
                                                     <option value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
-                                                    @endforeach
-                                                  </select>
-                                                </div>      
-                                            </div>
-                    
-                      <div class="form-group">
-                            <label class="col-md-3 control-label"> سنين الخبرة المطلوبة</label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control  " placeholder="مثال: 1 شهر و2 سنة " name="experinse">
-                             </div>
-                        </div>
-                        
-                        <div class="form-group">
-                                <label class="col-md-3 control-label">حالة العمل</label>
-                                <div class="col-md-6">
-                                    <select class="form-control" name="status">
-                                        <option value="Full time">دوام كامل</option>
-                                        <option value="Part time">دوام جزئي</option>
-                                    </select>
+                                                @endforeach
+                                            </select>
+                                     </div>       
                                 </div>
-                            </div>
+                    
+                            <div class="form-group">
+                                    <label class="col-md-3 control-label"> سنين الخبرة المطلوبة</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control  " placeholder="مثال: 1 شهر و2 سنة " name="experinse">
+                                    </div>
+                                </div>
+                                
+                            <div class="form-group">
+                                    <label class="col-md-3 control-label">حالة العمل</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" name="status">
+                                            <option value="Full time">دوام كامل</option>
+                                            <option value="Part time">دوام جزئي</option>
+                                        </select>
+                                    </div>
+                                </div>
                     
                             <div class="form-group ">
                                     <label class="col-md-3 control-label">الراتب</label>

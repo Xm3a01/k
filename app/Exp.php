@@ -12,19 +12,19 @@ class Exp extends Model
         return $this->belongsTo(User::class);
     }
 
-    function roles() {
-        return $this->hasMany(Role::class);
+    function role() {
+        return $this->belongsTo(Role::class);
     }
 
-    function sub_specials() {
-        return $this->hasMany(SubSpecial::class);
+    function sub_special() {
+        return $this->belongsTo(SubSpecial::class);
     }
 
-    function levels() {
-        return $this->hasMany(Level::class);
+    function level() {
+        return $this->belongsTo(Level::class);
     }
 
-    function countries() {
-        return $this->hasMany(Country::class);
+    function country() {
+        return $this->belongsTo(Country::class);
     }
 }

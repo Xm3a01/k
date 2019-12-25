@@ -19,8 +19,8 @@ class OwnerController extends Controller
      */
     public function index()
     {
-        $owners = Owner::all();
-        $owners->load(['countries','roles']);
+        $owners = Owner::paginate(10);
+        $owners->load(['country','role','city']);
         return view('dashboard.admins.owners.index', compact('owners'));
     }
 
@@ -54,9 +54,9 @@ class OwnerController extends Controller
             'company_name_en' => 'required',
             'phone' => 'required',
             'logo'  =>  'required|image',
-            'city' => 'required',
-            'role' => 'required',
-            'country' => 'required',
+            'city_id' => 'required',
+            'role_id' => 'required',
+            'country_id' => 'required',
             'ar_name' => 'required|max:255',
              'gender' => 'required',
             ]);
@@ -83,9 +83,9 @@ class OwnerController extends Controller
             $owner->gender = $request->gender;
             $owner->ar_description = $request->ar_description;
             
-            $experience->role_id = $request->role_id;
-            $experience->country_id = $request->country_id;
-            $experience->city_id = $request->city_id;
+            $owner->role_id = $request->role_id;
+            $owner->country_id = $request->country_id;
+            $owner->city_id = $request->city_id;
            
 
             if($owner->save()) {
@@ -172,13 +172,17 @@ class OwnerController extends Controller
             }
             
             if($request->has('role_id')) {
-                $job->role_id = $request->role_id;
+                $owner->role_id = $request->role_id;
             }
             if($request->has('country_id')) {
-                $job->country_id = $request->country_id;
+                $owner->country_id = $request->country_id;
              }
             if($request->has('city_id')) {
-                $job->city_id = $request->city_id;
+                $owner->city_id = $request->city_id;
+             }
+
+             if($request->has('country_id')) {
+                $owner->country_id = $request->country_id;
              }
             
             if($request->has('password') && $request->password != '') {

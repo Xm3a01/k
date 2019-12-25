@@ -80,6 +80,12 @@
                           </div>
                     </div>
                     <div class="form-group">
+                            <label class="col-md-3 control-label"> إسم الشركة بالانجليزي</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="ادخل إسم الشركة " name="company_name_en">
+                              </div>
+                        </div>
+                    <div class="form-group">
                             <label class="col-md-3 control-label"> بريد العمل الإلكتروني / عنوان URL</label>
                             <div class="col-md-6">
                                 <input type="email" class="form-control" placeholder="ادخل  بريد العمل الإلكتروني / عنوان URL " name="company_email">
@@ -90,6 +96,7 @@
                                 <label class="col-md-3 control-label">الدور الوظيفي</label>
                                 <div class="col-md-6">
                                  <select name="role_id" id="inputState" class="form-control">
+                                    <option selected disabled>الدور الوظيفي</option>
                                     @foreach ($roles as $role)  
                                     <option value="{{ $role->id }}">{{ $role->ar_name }}</option>
                                     @endforeach
@@ -102,6 +109,7 @@
                                 <label class="col-md-3 control-label"> الدوله</label>
                                 <div class="col-md-6">
                                     <select name="country_id" id="inputState" class="form-control">
+                                    <option selected disabled>الدوله</option>
                                     @foreach ($countries as $country) 
                                     <option value="{{ $country->id }}">{{ $country->ar_name }}</option>
                                     @endforeach
@@ -113,6 +121,7 @@
                                     <label class="col-md-3 control-label">المدينه </label>
                                     <div class="col-md-6">
                                         <select name="city_id" id="inputState" class="form-control">
+                                        <option selected disabled>المدينه</option>
                                         @foreach ($cities as $city)   
                                         <option value="{{ $city->id }}">{{ $city->ar_name }}</option>
                                         @endforeach

@@ -37,79 +37,87 @@
                 @csrf
                 @method('PUT')
                 <div class="form-body"> 
-                  {{-- <input  type="hidden" name="owner_id" value="{{$owner->id}}"> --}}
+                  {{-- <input  type="hidden" name="job_id" value="{{$job->id}}"> --}}
                   <div class="form-group">
-                      <label class="col-md-3 control-label">الدور الوظيفي</label>
-                      <div class="col-md-6">
-                       <select name="role_id" id="inputState" class="form-control">
-                          @foreach ($roles as $role)  
-                          <option selected value="{{ $job->id }}">{{ $roles->find($job->role_id) }}</option>
-                          <option value="{{ $role->id }}">{{ $role->ar_name }}</option>
-                          @endforeach
-                        </select>
-                      </div>      
-                  </div>
+                        <label class="col-md-3 control-label">الدور الوظيفي</label>
+                        <div class="col-md-6">
+                         <select name="role_id" id="inputState" class="form-control">
+                            <option selected disabled>الدور الوظيفي</option>
+                            @foreach ($roles as $role)  
+                            <option {{ $job->role_id == $role->id ? 'selected' : ''}} value="{{ $role->id }}">{{ $role->ar_name }}</option>
+                            @endforeach
+                          </select>
+                        </div>      
+                   </div>
+                    <div class="form-group">
+                         <label class="col-md-3 control-label">المستوى الوظيفي</label>
+                            <div class="col-md-6">
+                             <select name="level_id" id="inputState" class="form-control">
+                                <option selected disabled>المستوى الوظيفي</option>
+                                @foreach ($levels as $level)  
+                                <option {{ $job->level_id == $level->id ? 'selected' : ''}} value="{{ $level->id }}">{{ $level->ar_name }}</option>
+                                @endforeach
+                              </select>
+                            </div>      
+                        </div>
 
-                  <div class="form-group">
-                          <label class="col-md-3 control-label">المستوى الوظيفي</label>
-                          <div class="col-md-6">
-                           <select name="level_id" id="inputState" class="form-control">
-                              @foreach ($levels as $level)  
-                              <option selected value="{{ $job->id }}">{{ $levels->find($job->level_id) }}</option>
-                              <option value="{{ $level->id }}">{{ $level->ar_name }}</option>
-                              @endforeach
+
+                <div class="form-group">
+                        <label class="col-md-3 control-label"> الدوله</label>
+                        <div class="col-md-6">
+                            <select name="country_id" id="inputState" class="form-control">
+                            <option selected disabled>الدوله</option>
+                            @foreach ($countries as $country) 
+                            <option {{ $job->country_id == $country->id ? 'selected' : ''}} value="{{ $country->id }}">{{ $country->ar_name }}</option>
+                            @endforeach
                             </select>
-                          </div>      
-                      </div>
-
-
-                      <div class="form-group">
-                              <label class="col-md-3 control-label"> الدوله</label>
-                              <div class="col-md-6">
-                               <select name="country_id" id="inputState" class="form-control">
-                                  @foreach ($countries as $country) 
-                                  <option selected value="{{ $levels->find($job->level_id)->id }}">{{ $levels->find($job->level_id)->ar_name }}</option>
-                                  <option value="{{ $country->id }}">{{ $country->ar_name }}</option>
-                                  @endforeach
-                                </select>
-                              </div>      
-                          </div>
-
-                          <div class="form-group">
-                                  <label class="col-md-3 control-label">المدينه </label>
-                                  <div class="col-md-6">
-                                   <select name="city_id" id="inputState" class="form-control">
-                                      @foreach ($cities as $city)
-                                      <option selected value="{{ $cities->find($job->city_id)->id }}">{{ $cities->find($job->city_id)->ar_name }}</option>   
-                                      <option value="{{ $city->id }}">{{ $city->ar_name }}</option>
-                                      @endforeach
+                        </div>
+                    </div>
+                        <div class="form-group">
+                                <label class="col-md-3 control-label">المدينه </label>
+                                <div class="col-md-6">
+                                    <select name="city_id" id="inputState" class="form-control">
+                                    <option selected disabled>المدينه</option>
+                                    @foreach ($cities as $city)   
+                                    <option {{ $job->city_id == $city->id ? 'selected' : ''}} value="{{ $city->id }}">{{ $city->ar_name }}</option>
+                                    @endforeach
                                     </select>
-                                  </div>      
-                              </div>
+                                </div>      
+                            </div>
 
-                              <div class="form-group">
-                                      <label class="col-md-3 control-label"> التخصص الاساسي</label>
-                                      <div class="col-md-6">
-                                       <select name="special_id" id="inputState" class="form-control">
-                                          @foreach ($specials as $special) 
-                                          <option selected value="{{ $specials->find($job->special_id)->id }}">{{ $specials->find($job->special_id)->ar_name }}</option>
-                                          <option value="{{ $special->id }}">{{ $special->ar_name }}</option>
-                                          @endforeach
+                            <div class="form-group">
+                                    <label class="col-md-3 control-label"> التخصص الاساسي</label>
+                                    <div class="col-md-6">
+                                        <select name="special_id" id="inputState" class="form-control">
+                                        <option selected disabled>التخصص الاساسي</option>
+                                        @foreach ($specials as $special) 
+                                        <option {{ $job->special_id == $special->id ? 'selected' : ''}} value="{{ $special->id }}">{{ $special->ar_name }}</option>
+                                        @endforeach
                                         </select>
-                                      </div>      
-                                  </div>
+                                    </div>      
+                                </div>
 
-                                  <div class="form-group">
-                                          <label class="col-md-3 control-label"> التخصص الفرعي</label>
-                                          <div class="col-md-6">
-                                           <select name="sub_special_id" id="inputState" class="form-control">
-                                              @foreach ($sub_specials as $sub_special)
-                                              <option selected value="{{ $sub_specials->find($job->sub_special_id)->id }}">{{ $sub_specials->find($job->sub_special_id)->ar_name }}</option>
-                                              <option value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
-                                              @endforeach
+                                <div class="form-group">
+                                        <label class="col-md-3 control-label"> التخصص الفرعي</label>
+                                        <div class="col-md-6">
+                                            <select name="sub_special_id" id="inputState" class="form-control">
+                                                <option selected disabled>التخصص</option>
+                                                @foreach ($sub_specials as $sub_special)  
+                                                    <option {{ $job->sub_special_id == $sub_special->id ? 'selected' : ''}} value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
+                                                @endforeach
                                             </select>
-                                          </div>      
-                                      </div>
+                                     </div>       
+                                </div>
+                                
+                            <div class="form-group">
+                                    <label class="col-md-3 control-label">حالة العمل</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" name="status">
+                                            <option value="Full time">دوام كامل</option>
+                                            <option value="Part time">دوام جزئي</option>
+                                        </select>
+                                    </div>
+                                </div>
                     
                       <div class="form-group">
                             <label class="col-md-3 control-label"> سنين الخبرة المطلوبة</label>

@@ -14,7 +14,7 @@
     <!-- BEGIN PAGE BREADCRUMB -->
     <ul class="page-breadcrumb breadcrumb">
         <li>
-            <a href="index.html">الرئيسية</a>
+            <a href="/dashboard">الرئيسية</a>
             <i class="fa fa-circle"></i>
         </li>
         <li>
@@ -62,25 +62,24 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">التخصص</label>
                                 <div class="col-md-4">
-                                    <input list="special" name="sub_special" id="inputState" class="form-control" value = " {{$education->ar_sub_special}} " placeholder="التخصص " autocomplete="off">
-                                    </div>
-                                    <datalist id="special" dir="rtl" >
-                                      @foreach ($sub_specials as $sub_special)    
-                                      <option value="{{(app()->getLocale() == 'ar') ? $sub_special->ar_name : $sub_special->name}}">
-                                      @endforeach
-                                      </datalist>
-
+                                    <select name="sub_special_id" id="inputState" class="form-control">
+                                        @foreach ($sub_specials as $sub_special)
+                                            <option selected value="{{ $education->sub_special->id }}">{{ $education->sub_special->ar_name }}</option>
+                                            <option value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>      
                             <label class="col-md-1 control-label">تاريخ التخرج</label>
                             <div class="col-md-4">
                                     <input type="date" class="form-control" name="grade_date" id="" value="{{$education->grade_date}}">
                                 </div>
                                 </div>
 
-                        <div class="form-group">
-                    <label class="col-md-2 control-label">المعدل</label>
-                    <div class="col-md-4">
-                            <input type="text" class="form-control" name="grade" placeholder="مثال: 3.00 من 4.00" id="" value="{{$education->grade}}">
-                            </div>
+                                <div class="form-group">
+                            <label class="col-md-2 control-label">المعدل</label>
+                            <div class="col-md-4">
+                                    <input type="text" class="form-control" name="grade" placeholder="مثال: 3.00 من 4.00" id="" value="{{$education->grade}}">
+                                    </div>
                             </div> 
                                      </div>
                                          <div class="form-actions">

@@ -13,8 +13,8 @@ class Education extends Model
        return $this->belongsTo(User::class);
    }
 
-   public function sub_specials()
+   public function sub_special()
    {
-       return $this->hasMany(SubSpecialp::class);
+       return $this->belongsTo(SubSpecial::class);
    }
 }

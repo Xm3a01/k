@@ -37,48 +37,51 @@
                 @csrf
                 @method('PUT') 
                 <br><h4 class="text-left m-3">الخبرة </h4><br>
-                       <div class="form-group">
+                <div class="form-group">
                         <label class="col-md-2 control-label">الدور الوظيفي</label>
                         <div class="col-md-4">
-                        <input list ="role" id="inputState" class="form-control" name="role" value =" {{$experience->ar_role}} ">
-                       </div>
-                        <datalist id="role">   
-                          @foreach ($roles as $role)  
-                          <option value=" {{(app()->getLocale() == 'ar') ? $role->ar_name : $role->name }}">
-                          @endforeach
-                        </datalist>
-                       
-                       <label class="col-md-1 control-label">المستوي الوظيفي</label>
-                         <div class="col-md-4">
-                          <input list ="level" id="inputState" class="form-control" name="level" value=" {{$experience->ar_level}} ">
-                         </div>
-                          <datalist id="level">   
-                            @foreach ($levels as $level)  
-                            <option value=" {{(app()->getLocale() == 'ar') ? $level->ar_name : $level->name }}">
+                         <select name="role_id" id="inputState" class="form-control">
+                            <option selected disabled>الدور الوظيفي</option>
+                            @foreach ($roles as $role)  
+                            <option {{ $experience->role_id == $role->id ? 'selected' : ''}} value="{{ $role->id }}">{{ $role->ar_name }}</option>
                             @endforeach
-                          </datalist>
+                          </select>
+                        </div>      
+                    
+
+                         <label class="col-md-1 control-label">المستوى الوظيفي</label>
+                            <div class="col-md-4">
+                             <select name="level_id" id="inputState" class="form-control">
+                                <option selected disabled>المستوى الوظيفي</option>
+                                @foreach ($levels as $level)  
+                                <option {{$experience->level_id == $level->id ? 'selected' : ''}} value="{{ $level->id }}">{{ $level->ar_name }}</option>
+                                @endforeach
+                              </select>
+                            </div>      
                         </div>
-                      <div class ="form-group">
-                      <label class="col-md-2 control-label">التخصص </label>
-                         <div class="col-md-4">
-                        <input list ="subspecial" id="inputState" class="form-control" name="sub_special" value=" {{$experience->ar_sub_special}} ">
-                        </div>
-                        <datalist id="subspecial">
-                          @foreach ($sub_specials as $special)     
-                          <option value=" {{(app()->getLocale() == 'ar') ? $special->ar_name : $special->name }}">
-                          @endforeach
-                        </datalist>
-                        
-                        <label class="col-md-1 control-label">الدوله</label>
-                        <div class="col-md-4">
-                        <input list="country" name="country" id="inputState" class="form-control" value=" {{$experience->ar_country}} " autocomplete="off">
-                        </div>
-                        <datalist id="country" dir="rtl" >
-                          @foreach ($countries as $country)    
-                          <option value="{{(app()->getLocale() == 'ar') ? $country->ar_name : $country->name}}">
-                          @endforeach
-                          </datalist>
-                         </div>
+
+
+                        <div class="form-group">
+                                <label class="col-md-2 control-label"> الدوله</label>
+                                <div class="col-md-4">
+                                 <select name="country_id" id="inputState" class="form-control">
+                                    <option selected disabled>الدوله</option>
+                                    @foreach ($countries as $country) 
+                                    <option {{$experience->country_id == $country->id ? 'selected' : ''}} value="{{ $country->id }}">{{ $country->ar_name }}</option>
+                                    @endforeach
+                                  </select>
+                                </div>      
+                
+                                <label class="col-md-1 control-label"> التخصص </label>
+                                <div class="col-md-4">
+                                    <select name="sub_special_id" id="inputState" class="form-control">
+                                    <option selected disabled>التخصص</option>
+                                    @foreach ($sub_specials as $sub_special)  
+                                    <option {{$experience->sub_special_id == $sub_special->id ? 'selected' : ''}} value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
+                                    @endforeach
+                                    </select>
+                                </div>      
+                             </div>
                         
                             <div class="form-group">
                                     <label class="col-md-2 control-label"> بداية العمل في الخبرة</label>

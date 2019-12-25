@@ -1,9 +1,9 @@
 @extends('dashboard.metronic')
 @section('title', ' جدول المستخدمين')
 <!-- BEGIN CSS -->
-@section('stylesheets')
-<link rel="stylesheet" href="{{ asset('vendor/plugins/datatables/datatables.min.css') }}">
+@section('stylesheets') 
 <link rel="stylesheet" href="{{asset('vendor/plugins/datatables/plugins/bootstrap/datatables.bootstrap-rtl.css')}}">
+
 @endsection
 <!-- END CSS -->
 @section('content')
@@ -19,7 +19,7 @@
     <!-- BEGIN PAGE BREADCRUMB -->
     <ul class="page-breadcrumb breadcrumb">
         <li>
-            <a href="index.html">الرئيسية</a>
+            <a href="/dashboard">الرئيسية</a>
             <i class="fa fa-circle"></i>
         </li>
         <li>
@@ -28,109 +28,137 @@
     </ul>
     <!-- END PAGE BREADCRUMB -->
     <!-- BEGIN PAGE BASE CONTENT -->
-    <div class="mt-bootstrap-tables">
+     <div class="mt-bootstrap-tables">
         <div class="row">
             <div class="col-md-12">
-                <div class="portlet light bordered">
-                    <div class="portlet-title">
-                        <div class="caption">
-                            <i class="icon-social-dribbble font-green hide"></i>
-                            <span class="caption-subject font-dark bold uppercase">جدول المستخدمين</span>
-                        </div>
-                        <div class="actions">
-                            <div class="btn-group pull-left">
-                                <button class="btn green btn-outline dropdown-toggle"
-                                    data-toggle="dropdown">الادوات
-                                    <i class="fa fa-angle-down"></i>
-                                </button>
-                                <ul class="dropdown-menu pull-right" style="font-family: hacen">
-                                    <li>
-                                        <a href="javascript:;"> طباعة </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;"> طباعة ملف PDF </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;"> تصدير إلي إكسل </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="portlet-body">
-                        <div class="table-toolbar pull-left">
-                            <div class="btn-group">
-                                <a data-toggle="modal" href="#add_user"  id="sample_editable_1_new" class="btn green"> أضف مستخدم جديد 
-                                    <i class="fa fa-plus"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <table id="users-table" class="table table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th> # </th>
-                                        <th>الأسم</th>
-                                        <th>الاسم الاخير</th>
-                                        <th>البريد</th>
-                                        <th>تلفون</th>
-                                        <th>الديانه</th>
-                                        <th>المدينه</th>
-                                        <th>رقم الهويه</th>
-                                        <th>الحاله الاجتماعيه</th>
-                                        <th>الدور الوظيفي</th>
-                                        <th>العمليات</th>
-                                    </tr>
-                                </thead>
-                         
-                                    <tbody>
-                                        @foreach($users as $user)
-                                        <tr>
-                                            <td>{{$user->id}}</td>
-                                            <td>{{$user->ar_name}}</td>
-                                            <td>{{$user->ar_last_name}}</td>
-                                            <td>{{$user->email}}</td>
-                                            <td>{{$user->phone}}</td>
-                                            <td>{{$user->ar_religion}}</td>
-                                            <td>{{$user->ar_city}}</td>
-                                            <td>{{$user->idint_1 .' - '.$user->idint_2}}</td>
-                                            <td>{{$user->ar_social_status}}</td>
-                                            <td>{{$user->ar_role}}</td>
-                                            <td style="width:auto">
-                                                <form action="{{route('cv.destroy', $user->id)}}" method="POST">
-                                                    @csrf {{ method_field('DELETE') }}
-
-                                                    <div class="action" >
-                                                    
-                                                        <button class="btn btn-info dropdown-toggle"
-                                                            data-toggle="dropdown">الادوات
+                    <!-- Begin: life time stats -->
+                            <div class="portlet light bordered portlet-fit portlet-datatable">
+                                <div class="portlet-title"> 
+                                <div class="table-toolbar pull-left">
+                                            <div class="btn-group">
+                                                <a data-toggle="modal" href="#add_user"  id="sample_editable_1_new" class="btn green"> أضف مستخدم جديد 
+                                                    <i class="fa fa-plus"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    <div class="actions"> 
+                                        <div class="btn-group">
+                                            <a class="btn red btn-outline btn-circle" href="javascript:;" data-toggle="dropdown">
+                                                <i class="fa fa-share"></i>
+                                                <span class="hidden-xs"> الادوات</span>
+                                                <i class="fa fa-angle-down"></i>
+                                            </a>
+                                            <ul class="dropdown-menu pull-right" id="sample_3_tools">
+                                                <li>
+                                                    <a href="javascript:;" data-action="0" class="tool-action">
+                                                        <i class="icon-printer"></i> Print</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" data-action="1" class="tool-action">
+                                                        <i class="icon-check"></i> Copy</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" data-action="2" class="tool-action">
+                                                        <i class="icon-doc"></i> PDF</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" data-action="3" class="tool-action">
+                                                        <i class="icon-paper-clip"></i> Excel</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" data-action="4" class="tool-action">
+                                                        <i class="icon-cloud-upload"></i> CSV</a>
+                                                </li>
+                                                <li class="divider"> </li>
+                                                <li>
+                                                    <a href="javascript:;" data-action="5" class="tool-action">
+                                                        <i class="icon-refresh"></i> Reload</a>
+                                                </li>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                  <div class="portlet-body">
+                                    <div class="table-container">
+                                         <table class="table table-striped table-hover" id="sample_3">
+                                             <thead>
+                                                    <tr>
+                                                        <th data-field="state" data-checkbox="true"> </th>
+                                                        <th data-field="ar_coName" data-align="center" data-sortable="true">الأسم</th>
+                                                        <th>الاسم الاخير</th>
+                                                        <th>البريد</th>
+                                                        <th>تلفون</th>
+                                                        <th>الديانه</th>
+                                                        <th>المدينه</th>
+                                                        <th>رقم الهويه</th>
+                                                        <th>الحاله الاجتماعيه</th>
+                                                        <th>الدور الوظيفي</th>
+                                                        <th>العمليات</th>
+                                                    </tr>
+                                                </thead>
+                                         
+                                                    <tbody>
+                                                @foreach($users as $user)
+                                                <tr>
+                                                    <td>{{$user->id}}</td>
+                                                    <td>{{$user->ar_name}}</td>
+                                                    <td>{{$user->ar_last_name}}</td>
+                                                    <td>{{$user->email}}</td>
+                                                    <td>{{$user->phone}}</td>
+                                                    <td>{{$user->ar_religion}}</td>
+                                                    <td>{{$user->city->ar_name ?? ''}}</td>
+                                                    <td>{{$user->idint_1 .' - '.$user->idint_2}}</td>
+                                                    <td>{{$user->ar_social_status}}</td>
+                                                    <td>{{$user->role->ar_name}}</td>
+                                                    <td class = "actions">
+                                                        <form action="{{route('cv.destroy', $user->id)}}" method="POST">
+                                                            @csrf {{ method_field('DELETE') }}
+        
+                                                        <div class="action" >
+                                                            
+                                                        <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">الادوات
                                                             <i class="fa fa-angle-down"></i>
                                                         </button>
-                                                        <ul class="dropdown-menu pull-right" style="font-family: hacen">
+                                                        <ul class="dropdown-menu dropdown-menu1 pull-right" style="font-family: hacen">
                                                             <li>
-                                                                    <a  href="{{route('exp.create' , $user->id)}}"  id="sample_editable_1_new" class="btn blue btn-sm btn-outline sbold uppercase">اضف خبره
+                                                                    <a  href="{{route('exp.create' , $user->id)}}"  id="sample_editable_1_new" class="btn btn-sm bold uppercase">اضف خبره
                                                                             <i class="fa fa-plus"></i>
                                                                      </a>
                                                             </li>
                                                             <li>
-                                                                    <a href ="{{route('user.edu' , $user->id)}}"  id="sample_editable_1_new" class="btn blue btn-sm btn-outline sbold uppercase">اضف تعليم
+                                                                    <a href ="{{route('user.edu' , $user->id)}}"  id="sample_editable_1_new" class="btn btn-sm bold uppercase">اضف تعليم
                                                                             <i class="fa fa-plus"></i>
                                                                      </a>
                                                             </li>
                                                             <li>
-                                                                    <a href ="{{route('user.lang' , $user->id)}}"  id="sample_editable_1_new" class="btn blue btn-sm btn-outline sbold uppercase">اضف اللغه
+                                                                    <a href ="{{route('user.lang' , $user->id)}}"  id="sample_editable_1_new" class="btn btn-sm bold uppercase">اضف اللغه
                                                                             <i class="fa fa-plus"></i>
                                                                          </a>
                                                             </li>
+                                                             <li>
+                                                                    <a  href="{{route('user.ref' , $user->id)}}"  id="sample_editable_1_new" class="btn btn-sm bold uppercase">اضف مرجع
+                                                                            <i class="fa fa-plus"></i>
+                                                                     </a>
+                                                            </li>
+                                                            <li>
+                                                                    <a  href="{{route('user.attch' , $user->id)}}"  id="sample_editable_1_new" class="btn  btn-sm bold uppercase">اضف ملف
+                                                                            <i class="fa fa-plus"></i>
+                                                                     </a>
+                                                            </li>
                                                             <li>
                                                                     <a href="{{route('cv.edit', $user->id)}}"
-                                                                            class="btn dark btn-sm btn-outline bold uppercase">
+                                                                            class="btn btn-sm  bold uppercase">
                                                                             <i class="fa fa-edit"> تعديل </i>
                                                                         </a>
                                                             </li>
                                                             <li>
-                                                                    <button type="submit" class="btn red btn-sm btn-block btn-outline bold uppercase">
-                                                                            <i class="fa fa-edit">حذف</i>
+                                                                    <button type="submit" class="btn btn-sm btn-block bold uppercase">
+                                                                            <i class="fa fa-trash">حذف</i>
                                                                     </button>
+                                                            </li>
+                                                            <li>
+                                                                <a  class="btn btn-info" href="{{route('admin.pdf',$user->id)}}" id="print-cv">اطبع CV</a>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -141,19 +169,24 @@
                                                     
                                      @endforeach
                                  </tbody>
-                          </table>
-                    </div>
+                                 {{$users->links()}}
+                                             </table>
+                                        </div>
+                                      </div>
+                                   </div>
+                                </div>
+                            </div>
+                            </div>
+                                             
+                                     
                     
-                </div>
-            </div>
-            </div>
-            </div>
+               
             <!-- END DATATABLE -->
 
 <!-- BEGIN ADD_company MODEL -->
     <div class="modal fade" id="add_user" tabindex="-1" role="basic" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content" style="height: auto!important;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <img src=" {{asset('vendor/img/remove-icon-small.png')}} " alt="" srcset=""> </button>
                     <h4 class="modal-title">إضافة مستخدم جديد</h4>
@@ -165,7 +198,7 @@
                     <!-- BEGIN SAMPLE FORM PORTLET-->
             <div class="p-3"> 
             <div class="portlet-body form">
-             <form class="form-horizontal" id="user-form-add" role="form" method="POST" action="{{route('cv.store')}}">
+              <form class="form-horizontal" id="user-form-add" role="form" method="POST" action="{{route('cv.store')}}">
                 @csrf
                 <input type="hidden" name="select_user" value="user">
                 <div class="form-body">
@@ -191,23 +224,22 @@
                                     <input type="password" name="password" class="form-control  " placeholder="كلمة المرور">
                              </div> 
                         </div>
-                    
+
                     <div class="form-group">
                             <label class="col-md-2 control-label">الجنسية  </label>
                             <div class="col-md-4">
-                           <input list="country" name="country" id="inputState" class="form-control" placeholder="الجنسيه" autocomplete="off">
+                            <select name="country_id" id="inputState" class="form-control">
+                                @foreach ($countries as $country) 
+                                 <option value="{{ $country->id }}">{{ $country->ar_name }}</option>
+                                @endforeach
+                            </select>
                             </div>
-                            <datalist id="country" dir="rtl" >
-                              @foreach ($countries as $country)    
-                              <option value="{{(app()->getLocale() == 'ar') ? $country->ar_name : $country->name}}">
-                              @endforeach
-                              </datalist>
 
                               <label class="col-md-1 control-label">العنوان</label>
                               <div class="col-md-4">
-                            <input list="brith" name="brith" id="inputState" class="form-control" placeholder="مكان الميلاد" autocomplete="off">
-                            </div>
-                            <datalist id="brith" dir="rtl" >
+                                <input list="brith" name="brith" id="inputState" class="form-control" placeholder="مكان الميلاد" autocomplete="off">
+                                </div>
+                                <datalist id="brith" dir="rtl" >
                               @foreach ($cities as $city)    
                               <option value="{{(app()->getLocale() == 'ar') ? $city->ar_name : $city->name}}">
                               @endforeach
@@ -217,15 +249,13 @@
                         <div class="form-group">
                                 <label class="col-md-2 control-label">المدينه</label>
                                 <div class="col-md-4">
-                                      <input list="city" name="city" id="inputState" class="form-control" placeholder="المدينه الحاليه" autocomplete="off">
-                                    </div>
-                                    <datalist id="city" dir="rtl" >
-                                      @foreach ($cities as $city)    
-                                      <option value="{{(app()->getLocale() == 'ar') ? $city->ar_name : $city->name}}">
-                                      @endforeach
-                                      </datalist>
-                                  
-
+                                <select name="city_id" id="inputState" class="form-control">
+                                        @foreach ($cities as $city) 
+                                            <option value="{{ $city->id }}">{{ $city->ar_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                    
                               <label class="col-md-1 control-label">تاريخ الميلاد</label>
                               <div class="col-md-4">
                                     <input type="date" class="form-control" name="birthdate" id="">
@@ -267,23 +297,25 @@
                             <div class="form-group">
                             <label class="col-md-2 control-label">التخصص</label>
                                 <div class="col-md-4">
-                                    <input list="special" name="sub_special" id="inputState" class="form-control" placeholder="التخصص " autocomplete="off">
+                                    <select name="sub_special_id" id="inputState" class="form-control">
+                                        @foreach ($sub_specials as $sub_special) 
+                                            <option value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
+                                        @endforeach
+                                    </select>
                                     </div>
-                                    <datalist id="special" dir="rtl" >
-                                      @foreach ($sub_specials as $sub_special)    
-                                      <option value="{{(app()->getLocale() == 'ar') ? $sub_special->ar_name : $sub_special->name}}">
-                                      @endforeach
-                                      </datalist>
+                                    
 
                                 <label class="col-md-1 control-label">الدور الوظيفي</label>
                                 <div class="col-md-4">
-                                    <input list="role" name="role" id="inputState" class="form-control" placeholder="الدور الوظيفي" autocomplete="off">
+                                    <select name="role_id" id="inputState" class="form-control">
+                                            @foreach ($roles as $role) 
+                                                <option value="{{ $role->id }}">{{ $role->ar_name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
-                                    <datalist id="role" dir="rtl" >
-                                      @foreach ($roles as $role)    
-                                      <option value="{{(app()->getLocale() == 'ar') ? $role->ar_name : $role->name}}">
-                                      @endforeach
-                                      </datalist>
+
+
+                                    
                             </div>
 
                             <br><h4 class="text-left m-3">بيانات الاتصال</h4><br>
@@ -316,6 +348,17 @@
 
 <!-- BEGIN SCRIPTS -->
 @section('scripts')
+<script src=" {{asset('asset/js/jquery.printPage.js')}} "></script>
+<script>
+    $(document).ready(function () {
+        $('#print-cv').printPage();
+    });
+    
+
+</script>
+
+
+<script src="{{asset('vendor/js/table-datatables-buttons.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('vendor/js/datatable.js') }}"></script>
 <script src="{{ asset('vendor/plugins/datatables/datatables.min.js') }}"></script>
 <script src="{{ asset('vendor/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}"></script>

@@ -186,6 +186,12 @@
                 <span class="title">العروض</span>
             </a>
             </li>
+
+            <li>
+                <a href="{{route('news.index')}}" class="nav-link ">
+                    <span class="title">الاخبار</span>
+                </a>
+            </li>
         </ul>
                 
             </li>

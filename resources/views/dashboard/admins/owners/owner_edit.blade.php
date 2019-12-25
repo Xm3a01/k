@@ -42,30 +42,30 @@
                 @csrf
                 @method('PUT')
                 <div class="form-body">
-                        <div class="form-group">
-                                <label class="col-md-3 control-label">الاسـم</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="الاســم " name="ar_name" value="{{$owner->ar_name}}">
-                                  </div>
-                            </div>
-                        <div class="form-group">
-                                <label class="col-md-3 control-label">البريد اللاكتروني</label>
-                                <div class="col-md-6">
-                                    <input type="email" class="form-control" placeholder="البريد اللاكتروني " name="email" value="{{$owner->email}}">
-                                  </div>
-                            </div>
-                            <div class="form-group">
-                                    <label class="col-md-3 control-label">كلمة السر</label>
-                                    <div class="col-md-6">
-                                        <input type="password" class="form-control" placeholder="كلمة السر" name="password">
-                                      </div>
+                    <div class="form-group">
+                            <label class="col-md-3 control-label">الاسـم</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="الاســم " name="ar_name" value="{{$owner->ar_name}}">
                                 </div>
-                                <div class="form-group">
-                                        <label class="col-md-3 control-label">الهــاتف</label>
-                                        <div class="col-md-6">
-                                            <input type="text" class="form-control" placeholder="الهاتف" name="phone" value="{{$owner->phone}}">
-                                          </div>
-                                    </div>
+                        </div>
+                    <div class="form-group">
+                            <label class="col-md-3 control-label">البريد اللاكتروني</label>
+                            <div class="col-md-6">
+                                <input type="email" class="form-control" placeholder="البريد اللاكتروني " name="email" value="{{$owner->email}}">
+                                </div>
+                        </div>
+                    <div class="form-group">
+                            <label class="col-md-3 control-label">كلمة السر</label>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" placeholder="كلمة السر" name="password">
+                                </div>
+                        </div>
+                        <div class="form-group">
+                                <label class="col-md-3 control-label">الهــاتف</label>
+                                <div class="col-md-6">
+                                 <input type="text" class="form-control" placeholder="الهاتف" name="phone" value="{{$owner->phone}}">
+                             </div>
+                      </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">إسم الشركة</label>
                         <div class="col-md-6">
@@ -83,34 +83,34 @@
                                 <label class="col-md-3 control-label">الدور الوظيفي</label>
                                 <div class="col-md-6">
                                  <select name="role_id" id="inputState" class="form-control">
+                                    <option selected disabled>الدور الوظيفي</option>
                                     @foreach ($roles as $role)  
-                                    <option selected value="{{ $roles->find($owner->role_id)->id }}">{{ $roles->find($owner->role_id)->ar_name }}</option>
-                                    <option value="{{ $role->id }}">{{ $role->ar_name }}</option>
+                                    <option {{ $owner->role_id == $role->id ? 'selected' : ''}} value="{{ $role->id }}">{{ $role->ar_name }}</option>
                                     @endforeach
                                   </select>
-                                </div>      
-                            </div>
-          
-          
+                                </div>  
+                        </div>    
+        
+        
                                 <div class="form-group">
                                         <label class="col-md-3 control-label"> الدوله</label>
                                         <div class="col-md-6">
                                          <select name="country_id" id="inputState" class="form-control">
+                                            <option selected disabled>الدوله</option>
                                             @foreach ($countries as $country) 
-                                            <option selected value="{{ $levels->find($owner->level_id)->id }}">{{ $levels->find($owner->level_id)->ar_name }}</option>
-                                            <option value="{{ $country->id }}">{{ $country->ar_name }}</option>
+                                            <option {{$owner->country_id == $country->id ? 'selected' : ''}} value="{{ $country->id }}">{{ $country->ar_name }}</option>
                                             @endforeach
                                           </select>
-                                        </div>      
-                                    </div>
+                                        </div> 
+                                </div>
           
                                     <div class="form-group">
                                             <label class="col-md-3 control-label">المدينه </label>
                                             <div class="col-md-6">
                                              <select name="city_id" id="inputState" class="form-control">
-                                                @foreach ($cities as $city)
-                                                <option selected value="{{ $cities->find($owner->city_id)->id }}">{{ $cities->find($owner->city_id)->ar_name }}</option>   
-                                                <option value="{{ $city->id }}">{{ $city->ar_name }}</option>
+                                                <option selected disabled>المدينه</option>
+                                                @foreach ($cities as $city)  
+                                                <option {{$owner->country_id == $country->id ? 'selected' : ''}} value="{{ $city->id }}">{{ $city->ar_name }}</option>
                                                 @endforeach
                                               </select>
                                             </div>      

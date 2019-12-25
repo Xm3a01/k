@@ -11,7 +11,7 @@
 <div class="page-head">
         <!-- BEGIN PAGE TITLE -->
         <div class="page-title">
-            <h1> جدول المستخدمين
+            <h1> جدول بيانات التعليم
             </h1>
         </div> 
     </div>
@@ -19,11 +19,11 @@
     <!-- BEGIN PAGE BREADCRUMB -->
     <ul class="page-breadcrumb breadcrumb">
         <li>
-            <a href="index.html">الرئيسية</a>
+            <a href="/dashboard">الرئيسية</a>
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span class="active">جدول التعليم</span>
+            <span class="active">جدول بيانات التعليم</span>
         </li>
     </ul>
     <!-- END PAGE BREADCRUMB -->
@@ -35,7 +35,7 @@
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="icon-social-dribbble font-green hide"></i>
-                            <span class="caption-subject font-dark bold uppercase">جدول التعليم</span>
+                            <span class="caption-subject font-dark bold uppercase">جدول بيانات التعليم</span>
                         </div>
                         <div class="actions">
                             <div class="btn-group pull-left">
@@ -84,7 +84,7 @@
                                             <td>{{$education->user->ar_name}}</td>
                                             <td>{{$education->user->ar_last_name}}</td>
                                             <td>{{$education->ar_university}}</td>
-                                            <td>{{$education->ar_sub_special}}</td>
+                                            <td>{{$education->sub_special->ar_name}}</td>
                                             <td>{{$education->ar_qualification}}</td>
                                             <td>{{$education->grade}}</td>
                                             <td>{{$education->grade_date}}</td>

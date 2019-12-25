@@ -60,24 +60,24 @@
                   </div>
                   <div class="form-group col-md-6">
                     <label for="inputEmail4">{{__('Place of Birth')}}</label>
-                    <input list="country" name="brith_country" id="inputState" class="form-control" autocomplete="off" value="{{app()->getLocale() == 'ar' ? $user->ar_brith : $user->brith}}">
-                    <datalist id="country" dir="rtl" >
+                   <select name="brith_country_id" id="inputState" class="form-control">
+                      <option selected disabled>{{__('Place of Birth')}}</option>
                       @foreach ($countries as $country)    
-                      <option value="{{(app()->getLocale() == 'ar') ? $country->ar_name : $country->name}}">
+                      <option value="{{$country->id}}">{{(app()->getLocale() == 'ar') ? $country->ar_name : $country->name}}</option>
                       @endforeach
-                    </datalist>
+                   </select>
                   </div>
                 </div>
 
                 <div class="form-row">
                   <div class="form-group col-md-12">
                       <label for="inputEmail4">{{__('Current Housing')}}</label>
-                      <input list="country" name="country" id="inputState" class="form-control" autocomplete="off" value ="{{app()->getLocale() == 'ar' ? $user->ar_country : $user->country}}">
-                      <datalist id="country" dir="rtl" >
-                        @foreach ($countries as $country)    
-                        <option value="{{(app()->getLocale() == 'ar') ? $country->ar_name : $country->name}}">
-                        @endforeach
-                      </datalist>
+                      <select name="country_id" id="inputState" class="form-control">
+                          <option selected disabled>{{__('Place of Birth')}}</option>
+                          @foreach ($countries as $country)    
+                          <option value="{{$country->id}}">{{(app()->getLocale() == 'ar') ? $country->ar_name : $country->name}}</option>
+                          @endforeach
+                       </select>
                     </div>
                 </div>
 
@@ -93,7 +93,7 @@
                   </div>
 
                   <div class="form-group col-md-6">
-                    <label for="inputState">  {{__('Social Status')}} </label>
+                    <label for="inputState">{{__('Social Status')}} </label>
                     <select id="inputState" class="form-control" name="social_status"> //
                       <option value="{{$user->social_status}}">{{(app()->getLocale() == 'ar') ? $user->ar_social_status : $user->social_status}}</option>
                       <option value="Married">{{__('Married')}}</option>
@@ -134,12 +134,12 @@
   
                     <div class="form-group col-md-12">
                       <label for="inputCity"> {{__('City')}}</label>
-                      <input  name="city" list="city" id="inputState" class="form-control" value ="{{ (app()->getLocale() == 'ar') ?  $user->ar_city : $user->city}}">
-                      <datalist id="city" >
-                        @foreach ($cities as $city)   
-                        <option value="{{ (app()->getLocale() == 'ar') ?  $city->ar_name : $city->name}}" >
-                        @endforeach
-                      </datalist>
+                      <select name="city_id" id="inputState" class="form-control">
+                          <option selected disabled>{{__('Place of Birth')}}</option>
+                          @foreach ($cities as $city)    
+                          <option value="{{$city->id}}">{{(app()->getLocale() == 'ar') ? $city->ar_name : $city->name}}</option>
+                          @endforeach
+                       </select>
                     </div> 
                    
                 </div>

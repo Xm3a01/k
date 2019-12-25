@@ -17,7 +17,7 @@
        width:auto;
    }
 </style>
-    <div class="site-section bg-light ">
+    <div class="site-section bg-light "> 
       <div class="container">
         <div class="row  pt-5 px-2 mt-4">
           <div class="col-lg-4 col-md-4 col-sm-12 top2 pt-5">
@@ -34,13 +34,13 @@
                 <table class="table table-borderless mx-3">
                   <tr>
                   <th width="25%">{{__('Country')}} </th>
-                  <td>{{(app()->getLocale() == 'ar') ? $user->ar_country.'-'.$user->ar_city : $user->country.' - '.$user->city}}</td>
+                  <td>{{(app()->getLocale() == 'ar') ? $user->country->ar_name.'-'.$user->city->ar_name : $user->country->name.' - '.$user->city->name}}</td>
                   </tr>
                 
                   <tr>
                   <th>{{__('Education')}} </th>
                   <td><a href="" {{($user->university == null && $user->ar_university == null) ? 'data-toggle = "modal" data-target = "#educationinfo"' : ''}}>
-                     {{($user->role == null && $user->ar_role == null) ? __('Add Education info') : (app()->getLocale() == 'ar') ? $user->ar_role :  $user->role}} 
+                     {{($user->role == null && $user->ar_role == null) ? __('Add Education info') : (app()->getLocale() == 'ar') ? $user->role->ar_name :  $user->role->name}} 
                      - @foreach($user->educations as $key => $edu ) <br> {{$key + 1}} - {{(app()->getLocale() == 'ar') ? $edu->ar_qualification.' - '.$edu->ar_sub_special : $edu->qualification.' - '.$edu->sub_special}} @endforeach
                   </a></td>
                   </tr>
@@ -92,7 +92,7 @@
                               </tr> 
                               <tr>
                                 <th scope="col">{{__('Job title')}}</th> 
-                                <td>{{(app()->getLocale() == 'ar') ? $user->ar_sub_special : $user->sub_special}}</td>
+                                <td>{{(app()->getLocale() == 'ar') ? $user->sub_special->ar_name : $user->sub_special->name}}</td>
                               </tr> 
                               <tr>
                                 <th scope="row">{{__('Gender')}}</th>
@@ -108,11 +108,11 @@
                               </tr>
                               <tr>
                                 <th scope="col"> {{__('Current Housing')}}  </th> 
-                                <td>{{(app()->getLocale() == 'ar') ? $user->ar_country : $user->country}}</td>
+                                <td>{{(app()->getLocale() == 'ar') ? $user->country->ar_name : $user->country->name}}</td>
                               </tr>
                               <tr>
                                 <th scope="col"> {{__('Current City')}}  </th> 
-                                <td>{{(app()->getLocale() == 'ar') ? $user->ar_city : $user->city}}</td>
+                                <td>{{(app()->getLocale() == 'ar') ? $user->city->ar_name : $user->city->name}}</td>
                               </tr>
                               <tr>
                                 <th scope="col"> {{__('Social Status')}} </th> 

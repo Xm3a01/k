@@ -61,13 +61,13 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">التخصص</label>
                                 <div class="col-md-4">
-                                    <input list="special" name="sub_special" id="inputState" class="form-control"  placeholder="التخصص " autocomplete="off">
-                                    </div>
-                                    <datalist id="special" dir="rtl" >
-                                      @foreach ($sub_specials as $sub_special)    
-                                      <option value="{{(app()->getLocale() == 'ar') ? $sub_special->ar_name : $sub_special->name}}">
-                                      @endforeach
-                                      </datalist>
+                                        <select name="sub_special_id" id="inputState" class="form-control">
+                                        <option disabled selected >التخصص</option>
+                                        @foreach ($sub_specials as $sub_special)  
+                                        <option value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
+                                        @endforeach
+                                        </select>
+                                    </div>      
 
                             <label class="col-md-1 control-label">تاريخ التخرج</label>
                             <div class="col-md-4">
@@ -81,20 +81,20 @@
                             <input type="text" class="form-control" name="grade" placeholder="مثال: 3.00 من 4.00" id="" >
                             </div>
                             </div> 
-                                     </div>
-                                         <div class="form-actions">
-                                            <div class="row">
-                                                <div class="col-md-offset-3 col-md-9">
-                                                    <button type="submit" class="btn green">حفظ</button>
-                                                    <button type="button" class="btn default">إلغاء</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
+                            </div>
+                                <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button type="submit" class="btn green">حفظ</button>
+                                        <button type="button" class="btn default">إلغاء</button>
+                                    </div>
                                 </div>
-                            </div> 
-                        </div>
+                            </div>
+                        </form>
                     </div>
+                </div> 
+            </div>
+        </div>
 
 
 

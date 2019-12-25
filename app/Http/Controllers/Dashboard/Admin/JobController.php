@@ -23,9 +23,9 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::all();
+        $jobs = Job::paginate(10);
         
-        $jobs->load(['owner','sub_specials','levels','cities']);
+        $jobs->load(['owner','sub_special','level','city','role']);
 
         return view('dashboard.admins.owners.jobs',compact('jobs'));
     }
@@ -64,10 +64,11 @@ class JobController extends Controller
     {
         $request->validate([
             'owner_id' => 'required',
-            'city' => 'required',
-            'role' => 'required',
-            'country' => 'required', 
-            'special' => 'required',
+            'city_id' => 'required',
+            'role_id' => 'required',
+            'country_id' => 'required', 
+            'special_id' => 'required',
+            'special_id' => 'required',
             'status' => 'required'
             ]);
 

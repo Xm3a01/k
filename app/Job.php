@@ -13,28 +13,33 @@ class Job extends Model
         return $this->belongsTo(Owner::class);
     }
 
-    public function sub_specials()
+    public function sub_special()
     {
-        return $this->hasMany(SubSpecials::class);
+        return $this->belongsTo(SubSpecial::class);
     }
 
-    public function specials()
+    public function special()
     {
-        return $this->hasMany(Specials::class);
+        return $this->belongsTo(Specials::class);
     }
 
-    public function cities()
+    public function city()
     {
-        return $this->hasMany(City::class);
+        return $this->belongsTo(City::class);
     }
 
-    public function countries()
+    public function country()
     {
-        return $this->hasMany(Country::class);
+        return $this->belongsTo(Country::class);
     }
 
-    public function levels()
+    public function level()
     {
-        return $this->hasMany(Level::class);
+        return $this->belongsTo(Level::class);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }

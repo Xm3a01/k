@@ -58,14 +58,19 @@ class Owner extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Job::class);
     }
 
-    public function roles()
+    public function role()
     {
-        return $this->hasMany(Role::class);
+        return $this->belongsTo(Role::class);
     }
 
-    public function countries()
+    public function country()
     {
-        return $this->hasMany(Country::class);
+        return $this->belongsTo(Country::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
     }
     
     public function sendPasswordResetNotification($token)

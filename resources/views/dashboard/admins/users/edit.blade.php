@@ -71,42 +71,39 @@
                             </div>
                             <label class="col-md-1 control-label">كلمة المرور</label>
                             <div class="col-md-4">
-                                    <input type="password" name="password" class="form-control  " placeholder="كلمة المرور">
+                                    <input type="password" name="password" class="form-control" placeholder="كلمة المرور">
                              </div> 
                         </div>
                     
-                    <div class="form-group">
-                            <label class="col-md-2 control-label">الجنسية  </label>
-                            <div class="col-md-4">
-                             <input list="country" name="country" id="inputState" class="form-control" value="{{$user->ar_country}}" placeholder="الجنسيه" autocomplete="off">
-                                </div>
-                                <datalist id="country" dir="rtl" >
-                                  @foreach ($countries as $country)    
-                                  <option value="{{(app()->getLocale() == 'ar') ? $country->ar_name : $country->name}}">
-                                  @endforeach
-                              </datalist> 
-
-                              <label class="col-md-1 control-label">العنوان</label>
-                              <div class="col-md-4">
-                             <input list="brith" name="brith" id="inputState" class="form-control" value ="{{$user->ar_brith}}" placeholder="مكان الميلاد" autocomplete="off">
-                                </div>
-                                <datalist id="brith" dir="rtl" >
-                                  @foreach ($cities as $city)    
-                                  <option value="{{(app()->getLocale() == 'ar') ? $city->ar_name : $city->name}}">
-                                  @endforeach
-                              </datalist>
-                        </div>
-
                         <div class="form-group">
-                                <label class="col-md-2 control-label">مكان الميلاد</label>
+                                <label class="col-md-2 control-label">الجنسية  </label>
                                 <div class="col-md-4">
-                                      <input list="city" name="city" id="inputState" class="form-control" value ="{{$user->ar_city}}" placeholder="المدينه الحاليه" autocomplete="off">
-                                        </div>
-                                        <datalist id="city" dir="rtl" >
-                                          @foreach ($cities as $city)    
-                                          <option value="{{(app()->getLocale() == 'ar') ? $city->ar_name : $city->name}}">
-                                          @endforeach
-                                      </datalist>
+                                <select name="country_id" id="inputState" class="form-control">
+                                    @foreach ($countries as $country) 
+                                     <option {{$user->country_id == $country->id ? 'selected' : ''}} value="{{ $country->id }}">{{ $country->ar_name }}</option>
+                                    @endforeach
+                                </select>
+                                </div>
+    
+                                  <label class="col-md-1 control-label">العنوان</label>
+                                  <div class="col-md-4">
+                                        <select name="birth_country_id" id="inputState" class="form-control">
+                                            @foreach ($countries as $country) 
+                                             <option {{$user->country_id == $country->id ? 'selected' : ''}} value="{{ $country->id }}">{{ $country->ar_name }}</option>
+                                            @endforeach
+                                        </select>
+                                 </div>
+                            </div>
+    
+                            <div class="form-group">
+                                    <label class="col-md-2 control-label">المدينه</label>
+                                    <div class="col-md-4">
+                                    <select name="city_id" id="inputState" class="form-control">
+                                            @foreach ($cities as $city) 
+                                                <option {{$user->city_id == $city->id ? 'selected' : ''}} value="{{ $city->id }}">{{ $city->ar_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
 
                               <label class="col-md-1 control-label">تاريخ الميلاد</label>
                               <div class="col-md-4">
@@ -150,26 +147,26 @@
                             </div>
                             
                             <div class="form-group">
-                            <label class="col-md-2 control-label">التخصص</label>
-                                <div class="col-md-4">
-                                    <input list="special" name="sub_special" id="inputState" class="form-control" value ="{{$user->ar_sub_special}}" placeholder="التخصص " autocomplete="off">
+                                    <label class="col-md-2 control-label">التخصص</label>
+                                        <div class="col-md-4">
+                                            <select name="sub_special_id" id="inputState" class="form-control">
+                                                @foreach ($sub_specials as $sub_special) 
+                                                    <option {{$user->sub_special_id == $sub_special->id ? 'selected' : ''}} value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
+                                                @endforeach
+                                            </select>
+                                            </div>
+                                            
+        
+                                        <label class="col-md-1 control-label">الدور الوظيفي</label>
+                                        <div class="col-md-4">
+                                            <select name="role_id" id="inputState" class="form-control">
+                                                    @foreach ($roles as $role) 
+                                                        <option {{$user->role_id == $role->id ? 'selected' : ''}} value="{{ $role->id }}">{{ $role->ar_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            
                                     </div>
-                                    <datalist id="special" dir="rtl" >
-                                      @foreach ($sub_specials as $sub_special)    
-                                      <option value="{{(app()->getLocale() == 'ar') ? $sub_special->ar_name : $sub_special->name}}">
-                                      @endforeach
-                                      </datalist>
-
-                                <label class="col-md-1 control-label">الدور الوظيفي</label>
-                                <div class="col-md-4">
-                                    <input list="role" name="role" id="inputState" class="form-control" value ="{{$user->ar_role}}" placeholder="الدور الوظيفي" autocomplete="off">
-                                    </div>
-                                    <datalist id="role" dir="rtl" >
-                                      @foreach ($roles as $role)    
-                                      <option value="{{(app()->getLocale() == 'ar') ? $role->ar_name : $role->name}}">
-                                      @endforeach
-                                      </datalist>
-                            </div>
 
                             <br><h4 class="text-left m-3">بيانات الاتصال</h4><br>
                             <div class="form-group">

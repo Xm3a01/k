@@ -12,4 +12,8 @@ class SubSpecial extends Model
     {
         return $this->belongsTo(Special::class);
     }
+
+    function users() {
+        return $this->hasMany(User::class);
+    }
 }

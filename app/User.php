@@ -21,22 +21,17 @@ class User extends Authenticatable implements MustVerifyEmail
         'ar_name',
         'last_name',
         'ar_last_name',
-        'sub_special',
-        'ar_sub_special',
+        'sub_special_id',
         'email',
         'password',
-        'role',
-        'ar_role',
-        'country',
-        'sub_special',
-        'ar_sub_special',
+        'role_id',
+        'country_id',
+        'sub_special_id',
         'salary',
         'ar_brith',
         'brith',
         'salary_type',
-        'ar_country',
-        'city',
-        'ar_city',
+        'city_id',
         'phone',
         'level_of_work',
         'ar_level_of_work',
@@ -95,6 +90,36 @@ class User extends Authenticatable implements MustVerifyEmail
     public function references()
     {
         return $this->hasMany(Reference::class);
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function level()
+    {
+        return $this->belongsTo(Level::class);
+    }
+
+    public function special()
+    {
+        return $this->belongsTo(Special::class);
+    }
+
+    public function sub_special()
+    {
+        return $this->belongsTo(SubSpecial::class);
     }
     
     public function sendPasswordResetNotification($token)

@@ -20,12 +20,12 @@ class ExperienceController extends Controller
      */
     public function index()
     {
-        $experiences = Exp::all();
+        $experiences = Exp::paginate(10);
         $roles = Role::all();
         $users = User::all();
         $levels = Level::all();
         $sub_specials =  SubSpecial::all();
-        $experiences->load(['user','roles','sub_specials','countries','levels']);
+        $experiences->load(['user','role','sub_special','country','level']);
         
         return view('dashboard.admins.users.experience.index' , compact(['experiences','levels','roles','sub_specials','users']));
     }
@@ -57,10 +57,10 @@ class ExperienceController extends Controller
     {
         $request->validate([
             'user_id' => 'required',
-            'role' => 'required',
-            'sub_special' => 'required',
-            'level' => 'required',
-            'country' => 'required',
+            'role_id' => 'required',
+            'sub_special_id' => 'required',
+            'level_id' => 'required',
+            'country_id' => 'required',
             'start_year' => 'required',
             'end_year' => 'required',
             'start_month' => 'required',

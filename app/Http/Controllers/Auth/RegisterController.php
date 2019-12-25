@@ -66,7 +66,7 @@ class RegisterController extends Controller
             'name' => ['required'],
             'last_name' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.$table],
-            'role' => ['required'],
+            'role_id' => ['required'],
             'gender' => ['required'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -88,11 +88,6 @@ class RegisterController extends Controller
         ];
 
         $this->validator($request->all(), 'users')->validate();
-        if(app()->getLocale() == 'ar') {
-            $role = Role::where('ar_name',$request->role)->first();
-        } else {
-            $role = Role::where('name',$request->role)->first();
-        }
         if($request->gender == "Male") {
             $avatar = 'public/avatar/male.png';
         } elseif($request->gender == "Female") {
@@ -105,6 +100,7 @@ class RegisterController extends Controller
             'ar_last_name' => $request->last_name,
             'last_name' => $request->last_name, 
             'email' => $request->email,
+            'role_id' => $request->role_id,
             'visit_count' => 1,
             'gender' => $request->gender,
             'ar_gender' => $gender[$request->gender],
@@ -112,15 +108,6 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),            
         ]);
 
-        if(!is_null($role)) {
-            $user->ar_role = $role->ar_name;
-            $user->role = $role->name;
-        } else {
-            $user->ar_role = $request->role;
-            $user->role = $request->role;
-        }
-
-        $user->save();
         $admins = Admin::all();
         Notification::send($admins , new NewCv($user));
         

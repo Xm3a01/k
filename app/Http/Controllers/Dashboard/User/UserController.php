@@ -78,12 +78,12 @@ class UserController extends Controller
         $user->load(['exps','educations' , 'languages' , 'files','references']);
         $expert = Exp::where('user_id' , $user->id)->first();
         if(!is_null($expert)) {
-        $jobs = Job::where('country',$user->country)->where('selected',0)->orWhere('role', $user->role)->orWhere('role', $expert->role)->orWhere('country', $expert->country)->get();
+        $jobs = Job::where('country_id',$user->country_id)->where('selected',0)->orWhere('role_id', $user->role_id)->orWhere('role_id', $expert->role_id)->orWhere('country_id', $expert->country_id)->get();
         } else {
-          $jobs = Job::where('country',$user->country)->where('selected',0)->orWhere('role', $user->role)->get();
+          $jobs = Job::where('country_id',$user->country_id)->where('selected',0)->orWhere('role_id', $user->role_id)->get();
         }
-        
-        if($user->visit_count == 1) {
+         
+        if($user->visit_count <= 1) {
             $about = About::latest()->take(1)->first();
             $cities = City::all();
             $sub_specials = SubSpecial::all();
@@ -101,38 +101,47 @@ class UserController extends Controller
     {
         if(Auth::guard('web')->check()) {
         $user = User::findOrFail(Auth::user()->id);
+        $user->load(['role','city','country','sub_special','level']);
         $user->load(['exps','educations' , 'languages' , 'files','references']);
         $expert = Exp::where('user_id', $user->id)->first();
         $education = Education::where('user_id', $user->id)->first();
         $language = Language::where('user_id', $user->id)->first();
+        $ref = Reference::where('user_id', $user->id)->first();
+        $file = File::where('user_id', $user->id)->first();
         $cities = City::all();
         $sub_specials = SubSpecial::all();
         $levels = Level::all();
         $roles = Role::all();
-        $jobs = Job::where('role', $user->role)->where('selected',0)->orWhere('country',$user->country)->get();
+        $jobs = Job::where('role_id', $user->role_id)->where('selected',0)->orWhere('country_id',$user->country_id)->get();
         $countries = Country::all();
         $count =  $this->pcount('users' ,'User', $user->id);
-        $count =  abs($count - 69);
+        $count =  25;
         
         if(!is_null($expert) || !is_null($education) || !is_null($language)) {
         $expcount =  $this->pcount('exps' ,'Exp', $expert->id ?? '');
         $educount =  $this->pcount('education' ,'Education', $education->id ?? '');
         $langcount =  $this->pcount('languages' , 'Language' , $language->id ?? '' );
+        $refcount =  $this->pcount('references' , 'Reference' , $ref->id ?? '' );
+        $filecount =  $this->pcount('files' , 'File' , $file->id ?? '' );
         
         //return $count + $expcount;
-        $x = 215;
-        if($expert == null){
-           $x -= 69;
-        } if(is_null($education)) {
-            $x -= 69;
-        } if($language  == null) {
-            $x -= 69;
+
+        if($expcount != null){
+           $count =  $count + 15;
+        } if(!is_null($educount)) {
+            $count =  $count + 15;
+        } if($langcount  != null) {
+            $count =  $count + 15;
+        } if($refcount  != null) {
+            $count =  $count + 15;
+        } if($filecount  != null) {
+            $count =  $count + 15;
         }
         // return $x;
         
-        $count = abs($count + ($expcount ?? '' + $educount ?? '' + $langcount ?? '' ) -  $x);
+        // $count = abs($count + ($expcount ?? '' + $educount ?? '' + $langcount ?? '' ) -  $x);
         }
-        if($user->visit_count == 1) {
+        if($user->visit_count <= 1) {
            $about = About::latest()->take(1)->first();
             $cities = City::all();
             $sub_specials = SubSpecial::all();
@@ -157,7 +166,8 @@ class UserController extends Controller
                 'grade_date' => 'required',
                 'grade' => 'required',
                 'ar_university' => 'required',
-                'university' => 'required'
+                'university' => 'required',
+                'sub_special_id' => 'required'
             ]);
 
             $edu = Education::create([
@@ -165,20 +175,9 @@ class UserController extends Controller
                 'grade_date' => $request->grade_date,
                 'grade' => $request->grade,
                 'ar_university' =>$request->ar_university,
-                'university' => $request->university
+                'university' => $request->university,
+                'sub_special_id' => $request->sub_special_id
             ]);
-            
-            $sub_special = SubSpecial::where('ar_name', $request->sub_special)->orWhere('name' , $request->sub_special)->first();
-            if($sub_special) {
-                $edu->ar_sub_special = $sub_special->ar_name;
-                $edu->sub_special = $sub_special->name;
-            } else {
-                $edu->ar_sub_special= $request->sub_special;
-                $edu->sub_special = $request->sub_special;
-            }
-            
-            $edu->qualification = $request->qualification;
-            $edu->ar_qualification = $this->qualification[$request->qualification];
 
             if($edu->save()) {
                 if(app()->getLocale() == 'ar') {
@@ -278,9 +277,9 @@ class UserController extends Controller
             
           default:
                 $request->validate([
-                    'role' => 'required',
-                    'expertspecial' => 'required',
-                    'level' => 'required',
+                    'role_id' => 'required',
+                    'sub_special_id' => 'required',
+                    'level_id' => 'required',
                     'cert_pdf' => 'required',
                     'start_year' => 'required|int',
                     'start_month' => 'required|int',
@@ -318,88 +317,12 @@ class UserController extends Controller
             if($request->has('end_month')){
                 $expert->end_month = $request->end_month;
             }
-            if($request->has('country')) {
-                $country = Country::where('ar_name', $request->country)->orWhere('name' , $request->country)->first();
-                if($country) {
-                    $expert->ar_country = $country->ar_name;
-                    $expert->country = $country->name;
-                } else {
-                    $expert->ar_country = $request->country;
-                    $expert->country = $request->country;
-                }
-            }
-    
-          if(app()->getLocale() == 'ar') {
-    
-            if($request->has('role')) {
-                $role = Role::where('ar_name', $request->role)->first();
-                if($role) {
-                    $expert->ar_role = $role->ar_name;
-                    $expert->role = $role->name;
-                } else {
-                    $expert->ar_role = $request->role;
-                    $expert->role = $request->role;
-                }
-            }
-    
-            if($request->has('expertspecial')) {
-                $special = SubSpecial::where('ar_name' , $request->expertspecial)->first();
-                if($special){
-                    $expert->ar_sub_special = $special->ar_name;
-                    $expert->sub_special = $special->name;
-                } else {
-                    $expert->ar_sub_special = $request->expertspecial;
-                    $expert->sub_special = $request->expertspecial;
-                }
-            }
-    
-            if($request->has('level')){
-                $level = Level::where('ar_name' , $request->level)->first();
-                if($level) {
-                    $expert->ar_level = $level->ar_name;
-                    $expert->level = $level->name;
-                } else {
-                   $expert->ar_level = $request->level;
-                   $expert->level = $request->level;
-                }
-            }
-    
-        } else {//Localization 
-    
-            if($request->has('expertspecial')) {
-                $special = SubSpecial::where('ar_name' , $request->expertspecial)->first();
-                if($special){
-                    $expert->ar_sub_special = $special->ar_name;
-                    $expert->sub_special = $special->name;
-                } else {
-                    $expert->ar_sub_special = $request->expertspecial;
-                    $expert->sub_special = $request->expertspecial;
-                }
-            }
-    
-            if($request->has('role')) {
-                $role = Role::where('name', $request->role)->first();
-                if($role) {
-                    $expert->ar_role = $role->ar_name;
-                    $expert->role = $role->name;
-                } else {
-                    $expert->ar_role = $request->role;
-                    $expert->role = $request->role;
-                }
-            }
-    
-            if($request->has('level')){
-                $level = Level::where('name' , $request->level)->first();
-                if($level) {
-                    $expert->ar_level = $level->ar_name;
-                    $expert->level = $level->name;
-                } else {
-                   $expert->ar_level = $request->level;
-                   $expert->level = $request->level;
-                }
-            }
-    
-        }
+            
+            $expert->country_id = $request->country_id;
+            $expert->role_id = $request->role_id;
+            $expert->level_id = $request->level_id;
+            $expert->sub_special_id = $request->sub_special_id;
+            
         if($expert->save()) {
             if(app()->getLocale() == 'ar') {
                \Session::flash('success' , 'تم الحفظ بنجاح');

@@ -17,4 +17,8 @@ class Special extends Model
     {
         return $this->belongsTo(Role::class);
     }
+
+    function users() {
+        return $this->hasMany(User::class);
+    }
 }

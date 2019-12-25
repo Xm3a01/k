@@ -27,19 +27,20 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate(10);
         $roles = Role::all();
         $cities = City::all();
         $countries = Country::all();
         $sub_specials = SubSpecial::all();
         $levels = Level::all();
+        $users->load(['role','city','country','sub_special','level']);
         return view('dashboard.admins.users.index',compact(['roles' , 'cities','countries', 'users', 'sub_specials', 'levels']));
     }
 
     public function index_edu()
     {
         $educations = Education::all();
-        $educations->load('sub_specials');
+        $educations->load('sub_special');
         $roles = Role::all();
         $cities = City::all();
         $countries = Country::all();
@@ -170,7 +171,7 @@ class UserController extends Controller
         $request->validate([
             'qualification'=>'required',
             'user_id'=>'required',
-            'sub_special' =>'required',
+            'sub_special_id' =>'required',
             ]);
             $education =new Education();
             $education->user_id = $request->user_id;
@@ -181,7 +182,7 @@ class UserController extends Controller
             $education->ar_university = $request->ar_university;
             $education->ar_university = $request->university;
             $education->university = $request->university;
-            $experience->sub_special_id = $request->sub_special_id;
+            $education->sub_special_id = $request->sub_special_id;
             
         if($education->save()) {
             \Session::flash('success', 'تمت الاضافه بنجاح');
@@ -228,7 +229,7 @@ class UserController extends Controller
                 if($request->hasFile('attch')){
                     $f = time().'.'.$request->file('attch')->getClientOriginalExtension();
                     $file->attch = $request->file('attch')->storeAs('public/attchment' , $f);
-                    }
+                }
                 
             if($file->save()) {
             \Session::flash('success', 'تمت الاضافه بنجاح');
@@ -237,16 +238,17 @@ class UserController extends Controller
         }
 
         if($request->select_user == 'user') {
+         
+        $avatar ='';
         $request->validate([
             'ar_name' =>'required',
             'ar_last_name' =>'required',
             'email' => 'required|email|unique:users',
             'phone' => 'required',
             'password' => 'required',
-            'country' => 'required',
-            'city' =>'required',
-            'city' =>'required',
-            'sub_special' =>'required',
+            'country_id' => 'required',
+            'city_id' =>'required',
+            'sub_special_id' =>'required',
             'social_status' => 'required',
             'religion'=>'required'
            ]);
@@ -273,12 +275,11 @@ class UserController extends Controller
             $user->idint_2 = $request->idint_2;
             $user->birthdate = $request->birthdate;
         
-            $job->level_id = $request->level_id;
-            $job->role_id = $request->role_id;
-            $job->country_id = $request->country_id;
-            $job->city_id = $request->city_id;
-            $job->special_id = $request->special_id;
-            $job->sub_special_id = $request->sub_special_id;
+            $user->level_id = $request->level_id;
+            $user->role_id = $request->role_id;
+            $user->country_id = $request->country_id;
+            $user->city_id = $request->city_id;
+            $user->sub_special_id = $request->sub_special_id;
 
         if($user->save()) {
             \Session::flash('success', 'تمت الاضافه بنجاح');
@@ -322,7 +323,7 @@ class UserController extends Controller
         $countries = Country::all();
         $sub_specials = SubSpecial::all();
         
-        $education->load('user');
+        $education->load(['user','sub_special']);
         return view('dashboard.admins.users.education.edit', compact(['education','roles' , 'cities','countries', 'user', 'sub_specials']));
     }
 
@@ -419,7 +420,7 @@ class UserController extends Controller
         }
         
         if($request->has('sub_special_id')) {
-            $job->sub_special_id = $request->sub_special_id;
+            $education->sub_special_id = $request->sub_special_id;
         }
 
         if($education->save()) {
@@ -494,7 +495,7 @@ class UserController extends Controller
         if($request->has('phone')) {
         $user->phone = $request->phone;
         }
-        if($request->has('password')) {
+        if($request->has('password') && $request->password !='') {
         $user->password = Hash::make($request->password);
         }
         if($request->has('religion')) {
@@ -518,22 +519,27 @@ class UserController extends Controller
         }
         
         if($request->has('level_id')) {
-            $job->level_id = $request->level_id;
+            $user->level_id = $request->level_id;
         }
         if($request->has('role_id')) {
-            $job->role_id = $request->role_id;
+            $user->role_id = $request->role_id;
+        }
+        if($request->has('birth_country_id')) {
+            $country = Country::findOrFail($request->birth_country_id);
+            $user->ar_brith = $country->ar_name;
+            $user->brith = $country->name;
         }
         if($request->has('country_id')) {
-            $job->country_id = $request->country_id;
+            $user->country_id = $request->country_id;
         }
         if($request->has('city_id')) {
-            $job->city_id = $request->city_id;
+            $user->city_id = $request->city_id;
         }
         if($request->has('special_id')) {
-            $job->special_id = $request->special_id;
+            $user->special_id = $request->special_id;
         }
         if($request->has('sub_special_id')) {
-            $job->sub_special_id = $request->sub_special_id;
+            $user->sub_special_id = $request->sub_special_id;
         }
 
         if($user->save()) {

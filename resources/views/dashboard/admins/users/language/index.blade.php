@@ -11,7 +11,7 @@
 <div class="page-head">
         <!-- BEGIN PAGE TITLE -->
         <div class="page-title">
-            <h1> جدول المستخدمين
+            <h1> جدول اللغات
             </h1>
         </div> 
     </div>
@@ -32,31 +32,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="portlet light bordered">
-                    <div class="portlet-title">
-                        <div class="caption">
-                            <i class="icon-social-dribbble font-green hide"></i>
-                            <span class="caption-subject font-dark bold uppercase">جدول اللغات</span>
-                        </div>
-                        <div class="actions">
-                            <div class="btn-group pull-left">
-                                <button class="btn green btn-outline dropdown-toggle"
-                                    data-toggle="dropdown">الادوات
-                                    <i class="fa fa-angle-down"></i>
-                                </button>
-                                <ul class="dropdown-menu pull-right" style="font-family: hacen">
-                                    <li>
-                                        <a href="javascript:;"> طباعة </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;"> طباعة ملف PDF </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;"> تصدير إلي إكسل </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                     
                     <div class="portlet-body">
                         <div class="table-toolbar pull-left">
                             <div class="btn-group">
@@ -66,9 +42,9 @@
                                 <thead>
                                     <tr>
                                         <th> # </th>
-                                        <th>الاسم الاول</th>
-                                        <th>الاسم الاخير</th>
+                                        <th>الاسم </th>
                                         <th>اللغه</th>
+                                        <th>language</th>
                                         <th>المستوى</th>
                                         <th>العمليات</th>
                                     </tr>
@@ -78,9 +54,9 @@
                                         @foreach($languages as $language)
                                         <tr>
                                             <td>{{$language->id}}</td>
-                                            <td>{{$language->user->ar_name}}</td>
-                                            <td>{{$language->user->ar_last_name}}</td>
+                                            <td>{{$language->user->ar_name.' '.$language->user->ar_last_name}}</td> 
                                             <td>{{$language->ar_language}}</td>
+                                            <td>{{$language->language}}</td>
                                             <td>{{$language->ar_language_level}}</td>
                                             
                                             <td style="width:auto">

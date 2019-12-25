@@ -49,19 +49,16 @@
                                  </div>
                                </a> 
                             @endforeach
-                                 
-                         
-                                </div> 
-                           
+                          </div>    
                     </div> 
                     @endif
                 </div>  
 
     <div class="col-md-4 col-lg-4 mb-5">  
      <div class="p_graph px-3 py-2 my-3 bg-white">
-          <h6 class="p-2 font-weight-bold">{{app()->getLocale() == 'ar' ? $guid->ar_title : $guid->title }} </h6>
+          <h6 class="p-2 font-weight-bold">{{app()->getLocale() == 'ar' ? $guid->ar_title ?? '' : $guid->title ?? '' }} </h6>
                 <p class="" style="font-size: 14px; font-weight: 400;">
-                    {!! app()->getLocale() == 'ar' ? Str::limit($guid->ar_guid , $limit=200) : Str::limit($guid->guid , $limit=200 ) !!}
+                    {!! app()->getLocale() == 'ar' ? Str::limit($guid->ar_guid ?? '' , $limit=200) : Str::limit($guid->guid ?? '' , $limit=200 ) !!}
                 </p>
              <div class="">
              <a href="{{route('user.guid' , app()->getLocale())}}" class="py-3 d-flex justify-content-center" style="text-decoration: underline; font-size: 15px; font-weight: 600; cursor: pointer; color:#333">{{__('Write a professional resume')}}</a>
@@ -84,7 +81,7 @@
                       <input type="submit" value=" {{__('Create now')}} " class="btn btn-primary btn-block px-3">
                     </div>
                   </div> 
-                </form>
+              </form>
 
       </div>
       
