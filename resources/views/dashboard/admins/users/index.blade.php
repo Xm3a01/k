@@ -229,6 +229,7 @@
                             <label class="col-md-2 control-label">الجنسية  </label>
                             <div class="col-md-4">
                             <select name="country_id" id="inputState" class="form-control">
+                                <option disabled selected> الجنسية </option>
                                 @foreach ($countries as $country) 
                                  <option value="{{ $country->id }}">{{ $country->ar_name }}</option>
                                 @endforeach
@@ -237,19 +238,20 @@
 
                               <label class="col-md-1 control-label">العنوان</label>
                               <div class="col-md-4">
-                                <input list="brith" name="brith" id="inputState" class="form-control" placeholder="مكان الميلاد" autocomplete="off">
-                                </div>
-                                <datalist id="brith" dir="rtl" >
-                              @foreach ($cities as $city)    
-                              <option value="{{(app()->getLocale() == 'ar') ? $city->ar_name : $city->name}}">
-                              @endforeach
-                              </datalist>
+                                <select name="birth_country_id" id="inputState" class="form-control">
+                                    <option disabled selected> العنوان </option>
+                                    @foreach ($countries as $country) 
+                                     <option value="{{ $country->id }}">{{ $country->ar_name }}</option>
+                                    @endforeach
+                                </select>
+                              </div>
                         </div>
 
                         <div class="form-group">
                                 <label class="col-md-2 control-label">المدينه</label>
                                 <div class="col-md-4">
                                 <select name="city_id" id="inputState" class="form-control">
+                                        <option disabled selected> المدينه </option>
                                         @foreach ($cities as $city) 
                                             <option value="{{ $city->id }}">{{ $city->ar_name }}</option>
                                         @endforeach
@@ -266,7 +268,7 @@
                                 <label class="col-md-2 control-label"> الديانة  </label>
                                 <div class="col-md-4">
                                       <select class="form-control" name="religion">
-                                          <option disabled selected>اختر الديانة  </option>
+                                          <option disabled selected>اختر الديانة </option>
                                           <option value="Muslime">مسلم</option>
                                           <option value="Christian">مسيحي</option>
                                           <option value="Gushin">يهودي </option>
@@ -298,6 +300,7 @@
                             <label class="col-md-2 control-label">التخصص</label>
                                 <div class="col-md-4">
                                     <select name="sub_special_id" id="inputState" class="form-control">
+                                        <option disabled selected> التخصص </option>
                                         @foreach ($sub_specials as $sub_special) 
                                             <option value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
                                         @endforeach
@@ -308,6 +311,7 @@
                                 <label class="col-md-1 control-label">الدور الوظيفي</label>
                                 <div class="col-md-4">
                                     <select name="role_id" id="inputState" class="form-control">
+                                            <option disabled selected> الدور الوظيفي </option>
                                             @foreach ($roles as $role) 
                                                 <option value="{{ $role->id }}">{{ $role->ar_name }}</option>
                                             @endforeach

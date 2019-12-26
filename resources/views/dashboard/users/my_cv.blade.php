@@ -169,7 +169,7 @@
                         <table class="table table-borderless">
                           <tr> 
                               <th scope="col"> {{__('Qualification')}}  </th> 
-                              <td> <span>{{$education->ar_sub_special}}</span> - <span>{{$user->ar_role}}</span> - <span>{{$education->ar_qualification}}</span></td>
+                              <td> <span>{{$education->sub_special->ar_name}}</span> - <span>{{$user->role->ar_name}}</span> - <span>{{$education->ar_qualification}}</span></td>
                           </tr> 
                           <tr> 
                              <th scope="col">{{__('University')}}</th>
@@ -177,7 +177,7 @@
                           </tr>
                           <tr> 
                              <th scope="col">{{__('Area')}}</th>
-                             <td><span>{{$user->ar_country}}</span>- <span>{{$user->ar_city}}</span></td>
+                             <td><span>{{$user->country->ar_name}}</span>- <span>{{$user->city->ar_name}}</span></td>
                           </tr> 
                           <tr> 
                              <th scope="col">{{__('Graduation Date')}}</th>
