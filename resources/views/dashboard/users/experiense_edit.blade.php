@@ -46,30 +46,38 @@
                     </div>
                     </div>
 
-                    <label for="inputEmail4">{{__('Role')}}</label>
-                    <input list ="role" id="inputState" class="form-control" autocomplete= "off" name="role" value=" {{(app()->getLocale() == 'ar') ? $expert->ar_role : $expert->role}} ">
-                    <datalist id="role">   
-                        @foreach ($roles as $role)  
-                        <option value=" {{(app()->getLocale() == 'ar') ? $role->ar_name : $role->name }}">
+                  <label>{{__('Country')}} </label>
+                        <select name="country_id" id="inputState" class="form-control">
+                            <option selected disabled>{{__('Country')}}</option>
+                            @foreach ($countries as $country) 
+                              <option {{$expert->country_id == $country->id ? 'selected' : ''}} value="{{ $country->id }}">{{ $country->ar_name }}</option>
                         @endforeach
-                    </datalist>
+                    </select
 
-                    <label for="inputEmail4">{{__('Level')}}</label>
-                    <input list ="level" id="inputState" class="form-control" autocomplete= "off" name="level" value="{{(app()->getLocale() == 'ar') ? $expert->ar_level : $expert->level }}">
-                        <datalist id="level">   
-                            @foreach ($levels as $level)  
-                            <option value=" {{(app()->getLocale() == 'ar') ? $level->ar_name : $level->name }}">
-                            @endforeach
-                        </datalist>
+                    <label for="inputEmail4">{{__('Role')}}</label>
+                    <select name="role_id" id="inputState" class="form-control">
+                        <option selected disabled>{{__('Role')}}</option>
+                        @foreach ($roles as $role)  
+                           <option {{ $expert->role_id == $role->id ? 'selected' : ''}} value="{{ $role->id }}">{{ $role->ar_name }}</option>
+                        @endforeach
+                     </select>
+
+                    <label for="inputEmail4">{{__('Job Level')}}</label>
+                    <select name="level_id" id="inputState" class="form-control">
+                        <option selected disabled>{{__('Job Level')}}</option>
+                        @foreach ($levels as $level)  
+                           <option {{$expert->level_id == $level->id ? 'selected' : ''}} value="{{ $level->id }}">{{ $level->ar_name }}</option>
+                        @endforeach
+                    </select>
                           
 
-                    <label for="inputEmail4">{{__('Sub specialization')}}</label>
-                    <input list ="subspecial" id="inputState" class="form-control" autocomplete= "off" name="expertspecial" value=" {{(app()->getLocale() == 'ar') ? $expert->user->ar_sub_special : $expert->user->role }}">
-                        <datalist id="subspecial">
-                        @foreach ($sub_specials as $special)     
-                        <option value=" {{(app()->getLocale() == 'ar') ? $special->ar_name : $special->name }}">
+                    <label for="inputEmail4">{{__('Specialization')}}</label>
+                    <select name="sub_special_id" id="inputState" class="form-control">
+                        <option selected disabled>{{__('Specialization')}}</option>
+                            @foreach ($sub_specials as $sub_special)  
+                            <option {{$expert->sub_special_id == $sub_special->id ? 'selected' : ''}} value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
                         @endforeach
-                    </datalist>
+                    </select>
             
                     <label for="job_description">الوصف</label> 
                     <textarea class="form-control" id="exampleFormControlTextarea1"
@@ -83,7 +91,7 @@
                             
                                 
                    <label for="cert_pdf" class="file-field-label">{{__('Certificate')}}</label>  <small class="description file-field-description">
-                            Maximum file size: -.	</small>
+                           </small>
                     <input type="file" class="input-text listify-file-upload" data-file_types="pdf|doc|" name="cert_pdf" id="cert_pdf" placeholder="">
                   
                                     

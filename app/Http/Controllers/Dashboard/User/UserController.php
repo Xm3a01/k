@@ -102,7 +102,7 @@ class UserController extends Controller
         if(Auth::guard('web')->check()) {
         $user = User::findOrFail(Auth::user()->id);
         $user->load(['exps','educations.sub_special' , 'languages' , 'files','references','role','city','country','sub_special','level']);
-        dd( $user->educations);
+        // dd( $user->educations);
         $expert = Exp::where('user_id', $user->id)->first();
         $education = Education::where('user_id', $user->id)->first();
         $language = Language::where('user_id', $user->id)->first();
@@ -122,22 +122,23 @@ class UserController extends Controller
         $educount =  $this->pcount('education' ,'Education', $education->id ?? '');
         $langcount =  $this->pcount('languages' , 'Language' , $language->id ?? '' );
         // $refcount =  $this->pcount('references' , 'Reference' , $ref->id ?? '' );
-        // $filecount =  $this->pcount('files' , 'File' , $file->id ?? '' );
+        $filecount =  $this->pcount('files' , 'File' , $file->id ?? '' );
         
         //return $count + $expcount;
 
         if($expcount != null){
-           $count =  $count + 15;
+           $count =  $count + 30;
         } if(!is_null($educount)) {
             $count =  $count + 15;
         } if($langcount  != null) {
             $count =  $count + 15;
         }
-        // } if($refcount  != null) {
+        // if($refcount  != null) {
         //     $count =  $count + 15;
-        // } if($filecount  != null) {
-        //     $count =  $count + 15;
-        // }
+        // } 
+        if($filecount  != null) {
+            $count =  $count + 15;
+        }
         // return $x;
         
         // $count = abs($count + ($expcount ?? '' + $educount ?? '' + $langcount ?? '' ) -  $x);
@@ -390,9 +391,10 @@ class UserController extends Controller
 
         if($request->has('expert_form')) {
                 $request->validate([
-                    'role' => 'required',
-                    'expertspecial' => 'required',
-                    'level' => 'required',
+                    'role_id' => 'required',
+                    'sub_special_id' => 'required',
+                    'level_id' => 'required',
+                    'country_id' => 'required',
                     'cert_pdf' => 'required',
                     'start_month' => 'required|int',
                     'end_year' => 'required|int',

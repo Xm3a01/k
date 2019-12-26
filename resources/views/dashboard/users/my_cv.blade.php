@@ -42,8 +42,9 @@
                   <td>
                     <a href="" data-toggle = "modal" data-target = "#educationinfo">
                      {{($user->role_id  == null) ? __('Add Education info') : (app()->getLocale() == 'ar') ? $user->role->ar_name ?? '' :  $user->role->name ?? ''}} 
-                     - @foreach($user->educations as $key => $education ) <br> {{$key + 1}} - {{(app()->getLocale() == 'ar') ? $education->ar_qualification ?? ''.' - '. $education->sub_special[$key]->ar_name  : $education->qualification ?? ''.' - '. $education->sub_special[$key] }} @endforeach
-                    {{-- @foreach($user->educations as $education ) {{$education->sub_special['ar_name'] }} @endforeach  --}}
+                     - @foreach($user->educations as $key => $education ) <br> {{$key + 1}} - {{(app()->getLocale() == 'ar') ? $education->ar_qualification.' - '.$education['sub_special']['ar_name']: $education->qualification.' - '.$education['sub_special']['name']}} @endforeach
+                       {{-- @foreach($user->educations as $education ) {{$education['sub_special']['ar_name']}} @endforeach  --}}
+                    {{-- {{(app()->getLocale() == 'ar') ? $user->sub_special->ar_name ?? '':$user->sub_special->name ?? ''}} --}}
                     </a></td>
                   </tr>
                 
@@ -331,7 +332,7 @@
                                   </tr> 
                                   <tr> 
                                     <th scope="col">{{__('Description')}}</th> 
-                                    <td> <p></p>{{$expert->ar_summary}}<p></p></td>
+                                    <td> <p></p>{{Str::limit($expert->ar_summary , $limit = 40)}}<p></p></td>
                                     </tr>
                                     
                                     <tr> 
@@ -369,7 +370,7 @@
                                   </tr> 
                                   <tr> 
                                     <th scope="col">{{__('Description')}}</th> 
-                                    <td> {{$expert->summary}}</td>
+                                    <td> {{Str::limit($expert->summary , $limit = 40)}}</td>
                                     </tr>
                                     <tr> 
                                     <th scope="col">{{__('File')}}</th> 

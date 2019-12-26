@@ -29,32 +29,32 @@
                  
                     <div class="form-group col-md-12">
                         <label for="inputEmail4">{{__('Role')}}</label>
-                        <input list="role" name="role" id="inputState" class="form-control" autocomplete="off">
-                        <datalist id="role" dir="rtl" >
-                            @foreach ($roles as $role)    
-                            <option value="{{(app()->getLocale() == 'ar') ? $role->ar_name : $role->name}}">
-                            @endforeach
-                        </datalist>
+                        <select name="role_id" id="inputState" class="form-control">
+                                <option selected disabled>{{__('Role')}}</option>
+                                @foreach ($roles as $role)  
+                                <option  value="{{ $role->id }}">{{ $role->ar_name }}</option>
+                                @endforeach
+                            </select>
                         </div> 
 
                     <div class="form-group col-md-12">
                         <label for="inputEmail4">{{__('Country')}}</label>
-                        <input list="country" name="country" id="inputState" class="form-control" autocomplete="off">
-                        <datalist id="country" dir="rtl" >
-                            @foreach ($countries as $country)    
-                            <option value="{{(app()->getLocale() == 'ar') ? $country->ar_name : $country->name}}">
-                            @endforeach
-                        </datalist>
+                        <select name="country_id" id="inputState" class="form-control">
+                                  <option selected disabled>الدوله</option>
+                                @foreach ($countries as $country) 
+                                  <option  value="{{ $country->id }}">{{ $country->ar_name }}</option>
+                                @endforeach
+                            </select>
                         </div> 
                      
                         <div class="form-group col-md-12">
                             <label for="inputEmail4">{{__('City')}}</label>
-                            <input list="city" name="city" id="inputState" class="form-control" autocomplete="off">
-                            <datalist id="city" >
-                                @foreach ($cities as $city)    
-                                <option value="{{(app()->getLocale() == 'ar') ? $city->ar_name : $city->name}}">
-                                @endforeach
-                            </datalist>
+                            <select name="city_id" id="inputState" class="form-control">
+                                    <option selected disabled>{{__('City')}}</option>
+                                  @foreach ($cities as $city) 
+                                    <option  value="{{ $city->id }}">{{ $city->ar_name }}</option>
+                                  @endforeach
+                                </select>
                             </div>
                          
                           <div class="form-group col-md-12">

@@ -12,12 +12,12 @@
                 <input type="hidden" name="select" value="edu_form">
                     <h3 class="text-center pt-3 pb-3">التعليم</h3> 
                     <label for="application">{{__('Special')}}</label>
-                    <input list ="subspecial" id="inputState" class="form-control" value = "{{ (app()->getLocale() == 'ar') ? $education->ar_sub_special : $education->sub_special}}" name="sub_special">
-                         <datalist id="subspecial">
-                      @foreach ($sub_specials as $special)     
-                        <option value=" {{(app()->getLocale() == 'ar') ? $special->ar_name : $special->name }}">
-                      @endforeach
-                    </datalist>
+                    <select name="sub_special_id" id="inputState" class="form-control">
+                        <option selected disabled>{{__('Special')}}</option>
+                        @foreach ($sub_specials as $sub_special)  
+                        <option {{$education->sub_special_id == $sub_special->id ? 'selected' : ''}} value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
+                        @endforeach
+                    </select>
                     <label for="application">{{__('Arabic university')}}</label>
                     <div class="field required-field">
                             <input type="text" class="input-text" name="ar_university" id="inputAddress2" placeholder="مثال: جامعة هارفورد"value="{{$education->ar_university}}" >
