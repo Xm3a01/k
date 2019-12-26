@@ -16,4 +16,8 @@ class SubSpecial extends Model
     function users() {
         return $this->hasMany(User::class);
     }
+
+    function educations() {
+        return $this->hasMany(Education::class);
+    }
 }

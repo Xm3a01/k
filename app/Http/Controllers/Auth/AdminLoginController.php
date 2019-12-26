@@ -50,7 +50,7 @@ class AdminLoginController extends Controller
         ];
 
         if(Auth::guard('admin')->attempt($data , $request->remember)) {
-            return \redirect()->route('admin.dashboard');
+            return \redirect()->intended(route('admin.dashboard'));
         } else {
             \Session::flash('error' , 'البريد او كلمة المرور غير صحيحه');
             return \redirect()->back()->withInput($request->only('email' , 'remember'));

@@ -39,10 +39,12 @@
                 
                   <tr>
                   <th>{{__('Education')}} </th>
-                  <td><a href="" {{($user->university == null && $user->ar_university == null) ? 'data-toggle = "modal" data-target = "#educationinfo"' : ''}}>
-                     {{($user->role == null && $user->ar_role == null) ? __('Add Education info') : (app()->getLocale() == 'ar') ? $user->role->ar_name :  $user->role->name}} 
-                     - @foreach($user->educations as $key => $edu ) <br> {{$key + 1}} - {{(app()->getLocale() == 'ar') ? $edu->ar_qualification.' - '.$edu->ar_sub_special : $edu->qualification.' - '.$edu->sub_special}} @endforeach
-                  </a></td>
+                  <td>
+                    <a href="" data-toggle = "modal" data-target = "#educationinfo">
+                     {{($user->role_id  == null) ? __('Add Education info') : (app()->getLocale() == 'ar') ? $user->role->ar_name ?? '' :  $user->role->name ?? ''}} 
+                     - @foreach($user->educations as $key => $education ) <br> {{$key + 1}} - {{(app()->getLocale() == 'ar') ? $education->ar_qualification ?? ''.' - '. $education->sub_special[$key]->ar_name  : $education->qualification ?? ''.' - '. $education->sub_special[$key] }} @endforeach
+                    {{-- @foreach($user->educations as $education ) {{$education->sub_special['ar_name'] }} @endforeach  --}}
+                    </a></td>
                   </tr>
                 
                   <tr>
@@ -169,7 +171,7 @@
                         <table class="table table-borderless">
                           <tr> 
                               <th scope="col"> {{__('Qualification')}}  </th> 
-                              <td> <span>{{$education->sub_special->ar_name}}</span> - <span>{{$user->role->ar_name}}</span> - <span>{{$education->ar_qualification}}</span></td>
+                              <td> <span>{{$education->sub_special->ar_name ?? ''}}</span> - <span>{{$user->role->ar_name}}</span> - <span>{{$education->ar_qualification}}</span></td>
                           </tr> 
                           <tr> 
                              <th scope="col">{{__('University')}}</th>
@@ -203,7 +205,7 @@
                            <table class="table table-borderless">
                              <tr> 
                                 <th scope="col"> {{__('Qualification')}}  </th> 
-                                <td><span>{{$user->role}}</span> - <span>{{$user->ar_sub_special}}</span> -  <span>{{$education->qualification}}</span></td>  
+                                <td><span>{{$user->role->name}}</span> - <span>{{$user->sub_special->name ?? ''}}</span> -  <span>{{$education->qualification}}</span></td>  
                              </tr> 
                              <tr> 
                                 <th scope="col">{{__('University Of')}}</th>
@@ -211,7 +213,7 @@
                              </tr>
                              <tr> 
                               <th scope="col">{{__('Area')}}</th>
-                              <td>{{$user->city}}</td>
+                              <td>{{$user->city->name}}</td>
                              </tr> 
                              <tr> 
                                <th scope="col">{{__('Date Of graduation')}}</th>
@@ -321,11 +323,11 @@
                                     </tr> 
                                      <tr> 
                                      <th scope="col">{{__('Job Title')}}</th> 
-                                     <td>{{$expert->ar_level}}</td> 
+                                     <td>{{$expert->level->ar_name}}</td> 
                                   </tr> 
                                   <tr> 
                                      <th scope="col">{{__('Inistitute')}} </th> 
-                                     <td><span>{{$expert->company_name}}</span> - <span>{{$user->ar_country}}</span></td>
+                                     <td><span>{{$expert->company_name}}</span> - <span>{{$user->country->ar_name}}</span></td>
                                   </tr> 
                                   <tr> 
                                     <th scope="col">{{__('Description')}}</th> 
@@ -359,11 +361,11 @@
                                     </tr>  
                                   <tr> 
                                     <th scope="col"> {{__('Job Title')}}  </th>  
-                                    <td> {{$expert->level}} </td> 
+                                    <td> {{$expert->level->name}} </td> 
                                   </tr>
                                   <tr>
                                     <th scope="col">{{__('Inistitute')}} </th> 
-                                    <td><span>{{$user->country}}</span>- <span>{{$expert->company_name}}</span></td>
+                                    <td><span>{{$user->country->name}}</span>- <span>{{$expert->company_name}}</span></td>
                                   </tr> 
                                   <tr> 
                                     <th scope="col">{{__('Description')}}</th> 
@@ -699,12 +701,12 @@
                     </div>
                     <div class="form-group col-md-6"> 
                           <label for="inputEmail4">{{__('Special')}}</label>
-                          <input list ="subspecial" id="inputState" class="form-control" name="sub_special">
-                         <datalist id="subspecial">
-                      @foreach ($sub_specials as $special)     
-                          <option value=" {{(app()->getLocale() == 'ar') ? $special->ar_name : $special->name }}">
-                      @endforeach
-                    </datalist>
+                          <select name="sub_special_id" id="inputState" class="form-control">
+                                 <option selected disabled>{{__('Special')}}</option>
+                                  @foreach ($sub_specials as $sub_special)  
+                                <option  value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
+                              @endforeach
+                          </select>
                     </div>
                     <div class="form-group col-md-6"> 
                           <label for="inputEmail4">{{__('University')}}</label>
@@ -810,44 +812,43 @@
                         
                       <div class="form-group col-md-6">
                         <label for="inputEmail4">{{__('Job Role')}}</label>
-                        <input list ="role" id="inputState" class="form-control" name="role">
-                        <datalist id="role">   
-                          @foreach ($roles as $role)  
-                          <option value=" {{(app()->getLocale() == 'ar') ? $role->ar_name : $role->name }}">
-                          @endforeach
-                        </datalist>
+                        <select name="role_id" id="inputState" class="form-control">
+                            <option selected disabled>{{__('Job Role')}}</option>
+                            @foreach ($roles as $role)  
+                            <option  value="{{ $role->id }}">{{ $role->ar_name }}</option>
+                            @endforeach
+                          </select>
                       </div>
 
                       <div class="form-group col-md-6">
                           <label for="inputEmail4">{{__('Job Level')}}</label>
-                          <input list ="level" id="inputState" class="form-control" name="level">
-                          <datalist id="level">   
-                            @foreach ($levels as $level)  
-                            <option value=" {{(app()->getLocale() == 'ar') ? $level->ar_name : $level->name }}">
-                            @endforeach
-                          </datalist>
+                          <select name="level_id" id="inputState" class="form-control">
+                              <option selected disabled>{{__('Job Level')}}</option>
+                              @foreach ($levels as $level)  
+                              <option  value="{{ $level->id }}">{{ $level->ar_name }}</option>
+                              @endforeach
+                            </select>
                         </div>
 
                       <div class="form-group col-md-6">
                         <label for="inputEmail4">{{__('Specialization')}}</label>
-                        <input list ="subspecial" id="inputState" class="form-control" name="expertspecial">
-                        <datalist id="subspecial">
-                          @foreach ($sub_specials as $special)     
-                          <option aria-checked="true" value="{{(app()->getLocale() == 'ar') ? $user->ar_special : $user->special }}">
-                          <option value=" {{(app()->getLocale() == 'ar') ? $special->ar_name : $special->name }}">
-                          @endforeach
-                        </datalist>
+                        <select name="sub_special_id" id="inputState" class="form-control">
+                            <option selected disabled>{{__('Specialization')}}</option>
+                            @foreach ($sub_specials as $sub_special)  
+                            <option  value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
+                            @endforeach
+                           </select>
                         </div>
 
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">{{__('Country')}}</label>
-                                <input list="country" name="country" id="inputState" class="form-control" autocomplete="off">
-                                <datalist id="country" dir="rtl" >
-                                  @foreach ($countries as $country)    
-                                  <option value="{{(app()->getLocale() == 'ar') ? $country->ar_name : $country->name}}">
-                                  @endforeach
-                                </datalist>
-                              </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">{{__('Country')}}</label>
+                            <select name="country_id" id="inputState" class="form-control">
+                                <option selected disabled>{{__('Country')}}</option>
+                                @foreach ($countries as $country) 
+                                <option  value="{{ $country->id }}">{{ $country->ar_name }}</option>
+                                @endforeach
+                              </select>
+                          </div>
 
                      
                       <div class="form-group col-md-12">
@@ -925,57 +926,47 @@
                               </div>
                           <div class="form-group col-md-6">
                             <label for="inputEmail4"> {{__('Nationality')}}</label>
-                            <input list="identity" id="inputState" class="form-control" name="identity" autocomplete="off" value="{{(app()->getLocale() == 'ar') ? $user->ar_country : $user->country}}">
-                            <datalist id="identity" >
-                                @foreach ($countries as $country)
-                                <option  value="{{(app()->getLocale() == "ar") ? $country->ar_name : $country->name}}">      
+                            <select name="birth_country_id" id="inputState" class="form-control">
+                                <option selected disabled>{{__('Nationality')}}</option>
+                                @foreach ($countries as $country) 
+                                <option {{$user->ar_birth == $country->ar_name ? 'selected' : ''}} value="{{ $country->id }}">{{ $country->ar_name }}</option>
                                 @endforeach
-                              </datalist>
+                              </select>
                           </div> 
                           <div class="form-group col-md-6">
                             <label>{{__('Birth Date')}}</label>
                             <input type="date" id="datepicker" width="276" class="form-control" name="brithDate" value="{{$user->birthdate}}" />
                           </div>
-                          <div class="form-group col-md-6">
-                            <label for="inputEmail4">{{__('Place of Birth')}}</label>
-                            <input list="country" name="brith_country" id="inputState" class="form-control" autocomplete="off" value="{{(app()->getLocale() == 'ar') ? $user->ar_brith : $user->brith}}">
-                            <datalist id="country" dir="rtl" >
-                              @foreach ($countries as $country)    
-                              <option value="{{(app()->getLocale() == 'ar') ? $country->ar_name : $country->name}}">
-                              @endforeach
-                            </datalist>
-                          </div>
-                          
 
                           <div class="form-group col-md-6">
                               <label for="inputEmail4">{{__('Current Housing')}}</label>
-                              <input list="country" name="country" id="inputState" class="form-control" autocomplete="off" value="{{(app()->getLocale() == 'ar') ? $user->ar_country : $user->country}}">
-                              <datalist id="country" >
-                                @foreach ($countries as $country)    
-                                <option value="{{(app()->getLocale() == 'ar') ? $country->ar_name : $country->name}}">
-                                @endforeach
-                              </datalist>
+                              <select name="country_id" id="inputState" class="form-control">
+                                  <option selected disabled>{{__('Current Housing')}}</option>
+                                  @foreach ($countries as $country) 
+                                  <option {{$user->country_id == $country->id ? 'selected' : ''}} value="{{ $country->id }}">{{ $country->ar_name }}</option>
+                                  @endforeach
+                                </select>
                             </div>
                             
                             <div class="form-group col-md-6">
                               <label for="inputEmail4">{{__('Role')}}</label>
-                              <input list="role" name="role" id="inputState" class="form-control" autocomplete="off" value="{{(app()->getLocale() == 'ar') ? $user->ar_role : $user->role}}">
-                              <datalist id="role" >
-                                @foreach ($roles as $role)    
-                                <option value="{{(app()->getLocale() == 'ar') ? $role->ar_name : $role->name}}">
-                                @endforeach
-                              </datalist>
+                              <select name="role_id" id="inputState" class="form-control">
+                                  <option selected disabled>{{__('Role')}}</option>
+                                  @foreach ($roles as $role)  
+                                  <option {{ $user->role_id == $role->id ? 'selected' : ''}} value="{{ $role->id }}">{{ $role->ar_name }}</option>
+                                  @endforeach
+                                </select>
                             </div>
                             
                             <div class="form-group col-md-12">
                             <label for="inputEmail4">{{__('Job title')}}</label>
-                            <input list="sub_special" name="sub_special" id="inputState" class="form-control" autocomplete="off" placeholder ="{{__('Job title')}}" value="{{(app()->getLocale() == 'ar') ? $user->sub_special : $user->sub_special}}">
-                            </div>
-                            <datalist id="sub_special" dir="rtl" >
-                              @foreach ($sub_specials as $sub_special)    
-                              <option value="{{(app()->getLocale() == 'ar') ? $sub_special->ar_name : $sub_special->name}}">
-                              @endforeach
-                            </datalist>
+                            <select name="sub_special_id" id="inputState" class="form-control">
+                                <option selected disabled>{{__('Job title')}}</option>
+                                @foreach ($sub_specials as $sub_special)  
+                                <option {{$user->sub_special_id == $sub_special->id ? 'selected' : ''}} value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
+                                @endforeach
+                            </select>
+                           </div>
                           
                            <div class="form-group col-md-6">
                             <label for="inputState">{{__('Religion')}}</label>
@@ -1046,27 +1037,7 @@
                           <div class="form-group col-md-6">
                             <label for="inputAddress">{{__('Email')}}</label>
                             <input name="email" type="text" class="form-control" id="inputAddress"  value="{{$user->email}}" placeholder=" {{__('Enter Email')}}  ">
-                          </div> 
-                          <!--<div class="form-group col-md-6">-->
-                          <!--    <label for="inputAddress2"> {{__('Current Housing')}}  </label>-->
-                          <!--    <input  name="city" list="city" id="inputState" class="form-control" autocomplete="off">-->
-                          <!--    <datalist id="city">-->
-                          <!--     @foreach ($cities as $city)   -->
-                          <!--     <option value="{{ (app()->getLocale() == 'ar') ?  $city->ar_name : $city->name}}" >-->
-                          <!--     @endforeach-->
-                          <!--    </datalist>-->
-                          <!--  </div>-->
-          
-                          <!--  <div class="form-group col-md-6">-->
-                          <!--    <label for="inputCity">{{__('City')}}</label>-->
-                          <!--    <input  name="" list="city" id="inputState" class="form-control">-->
-                          <!--    <datalist id="city" >-->
-                          <!--     @foreach ($cities as $city)   -->
-                          <!--     <option value="{{ (app()->getLocale() == 'ar') ?  $city->ar_name : $city->name}}" >-->
-                          <!--     @endforeach-->
-                          <!--    </datalist>-->
-                          <!--  </div> -->
-                            
+                          </div>     
                           <div class="form-groub col-md-12">
                           <div class="text-center py-5">
                           <button class="btn btn-primary px-3 " type="submit"> {{__('Save')}} </button> 
