@@ -116,12 +116,10 @@ class UserController extends Controller
         $countries = Country::all();
         $count =  $this->pcount('users' ,'User', $user->id);
         $count =  25;
-        
         if(!is_null($expert) || !is_null($education) || !is_null($language)) {
         $expcount =  $this->pcount('exps' ,'Exp', $expert->id ?? '');
         $educount =  $this->pcount('education' ,'Education', $education->id ?? '');
         $langcount =  $this->pcount('languages' , 'Language' , $language->id ?? '' );
-        // $refcount =  $this->pcount('references' , 'Reference' , $ref->id ?? '' );
         $filecount =  $this->pcount('files' , 'File' , $file->id ?? '' );
         
         //return $count + $expcount;

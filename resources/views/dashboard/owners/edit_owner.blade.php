@@ -64,9 +64,9 @@
                          </div> 
                     </div>
                   </div>
-                    </div>
-                </div>
-                </div> 
+               </div>
+             </div>
+         </div> 
     {{-- Start Modal --}}
 
     <!-- language model -->
@@ -195,35 +195,35 @@
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="inputEmail4">{{__('Role')}}</label>
-                        <input list="role" name="role" id="inputState" class="form-control" value=" {{(app()->getLocale() == 'ar') ? $owner->ar_name : $owner->role}} " autocomplete="off">
-                        <datalist id="role" dir="rtl" >
-                            @foreach ($roles as $role)    
-                            <option value="{{(app()->getLocale() == 'ar') ? $role->ar_name : $role->name}}">
+                        <select name="role_id" id="inputState" class="form-control">
+                            <option selected disabled>{{__('Role')}}</option>
+                            @foreach ($roles as $role)  
+                            <option {{ $owner->role_id == $role->id ? 'selected' : ''}} value="{{ $role->id }}">{{ $role->ar_name }}</option>
                             @endforeach
-                        </datalist>
+                          </select>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label for="inputEmail4">{{__('Country')}}</label>
-                            <input list="country" name="country" id="inputState" class="form-control" value=" {{(app()->getLocale() == 'ar') ? $owner->ar_country : $owner->country}}" autocomplete="off">
-                            <datalist id="country" dir="rtl" >
-                                @foreach ($countries as $country)    
-                                <option value="{{(app()->getLocale() == 'ar') ? $country->ar_name : $country->name}}">
+                            <select name="country_id" id="inputState" class="form-control">
+                                <option selected disabled>{{__('Country')}}</option>
+                                @foreach ($countries as $country) 
+                                <option {{$owner->country_id == $country->id ? 'selected' : ''}} value="{{ $country->id }}">{{ $country->ar_name }}</option>
                                 @endforeach
-                            </datalist>
+                              </select>
                             </div>
                         </div>
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label for="inputEmail4">{{__('City')}}</label>
-                            <input list="city" name="city" id="inputState" class="form-control" value=" {{(app()->getLocale() == 'ar') ? $owner->ar_city : $owner->city}}" autocomplete="off">
-                            <datalist id="city" >
-                                @foreach ($cities as $city)    
-                                <option value="{{(app()->getLocale() == 'ar') ? $city->ar_name : $city->name}}">
+                            <select name="city_id" id="inputState" class="form-control">
+                                <option selected disabled>{{__('City')}}</option>
+                                @foreach ($cities as $city) 
+                                <option {{$owner->city_id == $country->id ? 'selected' : ''}} value="{{ $city->id }}">{{ $city->ar_name }}</option>
                                 @endforeach
-                            </datalist>
+                              </select>
                             </div>
                         </div>
              

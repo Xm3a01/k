@@ -110,9 +110,9 @@
                                         <td > {{$owner->company_name}}</td>
                                         <td > {{$owner->company_name_en}}</td>
                                         <td > {{$owner->company_email}} </td>
-                                        <td > {{$owner->role->ar_name}}</td>
-                                        <td > {{$owner->country->ar_name}}</td> 
-                                        <td > {{$owner->city->ar_name}}</td> 
+                                        <td > {{$owner->role->ar_name ?? ''}}</td>
+                                        <td > {{$owner->country->ar_name ?? ''}}</td> 
+                                        <td > {{$owner->city->ar_name ?? ''}}</td> 
                                         <td > {{$owner->created_at}} </td>
                                         <td  class="center" style="display: content;"> 
                                             <form method="POST"  action="{{route('companies.destroy' , $owner->id)}}" id="delete-owner">

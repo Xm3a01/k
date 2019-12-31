@@ -135,7 +135,7 @@
                     <div class="form-group col-md-12">
                       <label for="inputCity"> {{__('City')}}</label>
                       <select name="city_id" id="inputState" class="form-control">
-                          <option selected disabled>{{__('Place of Birth')}}</option>
+                          <option selected disabled>{{__('City')}}</option>
                           @foreach ($cities as $city)    
                           <option value="{{$city->id}}">{{(app()->getLocale() == 'ar') ? $city->ar_name : $city->name}}</option>
                           @endforeach

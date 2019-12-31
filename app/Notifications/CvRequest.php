@@ -43,7 +43,7 @@ class CvRequest extends Notification
             'id' => $this->user->id,
             'notfy_description' => 'صاحب العمل ' .$this->sender->ar_name.' قام بطلب السيره '.$this->user->ar_name,
             'name' => $this->user->ar_name,
-            'sub_special' => $this->user->sub_special,
+            'sub_special' => $this->user->sub_special->ar_name,
             'photo' => $this->sender->avatar,
             'sender_id' => $this->sender->id
         ];

@@ -1,13 +1,7 @@
 <?php
 use App\Country;
 use Illuminate\Http\Request; 
-
-Route::get('test' , function(){
-    $all = Country::all();
-    return view('test.search',compact('all'));
-});
-
-Route::get('search' , 'SearchController@index')->name('search');
+use App\Notifications\WelcomeUser;
 
 Route::get('/', function () {return redirect(app()->getLocale());});
 
@@ -166,4 +160,9 @@ Route::get('/migrate', function() {
     return 'DONE'; //Return anything
 });
 
-// Route::view('test','test');
+Route::get('/test',function() {
+    $user = App\User::find(43);
+    $user->notify(new WelcomeUser());
+    return 'Email send';
+
+});

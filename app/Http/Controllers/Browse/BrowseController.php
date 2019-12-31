@@ -31,8 +31,7 @@ class BrowseController extends Controller
         $countries = Country::all();
         $sub_specials = SubSpecial::all();
         $owners = Owner::all();
-        $roles = Role::latest()->take(4)->get();
-        $roles->load('specials.sub_specials');
+        $roles = Role::latest()->take(8)->get();
         $countries->load('cities');
         $jobs = Job::latest()->take(6)->get();
         $specials = Special::all();
@@ -49,7 +48,7 @@ class BrowseController extends Controller
     {
         $job = Job::findOrFail($id);
         $about = About::latest()->take(1)->first();
-        return view('pages.jobsingle' , compact('job' , 'id' , 'about'));
+        return view('pages.jobsingle' , compact('job' , 'id' ,'about'));
 
     }
 
@@ -63,19 +62,22 @@ class BrowseController extends Controller
     public function search(Request $request)
     {
         if(app()->getLocale() == 'ar') {
-            $jobs = Job::where('ar_city' , $request->country )->where('selected' ,0)
-                 ->where('ar_sub_special' , $request->special)->get();
-
-            $Ijobs = Job::where('ar_country' , $request->country )->where('selected' ,0)
-                ->where('ar_sub_special' , $request->special)->get();
-
+            $city = City::where('ar_name',$request->country)->first();
+            $country = Country::where('ar_name',$request->country)->first();
+            $sub_special = SubSpecial::where('ar_name',$request->special)->first();
         } else {
-            $jobs = Job::where('city' , $request->country)
-                ->where('sub_special' , $request->special)->where('selected' ,0)->get();
+            $city = City::where('name',$request->country)->first();
+            $city = Country::where('name',$request->country)->first();
+            $city = SubSpecial::where('name',$request->special)->first();
+        }
 
-            $Ijobs = Job::where('country' , $request->country)->where('selected' ,0)
-                 ->where('sub_special' , $request->special)->get();
-            }
+        
+        $jobs = Job::where('city_id' , $city->id ?? '' )->where('selected' ,0)
+          ->where('sub_special_id' , $sub_special->id ?? '')->get();
+
+        $Ijobs = Job::where('country_id' , $country->id ?? '' )
+           ->where('sub_special_id' , $sub_special->id ?? '')->where('selected' ,0)->get();
+
 
             $all = Job::all();
             // return $all;
@@ -99,7 +101,7 @@ class BrowseController extends Controller
             'subject' => 'required'
             ]);
             
-            Notification::route('mail', 'Gw_sd@yahoo.co.uk')  //Gw_sd@yahoo.co.uk
+            Notification::route('mail', 'mohamed29w@gmail.com')  //Gw_sd@yahoo.co.uk
              ->notify(new ContactNotification($request));
              
              \Session::flash('success',app()->getLocale() == 'ar' ? 'شكرا لك للتواصل معنا' : 'Thank you for cancat with us');

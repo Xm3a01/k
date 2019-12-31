@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Role;
-use App\Admin;
 use App\User;
-use App\Notifications\NewCv; 
+use App\Admin;
 use Illuminate\Http\Request;
+use App\Notifications\NewCv; 
+use App\Notifications\WelcomeUser;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -109,8 +110,7 @@ class RegisterController extends Controller
         ]);
 
         $admins = Admin::all();
-        Notification::send($admins , new NewCv($user));
-        
+         Notification::send($admins , new NewCv($user));
          Auth::guard('web')->login($user);
          return redirect()->route('web.mycv' , app()->getLocale());
     }

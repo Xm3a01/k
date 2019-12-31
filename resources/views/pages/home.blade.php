@@ -22,7 +22,7 @@
                   <div class="input-wrap">
                     <span class="icon icon-keyboard"></span>
                     <input v-model="special" name = "special" list="special" type="text" class="form-control border-0 px-3" placeholder=" {{__('Job Title')}} " autocomplete = "off">
-                    <datalist id="special" v-if="special && special != ' '">
+                    <datalist id="special">
                       @foreach ($sub_specials as $sub)   
                          <option  value="{{ (app()->getLocale() == 'en') ? $sub->name : $sub->ar_name}}">
                         @endforeach
@@ -33,7 +33,7 @@
                   <div class="input-wrap">
                     <span class="icon icon-room"></span>
                     <input  v-model = "country" name = "country" list="country" type="text" class="form-control border-0 px-3"  placeholder="{{__('City or Country')}}" autocomplete = "off">
-                      <datalist id="country" v-if="country && country != ' '">
+                      <datalist id="country">
                         @foreach ($countries as $county)
                            <option value="{{ (app()->getLocale() == 'ar') ? $county->ar_name : $county->name}}">
                         @endforeach
@@ -75,11 +75,11 @@
               <div class="row">
     
                 @foreach ($roles as $role)   
-                <div class="col-sm-6 col-md-4 col-lg-3 mb-3" data-aos="fade-up" data-aos-delay="50">
-                  <a href="{{route('search.role',[app()->getLocale() , $role->id])}}" class="h-100 feature-item">
-                    <span class="d-block icon flaticon-calculator"></span>
-                    <h2>{{(app()->getLocale() == 'ar') ? $role->ar_name : $role->name}}</h2>
-                    <p>{{App\Job::where('role' , $role->name)->where('selected',0)->count()}}</p>
+                <div class="col-sm-6 col-md-4 col-lg-3 mb-3" data-aos="fade-up" data-aos-delay="100">
+                  <a href="#" class="h-100 feature-item">
+                    <span class="d-block icon flaticon-calculator mb-3 text-primary"></span>
+                    <h2>{{app()->getLocale() == 'ar' ? $role->ar_name : $role->name}}</h2>
+                    <span class="counting"> <p> {{App\Job::where('role_id' , $role->id)->where('selected',0)->count()}}</p></span>
                   </a>
                 </div>
                 @endforeach

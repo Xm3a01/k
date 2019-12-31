@@ -21,7 +21,7 @@
           <a href="#" class="h-100 feature-item">
             <span class="d-block icon flaticon-calculator mb-3 text-primary"></span>
             <h2>{{app()->getLocale() == 'ar' ? $role->ar_name : $role->name}}</h2>
-            <span class="counting">{{$role->specials->count()}}</span>
+            <span class="counting">{{App\Job::where('role_id' , $role->id)->where('selected',0)->count()}}</span>
           </a>
         </div>
         @endforeach

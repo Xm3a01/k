@@ -43,62 +43,62 @@
                             <input type="hidden" name="select" value="job">
                             <div class="form-group col-md-6">
                             <label for="inputEmail4">{{ __('Job Role ') }}</label>
-                            <input class="form-control" list="roles" placeholder="{{__('Role')}}" name ="role" value=" {{(app()->getLocale() == 'ar') ? $job->ar_role : $job->role }} " autocomplete="off">
-                            <datalist id="roles">
-                                @foreach ($roles as $role) 
-                                <option value="{{ (app()->getLocale() == 'ar') ? $role->ar_name : $role->name}}">
-                                @endforeach 
-                            </datalist>
-                            </div>
+                            <select name="role_id" id="inputState" class="form-control">
+                                <option selected disabled>{{ __('Job Role ') }}</option>
+                                @foreach ($roles as $role)  
+                                <option {{ $job->role_id == $role->id ? 'selected' : ''}} value="{{ $role->id }}">{{ $role->ar_name }}</option>
+                                @endforeach
+                             </select>
+                           </div>
                             
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4">{{ __('Job Level ') }}</label>
-                                <input class="form-control" list="level" placeholder="{{__('Role')}}" name ="level"  value=" {{(app()->getLocale() == 'ar') ? $job->ar_level : $job->level }} "  autocomplete="off">
-                                <datalist id="level">
-                                    @foreach ($levels as $level) 
-                                    <option value="{{ (app()->getLocale() == 'ar') ? $level->ar_name : $level->name}}">
-                                    @endforeach 
-                                </datalist>
+                                <select name="level_id" id="inputState" class="form-control">
+                                    <option selected disabled>{{ __('Job Level ') }}</option>
+                                    @foreach ($levels as $level)  
+                                    <option {{$job->level_id == $level->id ? 'selected' : ''}} value="{{ $level->id }}">{{ $level->ar_name }}</option>
+                                    @endforeach
+                                  </select>
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="inputEmail4">{{__('Country')}}</label>
-                                    <input list="country" name="country" id="" class="form-control" value="{{(app()->getLocale() == 'ar') ? $job->ar_country : $job->country }}" autocomplete="off">
-                                    <datalist id="country" dir="rtl" >
-                                        @foreach ($countries as $country)    
-                                        <option value="{{(app()->getLocale() == 'ar') ? $country->ar_name : $country->name}}">
+                                    <select name="country_id" id="inputState" class="form-control">
+                                        <option selected disabled>{{__('Country')}}</option>
+                                        @foreach ($countries as $country) 
+                                        <option {{$job->country_id == $country->id ? 'selected' : ''}} value="{{ $country->id }}">{{ $country->ar_name }}</option>
                                         @endforeach
-                                    </datalist>
+                                      </select>
                                     </div>
                             
                                     <div class="form-group col-md-6">
                                     <label for="inputCity"> {{__(' City  ')}}</label>
-                                    <input  name="city" list="city" id="" value="{{(app()->getLocale() == 'ar') ? $job->ar_city : $job->city }}" class="form-control">
-                                    <datalist id="city" >
-                                        @foreach ($cities as $city)   
-                                        <option value="{{ (app()->getLocale() == 'ar') ?  $city->ar_name : $city->name}}" >
+                                    <select name="country_id" id="inputState" class="form-control">
+                                        <option selected disabled>{{__('Country')}}</option>
+                                        @foreach ($cities as $city) 
+                                        <option {{$job->city_id == $city->id ? 'selected' : ''}} value="{{ $city->id }}">{{ $city->ar_name }}</option>
                                         @endforeach
-                                    </datalist>
+                                      </select>
                                     </div>
 
                             <div class="form-group col-md-6">
-                                <label class=" control-label">التخصص الاساسي</label>
-                                <input name = "special" list="special" type="text" class=" form-control" placeholder=" {{__('Special')}} "  value="{{(app()->getLocale() == 'ar') ? $job->ar_special : $job->special }}" autocomplete = "off">
-                                <datalist id="special">
-                                    @foreach ($specials as $special)   
-                                    <option  value="{{ (app()->getLocale() == 'en') ? $special->name : $special->ar_name}} ">
+                                <label class=" control-label">{{__('Specialization')}}</label>
+                                <select name="sub_special_id" id="inputState" class="form-control">
+                                    <option selected disabled>{{__('Specialization')}}</option>
+                                    @foreach ($specials as $special)  
+                                    <option {{$job->special_id == $special->id ? 'selected' : ''}} value="{{ $special->id }}">{{ $special->ar_name }}</option>
                                     @endforeach
-                                </datalist>
+                                  </select>
                                 </div> 
 
                             <div class="form-group col-md-6">
                                 <label class=" control-label">التخصص الفرعي</label>
-                                <input name = "sub_special" list="sub_special" type="text" class=" form-control" placeholder=" {{__('Sub Special')}} " value="{{(app()->getLocale() == 'ar') ? $job->ar_sub_special : $job->sub_special }}" autocomplete = "off">
-                                <datalist id="sub_special">
-                                @foreach ($sub_specials as $sub)   
-                                    <option  value="{{ (app()->getLocale() == 'en') ? $sub->name : $sub->ar_name}} ">
+                                <select name="sub_special_id" id="inputState" class="form-control">
+                                    <option selected disabled>التخصص الفرعي</option>
+                                    @foreach ($sub_specials as $sub_special)  
+                                    <option {{$job->sub_special_id == $sub_special->id ? 'selected' : ''}} value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
                                     @endforeach
-                                </datalist>
+                                </select>
                             </div>
 
                             <div class="form-group col-md-6">

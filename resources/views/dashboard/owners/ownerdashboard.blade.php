@@ -37,7 +37,7 @@
                             
                         <div class=" d-flex d-md-flex"> 
                             <strong> <a href = "{{route('delete.owner_cv' , [app()->getLocale() , $user->id])}}">x</a> </strong>
-                                <img src=" {{asset(Storage::url($user->avatar))}} " alt="Image" class="rounded-circle  img-fluid p-1 w-30" width="25%">
+                                <img src=" {{asset(Storage::url($user->avatar))}} " alt="Image" class="rounded-circle  img-fluid p-1 w-30" width="18%">
                                 <div class="px-3"> 
                                     <p class="m-0 pt-1 font-weight-bold"><a href="">{{$user->ar_name}}</a></p>
                                     <p class="m-0">{{$user->role}}</p> 
@@ -64,10 +64,10 @@
                               @foreach ($jobs as $job)
                             
                                <div class=" d-flex d-md-flex"> 
-                                <img src="{{asset(Storage::url($job->owner->logo))}}" alt="Image" class="rounded-circle  img-fluid p-1 w-30" width="25%">
+                                <img src="{{asset(Storage::url($job->owner->logo))}}" alt="Image" class="rounded-circle  img-fluid p-1 w-30" width="18%">
                                 <div class="px-3"> 
-                                    <p class="m-0 pt-1 font-weight-bold"><a href="">{{(app()->getLocale() == 'ar') ? $job->ar_sub_special : $job->sub_special}}</a></p>
-                                    <p class="m-0">{{(app()->getLocale() == 'ar') ? $job->ar_role : $job->role}}</p> 
+                                    <p class="m-0 pt-1 font-weight-bold"><a href="">{{(app()->getLocale() == 'ar') ? $job->sub_special->ar_name : $job->sub_special->ar_name}}</a></p>
+                                    <p class="m-0">{{(app()->getLocale() == 'ar') ? $job->role->ar_name : $job->role->name}}</p> 
                                    </div>
                               </div>
                             @endforeach

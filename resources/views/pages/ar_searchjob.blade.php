@@ -26,7 +26,7 @@
  <!-- Tags Bar -->
     <div class="filterbar">
         <!--<span class="emlthis">ة</a></span>-->
-            <h5 class="pt-2">  {{__('research results')}} {{ $jobs->count()}} {{__('submitted')}}  </h5>
+            <h5 class="pt-2">  تنائج البحث {{ ($jobs->count() > 0) ? $jobs->count(): ($Ijobs->count() > 0 ? $Ijobs->count() : $all->count().' كل نتائج البحث' )  }}   </h5>
         </div> 
     </div>  
     
@@ -39,7 +39,7 @@
                 </div>
                 <div class="job-details h-100">
                     <div class="p-3 align-self-center">
-                    <h3> {{ $job->sub_special }} </h3>
+                    <h3> {{ $job->sub_special->ar_name }} </h3>
                     <div class="d-block d-lg-flex">
                     <p class="m-0"> {{ $job->yearsOfExper }} </p>
                         <span class="mr-3"> {{ date('F d, Y', strtotime($job->created_at)) }} </span></div>
@@ -65,7 +65,7 @@
                         </div>
                         <div class="job-details h-100">
                           <div class="p-3 align-self-center">
-                           <h3> {{ $job->ar_sub_special}} </h3>
+                           <h3> {{ $job->sub_special->ar_name}} </h3>
                            <div class="d-block d-lg-flex">
                             <p class="m-0"> {{$job->yearsOfExper}} </p>
                              <span class="mr-3"> {{date('F d, Y', strtotime($job->created_at))}} </span> 
@@ -92,12 +92,12 @@
                     </div>
                     <div class="job-details h-100">
                         <div class="p-3 align-self-center">
-                        <h3> {{ $job->sub_special }} </h3>
+                        <h3> {{ $job->sub_special->ar_name }} </h3>
                         <div class="d-block d-lg-flex">
                         <p class="m-0"> {{ $job->yearsOfExper }} </p>
                             <span class="mr-3"> {{ date('F d, Y', strtotime($job->created_at)) }} </span></div>
                         <div class="d-block d-lg-flex"> 
-                            <div > <span class="icon-suitcase mr-1 ml-2"> </span> {{  $job->owner->company_name_en}} </div>
+                            <div > <span class="icon-suitcase mr-1 ml-2"> </span> {{  $job->owner->company_name}} </div>
                             <div class="mr-3" > <span class="icon-money mr-1"> </span> {{ $job->selary }} </div>
                         </div>
                         <p class="m-0 text-primary"> {{  $job->description}} </div>

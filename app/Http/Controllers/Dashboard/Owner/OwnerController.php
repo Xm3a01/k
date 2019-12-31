@@ -36,7 +36,7 @@ class OwnerController extends Controller
     public function __construct()
     {
         
-            $this->middleware(['auth:owner'])->except('jobOwner');
+        $this->middleware(['auth:owner'])->except('jobOwner');
     }
     
     public function index()
@@ -47,8 +47,7 @@ class OwnerController extends Controller
         $countries = Country::all();
         $cities = City::all();
         $roles = Role::all();
-
-        if(Auth::user()->visit_count == 1 && Auth::user()->company_name == '') {
+        if(Auth::user()->visit_count <= 1 && Auth::user()->company_name == '') {
             return view('dashboard.owners.addcompany' , compact(['roles'  , 'countries' , 'cities']));
         } else {
             $jobs->load('owner');
@@ -340,7 +339,7 @@ class OwnerController extends Controller
         if($request->place !='' && $request->special !=''){
         $user = null;
         if(app()->getLocale() == 'ar') {
-            $users = country::where('ar_name',$request->place)->first();
+            $country = country::where('ar_name',$request->place)->first();
             $sub_special = SubSpecial::where('ar_name',$request->special)->first();
 
             $users = User::where('sub_special_id',$sub_special->id)
