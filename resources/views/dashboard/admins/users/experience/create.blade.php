@@ -52,12 +52,7 @@
 
                          <label class="col-md-1 control-label">المستوى الوظيفي</label>
                             <div class="col-md-4">
-                             <select name="level_id" id="inputState" class="form-control">
-                                <option selected disabled>المستوى الوظيفي</option>
-                                @foreach ($levels as $level)  
-                                <option value="{{ $level->id }}">{{ $level->ar_name }}</option>
-                                @endforeach
-                              </select>
+                              <input type="text" class="form-control  " placeholder=" مثلا: اخصائي " name ="level">
                             </div>      
                         </div>
 
@@ -75,10 +70,10 @@
                 
                                 <label class="col-md-1 control-label"> التخصص </label>
                                 <div class="col-md-4">
-                                    <select name="sub_special_id" id="inputState" class="form-control">
+                                    <select name="special_id" id="inputState" class="form-control">
                                     <option selected disabled>التخصص</option>
-                                    @foreach ($sub_specials as $sub_special)  
-                                    <option value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
+                                    @foreach ($specials as $special)  
+                                    <option value="{{ $special->id }}">{{ $special->ar_name }}</option>
                                     @endforeach
                                     </select>
                                 </div>      

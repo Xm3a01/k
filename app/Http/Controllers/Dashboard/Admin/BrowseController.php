@@ -34,7 +34,7 @@ class BrowseController extends Controller
 
         $user = User::findOrFail($id);
         $expert = Exp::where('user_id', $user->id)->first();
-        $user->load(['exps','educations']);
+        $user->load(['exps','educations' , 'languages' , 'files','references','country','city','special','role']);
 
         return view('dashboard.users.pdf' , compact(['user', 'expert']));
 
@@ -90,7 +90,7 @@ class BrowseController extends Controller
          
             $job->owner_id = $sender_id;
             $job->yearsOfExper = $request->data['yearsOfExper'];
-            $job->level_id = $request->data['level_id'];
+            $job->level = $request->data['level'];
             $job->role_id = $request->data['role_id'];
             $job->country_id = $request->data['country_id'];
             $job->city_id = $request->data['city_id'];

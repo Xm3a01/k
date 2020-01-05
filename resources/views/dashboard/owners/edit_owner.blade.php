@@ -26,7 +26,7 @@
                             <label class="font-weight-bold" for="email"> {{__('Job Title')}}  </label>
                             <input v-model="special" name = "special" list="special" type="text" class=" form-control  px-3" placeholder=" {{__('Job Title')}} " autocomplete = "off">
                             <datalist id="special">
-                              @foreach ($sub_specials as $sub)   
+                              @foreach ($specials as $sub)   
                                 <option  value="{{ (app()->getLocale() == 'en') ? $sub->name : $sub->ar_name}} ">
                                 @endforeach
                             </datalist>

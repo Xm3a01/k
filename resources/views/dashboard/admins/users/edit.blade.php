@@ -149,9 +149,9 @@
                             <div class="form-group">
                                     <label class="col-md-2 control-label">التخصص</label>
                                         <div class="col-md-4">
-                                            <select name="sub_special_id" id="inputState" class="form-control">
-                                                @foreach ($sub_specials as $sub_special) 
-                                                    <option {{$user->sub_special_id == $sub_special->id ? 'selected' : ''}} value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
+                                            <select name="special_id" id="inputState" class="form-control">
+                                                @foreach ($specials as $special) 
+                                                    <option {{$user->special_id == $special->id ? 'selected' : ''}} value="{{ $special->id }}">{{ $special->ar_name }}</option>
                                                 @endforeach
                                             </select>
                                             </div>
@@ -167,6 +167,12 @@
                                             </div>
                                             
                                     </div>
+                                    <div class="form-group">
+                                    <label class="col-md-2 control-label">المستوى الوظيفي</label>
+                                    <div class="col-md-4">
+                                            <input type="text" name="level" class="form-control  " placeholder="مثلا : اخصائي">
+                                     </div> 
+                                </div>
 
                             <br><h4 class="text-left m-3">بيانات الاتصال</h4><br>
                             <div class="form-group">

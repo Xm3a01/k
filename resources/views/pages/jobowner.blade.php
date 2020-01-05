@@ -19,8 +19,8 @@
                                        <span class="icon icon-keyboard"></span> 
                                        <input type="text" class=" form-control border-0 px-3" list = "special" autocomplete ="off"  placeholder=" {{__('Search by Job title')}} " name="special">
                                            <datalist id="special">
-                                               @foreach ($sub_specials as $sub_special)    
-                                               <option value="{{app()->getLocale() == 'ar' ? $sub_special->ar_name : $sub_special->name}}">
+                                               @foreach ($specials as $special)    
+                                               <option value="{{app()->getLocale() == 'ar' ? $special->ar_name : $special->name}}">
                                                @endforeach
                                            </datalist>
                                    </div>
@@ -77,11 +77,12 @@
 <div class="container">
    <h2 class="py-4"> {{__('Pricing')}}  </h2>
        	<div class="row justify-content-center">
+       	    @foreach($prices as $price)
                <div class=" col-md-4 col-sm-6">
                 <div class="card">
                     <div class="card-body">
                            <h4 class="card-title"> {{__('Post a job')}} </h4>
-                              <p class="card-text">{{app()->getLocale() == 'ar' ? $price->price ?? '' : $price->price ?? ''}}/<span>Year</span> </p>
+                              <p class="card-text"> $ {{$price->price ?? '' }}/<span>Year</span> </p>
                             <ul class="list-group list-group-flush">
                                <li class="list-group-item">{{app()->getLocale() == 'ar' ? $price->have_one ?? '' : $price->have_two ?? ''}}</li>
                                <li class="list-group-item">{{app()->getLocale() == 'ar' ? $price->have_three ?? '' : $price->have_four ?? ''}}</li> 
@@ -89,24 +90,13 @@
                        </div>
                    </div>
                </div>
-               <div class="col-md-4 col-sm-6">
-                <div class="card">
-                    <div class="card-body ">
-                           <h4 class="card-title "> {{__('Search for CVs')}} </h4>
-                              <p class="card-text">{{app()->getLocale() == 'ar' ? $price->price ?? '' : $price->price ?? ''}}$/ <span>Year</span> </p>
-                               <ul class="list-group list-group-flush">
-                               <li class="list-group-item">{{app()->getLocale() == 'ar' ? $price->have_one ?? '' : $price->have_two ?? ''}}</li>
-                               <li class="list-group-item">{{app()->getLocale() == 'ar' ? $price->have_three ?? '' : $price->have_four ?? ''}}</li>  
-                             </ul> 
-                       </div>
-                   </div>
-               </div>
+             @endforeach
            </div>
        </div>
 </div>
 
 <div class="py-5 bg-light text-center"> 
-    <img src="{{asset('asset/images/person_1.jpg')}}" class="rounded-circle pb-2" alt="" width="20%">
+    <img src="{{asset('vendor/images/noimage_person.png')}}" class="rounded-circle pb-2" alt="" width="20%">
       <h2 class="pt-2">{{__('Contact us and we will be happy to help')}} </h2>    
      <h3 class="py-1 text-info"> {{__('Contact Us On')}}   002490910440407</h3>
 </div>

@@ -2,7 +2,7 @@
 @section('content')
 
 
-<div style="height: 90px;"></div>
+<div style="height: 30px;"></div>
 
  
   <div class="site-blocks-cover overlay" style="background-image: url('{{asset('asset/images/hero_1.jpg')}}');" data-aos="fade"
@@ -18,10 +18,10 @@
           <div class="row mb-3">
             <div class="col-md-9">
               <div class="row">
-                <div class="col-md-6 mb-3 mb-md-0">
+                <div class="col-md-6 mb-1">
                   <div class="input-wrap">
                     <span class="icon icon-keyboard"></span>
-                    <input v-model="special" name = "special" list="special" type="text" class="form-control border-0 px-3" placeholder=" {{__('Job Title')}} " autocomplete = "off">
+                    <input v-model="special" name ="special" list="special" type="text" class="form-control border-0 px-3" placeholder=" {{__('Job Title')}} " autocomplete = "off">
                     <datalist id="special">
                       @foreach ($sub_specials as $sub)   
                          <option  value="{{ (app()->getLocale() == 'en') ? $sub->name : $sub->ar_name}}">
@@ -74,10 +74,10 @@
               <h3 class="my-4">{{__('Popular Categories')}}  </h3>
               <div class="row">
     
-                @foreach ($roles as $role)   
+                @foreach ($roles as $role)
                 <div class="col-sm-6 col-md-4 col-lg-3 mb-3" data-aos="fade-up" data-aos-delay="100">
-                  <a href="#" class="h-100 feature-item">
-                    <span class="d-block icon flaticon-calculator mb-3 text-primary"></span>
+                  <a href="{{ route('search.role',[app()->getLocale() , $role->id]) }}" class="h-100 feature-item">
+                    <span class="d-block icon flaticon-calculator mb-1 text-primary"></span>
                     <h2>{{app()->getLocale() == 'ar' ? $role->ar_name : $role->name}}</h2>
                     <span class="counting"> <p> {{App\Job::where('role_id' , $role->id)->where('selected',0)->count()}}</p></span>
                   </a>
@@ -102,35 +102,35 @@
         <div class="col-lg-8 col-md-12 col-sm-12 mb-5 mb-md-0" data-aos="fade-up" data-aos-delay="100">
           <h3 class="mb-4 new-job"> {{__('New Jobs')}}  </h3>
           <div class="rounded jobs-wrap">
-                       @foreach ($jobs as $job)
-                          @if($job->selected == 0)
-                          <a href="{{route('single.job' ,[app()->getLocale() , $job->id])}}" class="job-item d-block d-md-flex align-items-center  border-bottom fulltime">
-                                 <div class="company-logo blank-logo text-center text-md-left pl-3">
-                                   <img src="{{ asset(Storage::url($job->owner->logo))}}" alt="Image" class="img-fluid mx-auto p-1">
-                                 </div>
-                                 <div class="job-details h-100">
-                                   <div class="p-3 align-self-center">
-                                    <h3>{{(app()->getLocale() == 'ar') ? $job->ar_special : $job->special}} {{(app()->getLocale() == 'ar') ? $job->ar_sub_special : $job->sub_special}} </h3>
-                                    <div class="d-block d-lg-flex">
-                                     <p class="m-1">{{$job->yearsOfExper}}</p>
-                                      <span class="mr-2"> {{date('F d, Y', strtotime($job->created_at))}} </span> 
-                                        </div>
-                                     <div class="d-block d-lg-flex"> 
-                                       <div ><span class="icon-suitcase"></span> <span class="mr-2"> {{(app()->getLocale() == 'ar') ? $job->owner->company_name : $job->owner->company_name_en}} </span></div>
-                                       <div class="mr-3" ><span class="icon-money mr-1"> {{$job->selary}} </span></div>
-                                     </div>
-                                     </div>
-                                 </div>
-                                 <div class="job-category align-self-center">
-                                   <div class="p-3">
-                                     <span class="text-info p-2 rounded border border-info">{{(app()->getLocale() == 'ar') ? $job->ar_status : $job->status}}</span>
-                                   </div>
-                                 </div>
-                               </a> 
-                               @endif
-                            @endforeach 
-                         
-                                </div> 
+           @foreach ($jobs as $job)
+              @if($job->selected == 0)
+              <a href="{{route('single.job' ,[app()->getLocale() , $job->id])}}" class="job-item d-block d-md-flex align-items-center  border-bottom fulltime">
+                     <div class="company-logo blank-logo text-center text-md-left pl-3">
+                       <img src="{{ asset(Storage::url($job->owner->logo))}}" alt="Image" class="img-fluid mx-auto p-1">
+                     </div>
+                     <div class="job-details h-100">
+                       <div class="p-3 align-self-center">
+                        <h3>{{(app()->getLocale() == 'ar') ? $job->special->ar_name : $job->special->name}} - {{(app()->getLocale() == 'ar') ? $job->sub_special->ar_name ?? '' : $job->sub_special->name ?? ''}} </h3>
+                        <div class="d-block d-lg-flex">
+                         <p class="m-1">{{$job->yearsOfExper}}</p>
+                          <span class="mr-2"> {{date('F d, Y', strtotime($job->created_at))}} </span> 
+                            </div>
+                         <div class="d-block d-lg-flex"> 
+                           <div ><span class="icon-suitcase"></span> <span class="mr-2"> {{(app()->getLocale() == 'ar') ? $job->owner->company_name : $job->owner->company_name_en}} </span></div>
+                           <div class="mr-3" ><span class="icon-money mr-1"> {{$job->selary}} </span></div>
+                         </div>
+                         </div>
+                     </div>
+                     <div class="job-category align-self-center">
+                       <div class="p-3">
+                         <span class="text-info p-2 rounded border border-info">{{(app()->getLocale() == 'ar') ? $job->ar_status : $job->status}}</span>
+                       </div>
+                     </div>
+                   </a> 
+                   @endif
+                @endforeach 
+             
+         </div> 
          @if($jobs != null)
          <div class="col-md-12 text-center p-4" data-aos="fade-up" data-aos-delay="50">
             <a href="{{route('all.job' , app()->getLocale())}}" class="btn rounded p-2 mb-1">  {{__('More Jobs')}}  </a>
@@ -173,34 +173,36 @@
 
 
  
-<!-- advertise -->
-<section class="py-5">
-  <div class="container">
-    <div class="row justify-content-center"> 
-    <div id="carouselExampleControls" class="carousel slide col-md-7 col-lg-7 col-sm-12 " data-ride="carousel">
-     <div class="mb-5 text-center wow fadeInDown" data-wow-delay="1s">
-      <h3 class="h4"> أحدث العروض والأخبار</h3>
-     </div>
-    <ol class="carousel-indicators">
-      <li data-target="#carouselExampleControls" data-slide-to="0" class="active"></li>
-      <li data-target="#carouselExampleControls" data-slide-to="1"></li>
-      <li data-target="#carouselExampleControls" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img class="d-block" width="100%" height="400px" src="{{('asset/images/img_1.jpg')}}" alt="First slide">
-      </div>
-      <div class="carousel-item">
-        <img class="d-block" width="100%" height="400px" src="{{('asset/images/img_2.jpg')}}" alt="Second slide">
-      </div>
-      <div class="carousel-item">
-        <img class="d-block" width="100%" height="400px" src="{{('asset/images/img_4.jpg')}}" alt="Third slide">
+     
+  <!-- advertise -->
+  <section class="py-5">
+      <div class="container">
+        <div class="row justify-content-center"> 
+        <div id="carouselExampleControls" class="carousel slide col-md-7 col-lg-7 col-sm-12 " data-ride="carousel">
+         <div class="mb-5 text-center wow fadeInDown" data-wow-delay="1s">
+          <h3 class="h4"> {{__('The latest offers and news')}}  </h3>
+         </div>
+        <ol class="carousel-indicators">
+          @foreach($news as $key => $new)
+             <li data-target="#carouselExampleControls" data-slide-to="{{$key}}" class="{{$key == 0 ? 'active' : ''}}"></li>
+          @endforeach
+        </ol>
+        
+        <div class="carousel-inner">
+        @foreach($news as $key => $new)
+          <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
+            <img class="d-block" width="100%" height="400px" src="{{Storage::url($new->photo)}}" alt="First slide">
+            <div class="carousel-caption  d-md-block">
+                  <h5 class="h6">{{app()->getLocale() == 'ar' ? $new->ar_contant : $new->contant}}</h5>
+              </div>
+          </div>
+         @endforeach
+        </div>
       </div>
     </div>
-  </div>
-</div>
-</div>
-</section>
+    </div>
+    </section>
+
 
 
 
@@ -209,31 +211,31 @@
 <div class="site-section site-block-feature bg-light pb-5">
     <div class="container">
 
-      <div class="text-center mb-5 section-heading">
+      <div class="text-center mb-4 section-heading">
         <h2> {{__('Why choose Us?')}} </h2>
       </div>
 
       <div class="d-block d-md-flex">
         <div class="text-center px-4 item " data-aos="fade">
           <span class="flaticon-worker display-3 mb-3 d-block text-primary"></span>
-          <h2 class="h4">{{__('More Jobs Every Day')}}</h2>
+          <h2 class="h5">{{__('More Jobs Every Day')}}</h2>
           <p> {{__('Jobs from multiple countries in one place, now offers thousands of jobs in all fields in many countries with ease')}} </p>
            </div>
         <div class="text-center px-4 item" data-aos="fade">
           <span class="flaticon-wrench display-3 mb-3 d-block text-primary"></span>
-          <h2 class="h4">{{__('Creative Jobs')}}</h2>
+          <h2 class="h5">{{__('Creative Jobs')}}</h2>
           <p> {{__('Find and apply today for the latest Creative jobs like Graphic Designer, Product Designer, Artworker and more')}} </p>
            </div>
       </div>
       <div class="d-block d-md-flex">
         <div class="text-center px-4 item" data-aos="fade">
           <span class="flaticon-stethoscope display-3 mb-3 d-block text-primary"></span>
-          <h2 class="h4">{{__('Healthcare')}}</h2>
+          <h2 class="h5">{{__('Healthcare')}}</h2>
          <p> {{__('A strong representative in the fields of medicine and healthcare where an interactive environment is provided in Sudan and throughout the Middle East')}} </p>
            </div>
         <div class="text-center px-4 item" data-aos="fade">
           <span class="flaticon-calculator display-3 mb-3 d-block text-primary"></span>
-          <h2 class="h4">{{__('Finance & Accounting')}}</h2>
+          <h2 class="h5">{{__('Finance & Accounting')}}</h2>
           <p> {{__('Job opportunities in the field of accounting and finance with the best companies that are characterized by providing services and high quality accounting')}} </p>
             </div>
       </div>

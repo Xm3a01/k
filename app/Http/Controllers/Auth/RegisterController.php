@@ -108,7 +108,9 @@ class RegisterController extends Controller
             'avatar' => $avatar,
             'password' => Hash::make($request->password),            
         ]);
-
+        
+        $user->notify(new WelcomeUser());
+        
         $admins = Admin::all();
          Notification::send($admins , new NewCv($user));
          Auth::guard('web')->login($user);

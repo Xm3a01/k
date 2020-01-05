@@ -1,12 +1,12 @@
   <script src=" {{asset('asset/js/jquery-3.3.1.min.js')}} "></script>
-  <script src=" {{asset('asset/js/jquery-migrate-3.0.1.min.js')}} "></script>
+  <script src=" {{asset('asset/js/jquery-migrate-3.0.1.min.js')}}"></script>
   <script src=" {{asset('asset/js/jquery-ui.js')}} "></script>
   <script src=" {{asset('asset/js/popper.min.js')}} "></script>
   <script src=" {{asset('asset/js/bootstrap.min.js')}} "></script>
-  <script src=" {{asset('asset/js/owl.carousel.min.js')}} "></script>
-  <script src=" {{asset('asset/js/jquery.stellar.min.js')}} "></script>
-  <script src=" {{asset('asset/js/jquery.countdown.min.js')}} "></script>
-  <script src=" {{asset('asset/js/jquery.magnific-popup.min.js')}} "></script>
+  <script src=" {{asset('asset/js/owl.carousel.min.js')}}"></script>
+  <script src=" {{asset('asset/js/jquery.stellar.min.js')}}"></script>
+  <script src=" {{asset('asset/js/jquery.countdown.min.js')}}"></script>
+  <script src=" {{asset('asset/js/jquery.magnific-popup.min.js')}}"></script>
   <script src=" {{asset('asset/js/bootstrap-datepicker.min.js')}} "></script>
   <script src=" {{asset('asset/js/aos.js')}} "></script>
   <script src=" {{asset('asset/js/mediaelement-and-player.min.js')}} "></script>
@@ -126,8 +126,8 @@
     // parameter when you first load the API. For example:
     // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
-    var placeSearch, autocomplete;
-    var componentForm = {
+    //var placeSearch, autocomplete;
+    //var componentForm = {
       street_number: 'short_name',
       route: 'long_name',
       locality: 'long_name',
@@ -136,7 +136,7 @@
       postal_code: 'short_name'
     };
 
-    function initAutocomplete() {
+    //function initAutocomplete() {
       // Create the autocomplete object, restricting the search to geographical
       // location types.
       autocomplete = new google.maps.places.Autocomplete(
@@ -150,7 +150,7 @@
       autocomplete.addListener('place_changed', fillInAddress);
     }
 
-    function fillInAddress() {
+    //function fillInAddress() {
       // Get the place details from the autocomplete object.
       var place = autocomplete.getPlace();
 
@@ -172,7 +172,7 @@
 
     // Bias the autocomplete object to the user's geographical location,
     // as supplied by the browser's 'navigator.geolocation' object.
-    function geolocate() {
+  //  function geolocate() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
           var geolocation = {
@@ -189,17 +189,7 @@
     }
   </script>
 
-  <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&libraries=places&callback=initAutocomplete"
-    async defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
-  <script>
-    // Get a reference to the file input element
-    var inputElement = document.querySelector('input[type="file"]');
-
-    // Create the FilePond instance
-    var pond = FilePond.create(inputElement);
-  </script>
+ 
 <script>
 $('.owl-carousel').owlCarousel({
   loop: true,

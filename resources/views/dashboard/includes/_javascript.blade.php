@@ -1,5 +1,4 @@
 <!-- BEGIN CORE PLUGINS -->
-{{-- <script src="{{asset('js/app.js')}}" type="text/javascript"></script> --}}
 <script src="{{asset('vendor/js/jquery.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendor/js/bootstrap.min.js')}}" type="text/javascript"></script>
 
@@ -41,5 +40,8 @@
 <script src="{{asset('vendor/js/ui-toastr.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendor/js/login.min.js')}}" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
+
+ <script src="fstdropdown.js"></script>
+ <script src="fst.js"></script>
 
 

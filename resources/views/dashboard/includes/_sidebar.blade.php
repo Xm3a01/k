@@ -185,17 +185,19 @@
             <a href="{{route('price.index')}}" class="nav-link ">
                 <span class="title">العروض</span>
             </a>
-            </li>
-
-            <li>
-                <a href="{{route('news.index')}}" class="nav-link ">
-                    <span class="title">الاخبار</span>
-                </a>
-            </li>
+            </li> 
         </ul>
                 
             </li>
-        </ul>
+            
+             <li class="nav-item ">
+                <a href="{{route('news.index')}}" class="nav-link ">
+                    <i class="icon-settings"></i>
+                    <span class="title">الاخبار</span>
+                </a>
+            </li>
+            
+         </ul>
         </li>
     </ul>
 <!-- END SIDEBAR MENU -->

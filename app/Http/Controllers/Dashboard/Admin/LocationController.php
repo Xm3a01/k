@@ -16,13 +16,13 @@ class LocationController extends Controller
      */
     public function index()
     {
-        $countries = Country::all();
+        $countries = Country::paginate(20);
         return view('dashboard.admins.process.location.countryIndex', compact(['countries']));
     }
 
     public function cityIndex()
     {
-        $cities = City::all();
+        $cities = City::paginate(20);
         return view('dashboard.admins.process.location.cityIndex', compact(['cities']));
     }
 

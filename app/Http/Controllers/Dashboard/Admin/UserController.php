@@ -11,6 +11,7 @@ use App\Level;
 use App\Country;
 use App\Language;
 use App\Reference;
+use App\Special;
 use App\Education;
 use App\SubSpecial;
 use Illuminate\Http\Request;
@@ -32,9 +33,10 @@ class UserController extends Controller
         $cities = City::all();
         $countries = Country::all();
         $sub_specials = SubSpecial::all();
+        $specials = Special::all();
         $levels = Level::all();
         $users->load(['role','city','country','sub_special','level']);
-        return view('dashboard.admins.users.index',compact(['roles' , 'cities','countries', 'users', 'sub_specials', 'levels']));
+        return view('dashboard.admins.users.index',compact(['roles' , 'cities','countries', 'users', 'sub_specials', 'levels','specials']));
     }
 
     public function index_edu()
@@ -45,8 +47,9 @@ class UserController extends Controller
         $cities = City::all();
         $countries = Country::all();
         $sub_specials = SubSpecial::all();
+        $specials = Special::all();
         $levels = Level::all();
-        return view('dashboard.admins.users.education.index',compact(['educations','roles' , 'cities','countries', 'sub_specials', 'levels']));
+        return view('dashboard.admins.users.education.index',compact(['educations','roles' , 'cities','countries', 'sub_specials', 'levels','specials']));
     }
 
 
@@ -93,8 +96,9 @@ class UserController extends Controller
         $cities = City::all();
         $countries = Country::all();
         $sub_specials = SubSpecial::all();
+        $specials = Special::all();
         $levels = Level::all();
-        return view('dashboard.admins.users.education.create',compact(['roles' , 'cities','countries', 'user', 'sub_specials', 'levels']));
+        return view('dashboard.admins.users.education.create',compact(['roles' , 'cities','countries', 'user', 'sub_specials', 'levels','specials']));
     }
     
     public function createRef($id)
@@ -171,7 +175,7 @@ class UserController extends Controller
         $request->validate([
             'qualification'=>'required',
             'user_id'=>'required',
-            'sub_special_id' =>'required',
+            'special_id' =>'required',
             ]);
             $education =new Education();
             $education->user_id = $request->user_id;
@@ -182,7 +186,7 @@ class UserController extends Controller
             $education->ar_university = $request->ar_university;
             $education->ar_university = $request->university;
             $education->university = $request->university;
-            $education->sub_special_id = $request->sub_special_id;
+            $education->special_id = $request->special_id;
             
         if($education->save()) {
             \Session::flash('success', 'تمت الاضافه بنجاح');
@@ -248,7 +252,7 @@ class UserController extends Controller
             'password' => 'required',
             'country_id' => 'required',
             'city_id' =>'required',
-            'sub_special_id' =>'required',
+            'special_id' =>'required',
             'social_status' => 'required',
             'religion'=>'required'
            ]);
@@ -275,11 +279,11 @@ class UserController extends Controller
             $user->idint_2 = $request->idint_2;
             $user->birthdate = $request->birthdate;
         
-            $user->level_id = $request->level_id;
+            $user->level = $request->level;
             $user->role_id = $request->role_id;
             $user->country_id = $request->country_id;
             $user->city_id = $request->city_id;
-            $user->sub_special_id = $request->sub_special_id;
+            $user->special_id = $request->special_id;
 
         if($user->save()) {
             \Session::flash('success', 'تمت الاضافه بنجاح');
@@ -312,7 +316,8 @@ class UserController extends Controller
         $cities = City::all();
         $countries = Country::all();
         $sub_specials = SubSpecial::all();
-        return view('dashboard.admins.users.edit', compact(['roles' , 'cities','countries', 'user', 'sub_specials']));
+        $specials = Special::all();
+        return view('dashboard.admins.users.edit', compact(['roles' , 'cities','countries', 'user', 'sub_specials','specials']));
     }
 
     public function edu_edit($id)
@@ -334,9 +339,10 @@ class UserController extends Controller
         $cities = City::all();
         $countries = Country::all();
         $sub_specials = SubSpecial::all();
+        $specials = Special::all();
         
         $language->load('user');
-        return view('dashboard.admins.users.language.edit', compact(['language','roles' , 'cities','countries', 'user', 'sub_specials']));
+        return view('dashboard.admins.users.language.edit', compact(['language','roles' , 'cities','countries', 'user', 'sub_specials','specials']));
     }
     
     public function ref_edit($id)
@@ -419,8 +425,8 @@ class UserController extends Controller
         $education->university = $request->university;
         }
         
-        if($request->has('sub_special_id')) {
-            $education->sub_special_id = $request->sub_special_id;
+        if($request->has('special_id')) {
+            $education->special_id = $request->sub_special;
         }
 
         if($education->save()) {
@@ -518,8 +524,8 @@ class UserController extends Controller
         $user->birthdate = $request->birthdate;
         }
         
-        if($request->has('level_id')) {
-            $user->level_id = $request->level_id;
+        if($request->has('level')) {
+            $user->level = $request->level;
         }
         if($request->has('role_id')) {
             $user->role_id = $request->role_id;

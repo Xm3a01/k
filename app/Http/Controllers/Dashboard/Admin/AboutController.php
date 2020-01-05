@@ -79,7 +79,6 @@ class AboutController extends Controller
         $about = new About();
         $partener = new Partener();
         $employee = new Employee();
-        $whyus = new Whyus();
 
         switch ($request->select_one) {
               case 'about_company':

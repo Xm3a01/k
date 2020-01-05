@@ -40,7 +40,7 @@
                                 <img src=" {{asset(Storage::url($user->avatar))}} " alt="Image" class="rounded-circle  img-fluid p-1 w-30" width="18%">
                                 <div class="px-3"> 
                                     <p class="m-0 pt-1 font-weight-bold"><a href="">{{$user->ar_name}}</a></p>
-                                    <p class="m-0">{{$user->role}}</p> 
+                                    <p class="m-0">{{ app()->getLocale() == 'ar' ?  $user->role->ar_name : $user->role->name}}</p> 
                                    </div>
                               </div>
                         @endforeach
@@ -89,8 +89,8 @@
                             <label class="font-weight-bold" for="email"> {{__('Job Title')}}  </label>
                             <input v-model="special" name = "special" list="special" type="text" class=" form-control  px-3" placeholder=" {{__('Job Title')}} " autocomplete = "off">
                             <datalist id="special">
-                              @foreach ($sub_specials as $sub)   
-                                <option  value="{{ (app()->getLocale() == 'en') ? $sub->name : $sub->ar_name}}">
+                              @foreach ($specials as $special)   
+                                <option  value="{{ (app()->getLocale() == 'en') ? $special->name : $special->ar_name}}">
                                 @endforeach
                             </datalist>
                           </div> 
@@ -118,8 +118,7 @@
                                     </div>
                                     <div class="card-content is-stretched t-inverse">
                                         <i class="icon is-research is-48 t-light"></i>
-                                        <h3 class="t-inverse m20y">{{__('Two weeks of CV search')}}</h3>
-                                       <h2 class="t-inverse py-3">$675</h2>
+                                        <h3 class="t-inverse m20y">{{__('CV search is free')}}</h3>
                               </div>
                          </div> 
                     </div>

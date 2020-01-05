@@ -63,7 +63,6 @@ class LoginController extends Controller
 
         if(Auth::guard('web')->attempt($data , $request->remember)) {
             $user = User::findOrFail(Auth::user()->id);
-            $user->visit_count +=1;
             $user->save();
             return \redirect()->intended(route('web.mycv',app()->getLocale()));
         } else {

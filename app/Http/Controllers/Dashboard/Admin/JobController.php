@@ -25,7 +25,7 @@ class JobController extends Controller
     {
         $jobs = Job::paginate(10);
         
-        $jobs->load(['owner','sub_special','level','city','role']);
+        $jobs->load(['owner','sub_special','special','level','city','role']);
 
         return view('dashboard.admins.owners.jobs',compact('jobs'));
     }
@@ -68,7 +68,6 @@ class JobController extends Controller
             'role_id' => 'required',
             'country_id' => 'required', 
             'special_id' => 'required',
-            'special_id' => 'required',
             'status' => 'required'
             ]);
 
@@ -89,7 +88,7 @@ class JobController extends Controller
             $job->ar_description = $request->ar_description;
             $job->description = $request->description;
             
-            $job->level_id = $request->level_id;
+            $job->level = $request->level;
             $job->role_id = $request->role_id;
             $job->country_id = $request->country_id;
             $job->city_id = $request->city_id;
@@ -153,11 +152,11 @@ class JobController extends Controller
 
             $job = Job::findOrFail($id);
             
-            if($request->has('level_id')) {
-            $job->level_id = $request->level_id;
+            if($request->has('level')) {
+            $job->level = $request->level;
             }
-            if($request->has('role_id')) {
-            $job->role_id = $request->role_id;
+            if($request->has('role')) {
+            $job->role = $request->role;
             }
             if($request->has('country_id')) {
             $job->country_id = $request->country_id;

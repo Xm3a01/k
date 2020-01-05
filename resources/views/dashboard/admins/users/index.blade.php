@@ -158,7 +158,7 @@
                                                                     </button>
                                                             </li>
                                                             <li>
-                                                                <a  class="btn btn-info" href="{{route('admin.pdf',$user->id)}}" id="print-cv">اطبع CV</a>
+                                                                <a class="btn btn-info" href="{{route('admin.pdf',$user->id)}}" id="print-cv">اطبع CV</a>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -228,7 +228,7 @@
                     <div class="form-group">
                             <label class="col-md-2 control-label">الجنسية  </label>
                             <div class="col-md-4">
-                            <select name="country_id" id="inputState" class="form-control">
+                            <select name="birth_country_id" id="inputState" class="form-control">
                                 <option disabled selected> الجنسية </option>
                                 @foreach ($countries as $country) 
                                  <option value="{{ $country->id }}">{{ $country->ar_name }}</option>
@@ -238,7 +238,7 @@
 
                               <label class="col-md-1 control-label">العنوان</label>
                               <div class="col-md-4">
-                                <select name="birth_country_id" id="inputState" class="form-control">
+                                <select name="country_id" id="inputState" class="form-control">
                                     <option disabled selected> العنوان </option>
                                     @foreach ($countries as $country) 
                                      <option value="{{ $country->id }}">{{ $country->ar_name }}</option>
@@ -299,10 +299,10 @@
                             <div class="form-group">
                             <label class="col-md-2 control-label">التخصص</label>
                                 <div class="col-md-4">
-                                    <select name="sub_special_id" id="inputState" class="form-control">
+                                    <select name="special_id" id="inputState" class="form-control">
                                         <option disabled selected> التخصص </option>
-                                        @foreach ($sub_specials as $sub_special) 
-                                            <option value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
+                                        @foreach ($specials as $special) 
+                                            <option value="{{ $special->id }}">{{ $special->ar_name }}</option>
                                         @endforeach
                                     </select>
                                     </div>
@@ -317,19 +317,22 @@
                                             @endforeach
                                         </select>
                                     </div>
-
-
-                                    
                             </div>
-
-                            <br><h4 class="text-left m-3">بيانات الاتصال</h4><br>
+                            
                             <div class="form-group">
                                     <label class="col-md-2 control-label">رقم الهاتف</label>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                             <input type="text" name="phone" class="form-control  " placeholder=" ادخل رقم الهاتف">
                                      </div> 
                                 </div> 
-                         </div>    
+>
+                            <div class="form-group">
+                                    <label class="col-md-2 control-label">المستوى الوظيفي</label>
+                                    <div class="col-md-4">
+                                            <input type="text" name="level" class="form-control  " placeholder="مثلا : اخصائي">
+                                     </div> 
+                                </div> 
+                           </div>    
                         </form>
                     </div>
                 </div> 

@@ -48,7 +48,7 @@ class JobAccept extends Notification
             'city_id' => $this->job->city_id,
             'special_id' => $this->job->special_id,
             'sub_special_id' => $this->job->sub_special_id,
-            'level_id' => $this->job->level_id,
+            'level' => $this->job->level,
             'status' => $this->job->status,
             'selary' => $this->job->selary,
             'description' => $this->job->description,

@@ -14,6 +14,7 @@
   "Make your Resume Professional": "اجعل سيرتك الذاتية إحترافية",
   "Write a professional resume": " اكتب سيرة ذاتية إحترافية",
   "Print": "طباعة",
+  "View all jobs": "عرض جميع الوظائف",
   "Contact US": "اتصل بنا", 
   "Top Categories": "الفئات الأعلي",
   "Job Title": "المسمي الوظيفي",
@@ -32,6 +33,7 @@
   "City or Country":  "المدينة او الدولة", 
   "My Workspace": "الصفحة الشخصية",
   "Search Job": "ابحث عن وظيفة",
+  "Categories": "التصنيفات",
   "Popular Categories": "التصنيفات الأشهر",
   "Contact with Us": "تواصل معنا",
   "More Categories": "المزيد من التصنيفات",
@@ -40,6 +42,8 @@
   "Ad space": "مساحة اعلانية",
   "Dont miss the chance": "لا تدع الفرصة تفوتك",
   "Jobs": "الوظائف",
+  "Subject": "العنوان",
+  "Enter Subject": "ادخل عنوان الموضوع",
   "Add experience certificate (optional)": "اضف شهادة الخبرة (اختياري)",
   "Add Job Description": "اضف وصف الوظيفة",
   "Distinctive Job": "وظائف مميزة",
@@ -82,6 +86,7 @@
   "CV writing confrontations": "توجيهات كتابة السيرة الذاتية",
   "Two weeks of CV search": "اسبوعين من البحث عن السير الذاتية",
   "Search CV": "البحث عن السيرة الذاتية",
+  "The latest offers and news": "أحدث العروض والأخبار",
   "Find the best CVs quickly": "اعثر على أفضل السير الذاتية بسرعة",
   "Receive Job Seeakers CVs interested in working for you": "   استقبل السير الذاتية للباحثين عن عمل المهتمين بالعمل لديك",
   "Connect with the competencies that suit your company through the Gulf Waves website": "تواصل مع الكفاءات التي تناسب شركتك عبرموقع امواج الخليج الإلكتروني",
@@ -300,8 +305,7 @@
    "Connect with the largest community of physicians in the Middle East from all medical disciplines and levels. More than 100 doctors join the Gulf Waves daily": "تواصل مع أكبر مجتمع أطباء في الشرق الأوسط من كافة المجالات الطبية والتخصصات المختلفة. أكثر من 100 طبيب ينضم الى امواج الخليج يومياً",
    "Hire the ideal candidate and increase your companys profits. Choose the right solution for you according to your budget and time": "قم بتوظيف المرشح المثالي وزيادة أرباح شركتك. اختر ما يناسبك من الحلول المتوفرة وفقاً لميزانيتك ووقتك",
    "Market your company as the best place to work by creating a page for your company and a job site, and using effective marketing tools": "سوّق شركتك كأفضل مكان للعمل من خلال إنشاء صفحة لشركتك وموقع توظيف خاص بها، واستخدام أدوات التسويق الفعّالة",
-   "Months": "شهر",
-   "Years":"سنه"
+   "": ""
    
 
 

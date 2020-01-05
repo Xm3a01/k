@@ -27,7 +27,7 @@
  <!-- Tags Bar -->
     <div class="filterbar">
         <!--<span class="emlthis"><a href="mailto:example.com" class="btn btn-primary text-white  font-weight-bold" disabled = "true"><img src=" {{asset('asset/images/mail.png')}} " class="pl-1" alt="">بريد وظائف مشابهة</a></span>-->
-            <h5 class="pt-2">   {{__('research results')}} {{ $jobs->count()}} {{__('submitted')}}   </h5>
+           <h5 class="pt-2">  Search result {{ ($jobs->count() > 0) ? $jobs->count(): ($Ijobs->count() > 0 ? $Ijobs->count() : $all->count().' All Search Result ' )  }}   </h5>
         </div> 
     </div>  
     
@@ -40,7 +40,7 @@
                 </div>
                 <div class="job-details h-100">
                     <div class="p-3 align-self-center">
-                    <h3> {{ $job->sub_special }} </h3>
+                    <h3> {{ $job->sub_special->name ?? '' }} - {{ $job->special->name ?? '' }}</h3>
                     <div class="d-block d-lg-flex">
                     <p class="m-0"> {{ $job->yearsOfExper }} </p>
                         <span class="mr-3"> {{ date('F d, Y', strtotime($job->created_at)) }} </span></div>
@@ -51,10 +51,10 @@
                     <p class="m-0 text-primary"> {{  $job->description}} </div>
                 </div>
                 <div class="job-category align-self-center">
-                        <div class="p-3">
-                            <span class="text-warning p-2 rounded border border-warning"> {{ $job->status}} </span>
-                        </div>
-                        </div>
+                <div class="p-3">
+                    <span class="text-warning p-2 rounded border border-warning"> {{ $job->status}} </span>
+                  </div>
+                </div>
                 </a> 
                   
             @endforeach
@@ -66,7 +66,7 @@
                     </div>
                     <div class="job-details h-100">
                         <div class="p-3 align-self-center">
-                        <h3> {{ $job->sub_special }} </h3>
+                        <h3> {{ $job->sub_special->name ?? '' }} - {{ $job->special->name ?? '' }} </h3>
                         <div class="d-block d-lg-flex">
                         <p class="m-0"> {{ $job->yearsOfExper }} </p>
                             <span class="mr-3"> {{ date('F d, Y', strtotime($job->created_at)) }} </span></div>
@@ -77,10 +77,10 @@
                         <p class="m-0 text-primary"> {{  $job->description}} </div>
                     </div>
                     <div class="job-category align-self-center">
-                            <div class="p-3">
-                                <span class="text-warning p-2 rounded border border-warning"> {{ $job->status}} </span>
-                            </div>
-                            </div>
+                    <div class="p-3">
+                         <span class="text-warning p-2 rounded border border-warning"> {{ $job->status}} </span>
+                      </div>
+                    </div>
                     </a> 
                       
                 @endforeach
@@ -92,7 +92,7 @@
                     </div>
                     <div class="job-details h-100">
                         <div class="p-3 align-self-center">
-                        <h3> {{ $job->sub_special }} </h3>
+                        <h3> {{ $job->sub_special->name ?? '' }} - {{ $job->special->name ?? '' }} </h3>
                         <div class="d-block d-lg-flex">
                         <p class="m-0"> {{ $job->yearsOfExper }} </p>
                             <span class="mr-3"> {{ date('F d, Y', strtotime($job->created_at)) }} </span></div>
@@ -103,10 +103,10 @@
                         <p class="m-0 text-primary"> {{  $job->description}} </div>
                     </div>
                     <div class="job-category align-self-center">
-                            <div class="p-3">
-                                <span class="text-warning p-2 rounded border border-warning"> {{ $job->status}} </span>
-                            </div>
-                            </div>
+                        <div class="p-3">
+                            <span class="text-warning p-2 rounded border border-warning"> {{ $job->status}} </span>
+                           </div>
+                        </div>
                     </a> 
                       
                 @endforeach

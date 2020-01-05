@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Browse;
 
 use App\Exp;
 use App\Job;
+use App\News;
 use App\City;
 use App\Adv;
 use App\Role;
@@ -36,12 +37,12 @@ class BrowseController extends Controller
         $jobs = Job::latest()->take(6)->get();
         $specials = Special::all();
         $cities = City::all();
-        $jobs->load('owner');
+        $jobs->load('owner','special','sub_special');
         $partner = Partener::all();
         $advs = Adv::latest()->get();
-        
+        $news = News::all();
 
-        return view('pages.home',compact(['countries','sub_specials','owners','roles','jobs','specials' , 'cities' , 'partner','advs']));
+        return view('pages.home',compact(['countries','sub_specials','owners','roles','jobs','specials' , 'cities' , 'partner','advs','news']));
     }
 
     public function jobSingle($locale , $id)
@@ -101,7 +102,7 @@ class BrowseController extends Controller
             'subject' => 'required'
             ]);
             
-            Notification::route('mail', 'mohamed29w@gmail.com')  //Gw_sd@yahoo.co.uk
+            Notification::route('mail', 'Gw_sd@yahoo.co.uk')  //Gw_sd@yahoo.co.uk
              ->notify(new ContactNotification($request));
              
              \Session::flash('success',app()->getLocale() == 'ar' ? 'شكرا لك للتواصل معنا' : 'Thank you for cancat with us');
@@ -146,7 +147,7 @@ class BrowseController extends Controller
     
     public function by_role($locale , $id) {
         $role = Role::findOrFail($id);
-        $jobs = Job::where('role', $role->name)->where('selected',0)->get();
+        $jobs = Job::where('role_id', $role->id)->where('selected',0)->get();
         
         return view('pages.by_role',compact(['jobs','id']));
     }

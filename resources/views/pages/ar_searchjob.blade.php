@@ -39,7 +39,7 @@
                 </div>
                 <div class="job-details h-100">
                     <div class="p-3 align-self-center">
-                    <h3> {{ $job->sub_special->ar_name }} </h3>
+                    <h3> {{ $job->sub_special->ar_name ?? '' }} - {{ $job->special->ar_name ?? '' }}</h3>
                     <div class="d-block d-lg-flex">
                     <p class="m-0"> {{ $job->yearsOfExper }} </p>
                         <span class="mr-3"> {{ date('F d, Y', strtotime($job->created_at)) }} </span></div>
@@ -65,7 +65,7 @@
                         </div>
                         <div class="job-details h-100">
                           <div class="p-3 align-self-center">
-                           <h3> {{ $job->sub_special->ar_name}} </h3>
+                           <h3> {{ $job->sub_special->ar_name ?? '' }} - {{ $job->special->ar_name ?? '' }} </h3>
                            <div class="d-block d-lg-flex">
                             <p class="m-0"> {{$job->yearsOfExper}} </p>
                              <span class="mr-3"> {{date('F d, Y', strtotime($job->created_at))}} </span> 
@@ -92,7 +92,7 @@
                     </div>
                     <div class="job-details h-100">
                         <div class="p-3 align-self-center">
-                        <h3> {{ $job->sub_special->ar_name }} </h3>
+                        <h3> {{ $job->sub_special->ar_name ?? '' }} - {{ $job->special->ar_name ?? '' }} </h3>
                         <div class="d-block d-lg-flex">
                         <p class="m-0"> {{ $job->yearsOfExper }} </p>
                             <span class="mr-3"> {{ date('F d, Y', strtotime($job->created_at)) }} </span></div>

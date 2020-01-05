@@ -21,7 +21,7 @@
     <!-- BEGIN PAGE BREADCRUMB -->
     <ul class="page-breadcrumb breadcrumb">
         <li>
-            <a href="index.html">الرئيسية</a>
+            <a href="/dashboard">الرئيسية</a>
             <i class="fa fa-circle"></i>
         </li>
         <li>
@@ -84,7 +84,8 @@
                                             <th >إسم الشركة</th> 
                                             <th >المدينه</th>
                                             <th >المسمي الوظيفي</th>
-                                            <th >المستوى الوظيفي</th>
+                                            <th >التخصص </th>
+                                            <th >التخصص الاساسي</th>
                                             <th >نوع العمل</th>
                                             <th >المرتب</th>
                                             <th >سنوات الخبرة</th>
@@ -100,8 +101,9 @@
                                             <td> {{$job->owner->ar_name.' '.$job->ar_last_name}} </td>
                                             <td> {{$job->owner->company_name}}</td>
                                             <td> {{$job->city->ar_name}} </td>
-                                            <td> {{$job->sub_special->ar_name}} </td> 
-                                            <td> {{$job->level->ar_name}} </td>
+                                            <td> {{$job->special->ar_name}} </td> 
+                                            <td> {{$job->sub_special->ar_name ?? ''}} </td> 
+                                            <td> {{$job->level}} </td>
                                             <td> {{$job->ar_status}}</td>
                                             <td> {{$job->selary}} </td>
                                             <td> {{$job->yearsOfExper}}</td>

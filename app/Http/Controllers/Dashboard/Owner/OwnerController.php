@@ -12,6 +12,7 @@ use App\Level;
 use App\Owner;
 use App\Country;
 use App\Special;
+use App\Princing;
 use App\SubSpecial;
 use Illuminate\Http\Request;
 use App\Notifications\CvRequest; 
@@ -44,6 +45,7 @@ class OwnerController extends Controller
         $users = User::where('owner_id', Auth::user()->id)->latest()->take(4)->get();
         $jobs = Job::where('owner_id', Auth::user()->id)->latest()->take(4)->get();
         $sub_specials = SubSpecial::all();
+        $specials = Special::all();
         $countries = Country::all();
         $cities = City::all();
         $roles = Role::all();
@@ -51,7 +53,7 @@ class OwnerController extends Controller
             return view('dashboard.owners.addcompany' , compact(['roles'  , 'countries' , 'cities']));
         } else {
             $jobs->load('owner');
-            return view('dashboard.owners.ownerdashboard' , compact(['users' , 'jobs' , 'sub_specials' , 'countries' , 'cities']));
+            return view('dashboard.owners.ownerdashboard' , compact(['users' , 'jobs' , 'sub_specials' , 'countries' , 'cities','specials']));
         }
     }
 
@@ -62,7 +64,9 @@ class OwnerController extends Controller
         $countries = Country::all();
         $users = User::all();
         $sub_specials = SubSpecial::all();
-        return view('pages.jobowner',compact(['countries' , 'roles','cities','users','sub_specials']));
+        $specials = Special::all();
+        $prices = Princing::latest()->take(2)->get();
+        return view('pages.jobowner',compact(['countries' , 'roles','cities','users','sub_specials','specials','prices']));
     }
 
     /**
@@ -72,6 +76,7 @@ class OwnerController extends Controller
      */
     public function create()
     {
+        $specials = Special::all();
         $sub_specials = SubSpecial::all();
         $countries = Country::all();
         $cities = City::all();
@@ -79,7 +84,7 @@ class OwnerController extends Controller
         $levels = Level::all();
         $specials = Special::all();
 
-        return view('dashboard.owners.addNewJob' , 
+        return view('dashboard.owners.addNewJob',
         compact(['levels','specials' , 'roles' , 'sub_specials' , 'countries' , 'cities']));
     }
 
@@ -93,13 +98,12 @@ class OwnerController extends Controller
     {
         $request->validate ([
             'experinse' => 'required',
-            'level_id' => 'required',
+            'level' => 'required',
             'role_id' => 'required',
             'country_id' => 'required',
             'city_id' => 'required',
             'status' => 'required',
             'special_id' => 'required',
-            'sub_special_id' => 'required'
             
         ]);
             
@@ -258,8 +262,8 @@ class OwnerController extends Controller
             case 'job':
                 $job = Job::findOrFail($id);
                 $job->yearsOfExper = $request->experinse;
-                if($request->has('level_id')) {
-                    $job->level_id = $request->level_id;
+                if($request->has('level')) {
+                    $job->level = $request->level;
                 }
 
                 if($request->has('role_id')) {
@@ -340,12 +344,12 @@ class OwnerController extends Controller
         $user = null;
         if(app()->getLocale() == 'ar') {
             $country = country::where('ar_name',$request->place)->first();
-            $sub_special = SubSpecial::where('ar_name',$request->special)->first();
+            $special = Special::where('ar_name',$request->special)->first();
 
-            $users = User::where('sub_special_id',$sub_special->id)
+            $users = User::where('special_id',$special->id)
                 ->where('country_id',$country->id)->get();
 
-            $orUsers = Exp::where('sub_special_id',$sub_special->id)
+            $orUsers = Exp::where('special_id',$special->id)
                      ->where('country_id',$country->id)->get();
                      
             $orUsers->load('user');      
@@ -355,10 +359,10 @@ class OwnerController extends Controller
             $country = country::where('name',$request->place)->first();
             $sub_special = SubSpecial::where('name',$request->special)->first();
 
-            $users = User::where('sub_special_id',$sub_special->id)
+            $users = User::where('special_id',$special->id)
                 ->where('country_id',$country->id)->get();
 
-            $orUsers = Exp::where('sub_special_id',$sub_special->id)
+            $orUsers = Exp::where('special_id',$special->id)
                      ->where('country_id',$country->id)->get();
             $orUsers->load('user');      
             $users->load('exps','educations');

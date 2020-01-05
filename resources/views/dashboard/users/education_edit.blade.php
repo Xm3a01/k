@@ -14,8 +14,8 @@
                     <label for="application">{{__('Special')}}</label>
                     <select name="sub_special_id" id="inputState" class="form-control">
                         <option selected disabled>{{__('Special')}}</option>
-                        @foreach ($sub_specials as $sub_special)  
-                        <option {{$education->sub_special_id == $sub_special->id ? 'selected' : ''}} value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
+                        @foreach ($specials as $special)  
+                        <option {{$education->special_id == $special->id ? 'selected' : ''}} value="{{ $special->id }}">{{app()->getLocale() == 'ar' ?  $special->ar_name : $special->name }}</option>
                         @endforeach
                     </select>
                     <label for="application">{{__('Arabic university')}}</label>

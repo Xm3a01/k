@@ -5,7 +5,7 @@
 
 <div class="unit-5 overlay" style="background-image: url('{{asset('asset/images/hero_1.jpg')}}');">
     <div class="container text-center">
-      <h2 class="mb-0">{{   (app()->getLocale() == 'ar') ? $job->ar_role :  $job->role }}</h2>
+      <h2 class="mb-0">{{   (app()->getLocale() == 'ar') ? $job->role->ar_name :  $job->role->name }}</h2>
       <p class="mb-0 unit-6"><a href="index.html">{{__('Home')}}</a> <span class="sep">></span> <span>{{__('Job Detail')}}</span></p>
     </div>
   </div> 
@@ -17,7 +17,7 @@
           <div class="p-5 mb-5 bg-white"> 
             <div class="mb-md-5">
              <div class="job-post-item-header d-flex align-items-center">
-               <h3> {{(app()->getLocale() == 'ar') ? $job->ar_sub_special : $job->sub_special}} </h3>
+               <h3> {{(app()->getLocale() == 'ar') ? $job->sub_special->ar_name ?? '' : $job->sub_special->name ?? ''}} - {{(app()->getLocale() == 'ar') ? $job->special->ar_name ?? '' : $job->special->name ?? ''}} </h3>
                  <div class="ml-auto">
                 <span class="border border-warning text-warning py-2 px-2 rounded "> {{  (app()->getLocale() == 'ar') ? $job->ar_status :  $job->status }} </span>
                </div>
@@ -26,7 +26,7 @@
              <div class="job-post-item-body d-block d-md-flex py-3">
                <img src=" {{ asset(Storage::url($job->owner->logo)) }} " alt="Image" class="img-fluid rounded" width="75px" height="75px">
                <div class="m-3 align-self-center"><span class="fl-bigmug-line-portfolio23"></span> <a href="#"> {{ $job->owner->company_name }} </a></div>
-               <div class="align-self-center pb-1"><span class="fl-bigmug-line-big104"></span> <span> {{ (app()->getLocale() == 'ar') ? $job->ar_city.' , '.$job->ar_counrty :  $job->city.' , '.$job->counrty }} </span></div>
+               <div class="align-self-center pb-1"><span class="fl-bigmug-line-big104"></span> <span> {{ (app()->getLocale() == 'ar') ? $job->city->ar_name.' , '.$job->country->ar_name :  $job->city->name.' , '.$job->country->name }} </span></div>
              </div>
             </div> 
             

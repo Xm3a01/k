@@ -88,6 +88,7 @@
                                     <thead>
                                         <tr>
                                             <th data-field="state" data-checkbox="true">#</th>
+                                            <th data-field="ar_coName" data-align="center" data-sortable="true">الدوله</th>
                                             <th data-field="ar_coName" data-align="center" data-sortable="true">المدينه  </th>
                                             <th data-field="coName" data-align="center" data-sortable="true">المدينة باللغة الانجليزية</th>
                                             <th data-field="" data-align="center">Action</th>
@@ -97,6 +98,7 @@
                                         @foreach ($cities as $city)     
                                         <tr>
                                             <td>{{$city->id}} </td> 
+                                            <td> {{$city->country->ar_name}} </td> 
                                             <td> {{$city->ar_name}} </td> 
                                             <td> {{$city->name}} </td> 
                                             <td> 
@@ -108,7 +110,7 @@
                                         @endforeach
                                         
                                         </tbody>
-                            
+                            {{cities->links()}}
                                     </table>
                                   </div>
                                </div>

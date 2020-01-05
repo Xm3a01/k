@@ -32,7 +32,7 @@
                 </div>
                 <div class="job-details h-100">
                   <div class="p-3 align-self-center">
-                   <h3> {{ $job->ar_sub_special}} </h3>
+                   <h3> {{ app()->getLocale() ==  'ar' ? $job->special->ar_name ?? '' : $job->special->name ?? ''}} - {{(app()->getLocale() == 'ar') ? $job->sub_special->ar_name ?? '' : $job->sub_special->name ?? ''}}</h3>
                    <div class="d-block d-lg-flex">
                     <p class="m-0"> {{$job->yearsOfExper}} </p>
                      <span class="mr-3"> {{date('F d, Y', strtotime($job->created_at))}} </span> 

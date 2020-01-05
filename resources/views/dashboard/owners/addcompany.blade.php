@@ -32,7 +32,7 @@
                         <select name="role_id" id="inputState" class="form-control">
                                 <option selected disabled>{{__('Role')}}</option>
                                 @foreach ($roles as $role)  
-                                <option  value="{{ $role->id }}">{{ $role->ar_name }}</option>
+                                <option  value="{{ $role->id }}">{{app()->getLocale() == 'ar' ? $role->ar_name : $role->name }}</option>
                                 @endforeach
                             </select>
                         </div> 
@@ -42,7 +42,7 @@
                         <select name="country_id" id="inputState" class="form-control">
                                   <option selected disabled>الدوله</option>
                                 @foreach ($countries as $country) 
-                                  <option  value="{{ $country->id }}">{{ $country->ar_name }}</option>
+                                  <option  value="{{ $country->id }}">{{ app()->getLocale() == 'ar' ? $country->ar_name : $country->name }}</option>
                                 @endforeach
                             </select>
                         </div> 
@@ -52,7 +52,7 @@
                             <select name="city_id" id="inputState" class="form-control">
                                     <option selected disabled>{{__('City')}}</option>
                                   @foreach ($cities as $city) 
-                                    <option  value="{{ $city->id }}">{{ $city->ar_name }}</option>
+                                    <option  value="{{ $city->id }}">{{ app()->getLocale() == 'ar' ? $city->ar_name : $city->name }}</option>
                                   @endforeach
                                 </select>
                             </div>

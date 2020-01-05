@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Education extends Model
 {
-   protected $fillable =['user_id' , 'qualification', 'ar_qualification' , 'grade_date' , 'grade' , 'ar_university' , 'university' , 'sub_special_id'];
+   protected $fillable =['user_id' , 'qualification', 'ar_qualification' , 'grade_date' , 'grade' , 'ar_university' , 'university' , 'sub_special_id','special_id'];
 
    public function user()
    {
@@ -16,5 +16,10 @@ class Education extends Model
    public function sub_special()
    {
        return $this->belongsTo(SubSpecial::class);
+   }
+   
+   public function special()
+   {
+       return $this->belongsTo(Special::class);
    }
 }

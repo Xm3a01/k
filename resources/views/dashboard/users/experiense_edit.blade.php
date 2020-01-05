@@ -63,19 +63,14 @@
                      </select>
 
                     <label for="inputEmail4">{{__('Job Level')}}</label>
-                    <select name="level_id" id="inputState" class="form-control">
-                        <option selected disabled>{{__('Job Level')}}</option>
-                        @foreach ($levels as $level)  
-                           <option {{$expert->level_id == $level->id ? 'selected' : ''}} value="{{ $level->id }}">{{ $level->ar_name }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" class="form-control" id="inputAddress2" placeholder="مثال: اخصائي." name="level" value=" {{$expert->level}} ">
                           
 
                     <label for="inputEmail4">{{__('Specialization')}}</label>
-                    <select name="sub_special_id" id="inputState" class="form-control">
+                    <select name="special_id" id="inputState" class="form-control">
                         <option selected disabled>{{__('Specialization')}}</option>
-                            @foreach ($sub_specials as $sub_special)  
-                            <option {{$expert->sub_special_id == $sub_special->id ? 'selected' : ''}} value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
+                            @foreach ($specials as $special)  
+                            <option {{$expert->special_id == $special->id ? 'selected' : ''}} value="{{ $special->id }}">{{ $special->ar_name }}</option>
                         @endforeach
                     </select>
             

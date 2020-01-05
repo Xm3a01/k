@@ -52,14 +52,9 @@
                            </div>
                             
                             <div class="form-group col-md-6">
-                                <label for="inputEmail4">{{ __('Job Level ') }}</label>
-                                <select name="level_id" id="inputState" class="form-control">
-                                    <option selected disabled>{{ __('Job Level ') }}</option>
-                                    @foreach ($levels as $level)  
-                                    <option {{$job->level_id == $level->id ? 'selected' : ''}} value="{{ $level->id }}">{{ $level->ar_name }}</option>
-                                    @endforeach
-                                  </select>
-                                </div>
+                                <label for="inputEmail4">{{ __('Job Level') }}</label>
+                                <input type="text" class="form-control  " placeholder="اخصائي : مثلا" name="level">
+                           </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="inputEmail4">{{__('Country')}}</label>
@@ -158,7 +153,7 @@
                             <label class="font-weight-bold" for="email">المسمي الوظيفي</label>
                             <input v-model="special" name = "special" list="special" type="text" class=" form-control  px-3" placeholder=" {{__('Job Title')}} " autocomplete = "off">
                             <datalist id="special">
-                              @foreach ($sub_specials as $sub)   
+                              @foreach ($specials as $sub)   
                                 <option  value="{{ (app()->getLocale() == 'en') ? $sub->name : $sub->ar_name}} ">
                                 @endforeach
                             </datalist>

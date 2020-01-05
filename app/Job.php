@@ -20,7 +20,7 @@ class Job extends Model
 
     public function special()
     {
-        return $this->belongsTo(Specials::class);
+        return $this->belongsTo(Special::class);
     }
 
     public function city()

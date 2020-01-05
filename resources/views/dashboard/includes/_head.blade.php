@@ -35,3 +35,5 @@
 <link rel="shortcut icon" href="favicon.ico" />
 {{-- <link rel="stylesheet" href="vendor/css/main.css"> --}}
 
+<link href="{{asset('vendor/css/fstdropdown.css')}}" rel="stylesheet" type="text/css">
+

@@ -52,12 +52,7 @@
                     <div class="form-group">
                          <label class="col-md-3 control-label">المستوى الوظيفي</label>
                             <div class="col-md-6">
-                             <select name="level_id" id="inputState" class="form-control">
-                                <option selected disabled>المستوى الوظيفي</option>
-                                @foreach ($levels as $level)  
-                                <option value="{{ $level->id }}">{{ $level->ar_name }}</option>
-                                @endforeach
-                              </select>
+                             <input type="text" class="form-control  " placeholder="مثال:  اخصائي- " name="level">
                             </div>      
                         </div>
 

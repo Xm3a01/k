@@ -41,8 +41,8 @@
                   <th>{{__('Education')}} </th>
                   <td>
                     <a href="" data-toggle = "modal" data-target = "#educationinfo">
-                     {{-- {{($user->role_id  == null) ? __('Add Education info') : (app()->getLocale() == 'ar') ? $user->role->ar_name ?? '' :  $user->role->name ?? ''}}  --}}
-                     - @foreach($user->educations as $key => $education ) <br> {{$key + 1}} - {{(app()->getLocale() == 'ar') ? $education->ar_qualification.' - '.$education['sub_special']['ar_name'] ?? '': $education->qualification.' - '.$education['sub_special']['name'] ?? ''}} @endforeach
+                     {{($user->role_id  == null) ? __('Add Education info') : (app()->getLocale() == 'ar') ? $user->role->ar_name ?? '' :  $user->role->name ?? ''}} 
+                        @foreach($user->educations as $key => $education ) @if($user->educations->contains($education))  <br> {{$key + 1}} - {{(app()->getLocale() == 'ar') ? $education->ar_qualification.' - '.$education['special']['ar_name'] ?? '': $education->qualification.' - '.$education['special']['name'] ?? ''}} @endif @endforeach
                        {{-- @foreach($user->educations as $education ) {{$education['sub_special']['ar_name']}} @endforeach  --}}
                     {{-- {{(app()->getLocale() == 'ar') ? $user->sub_special->ar_name ?? '':$user->sub_special->name ?? ''}} --}}
                     </a></td>
@@ -94,9 +94,12 @@
                                 <td>{{(app()->getLocale() == 'ar') ? $user->ar_last_name : $user->last_name}}</td>
                               </tr> 
                               <tr>
-                                <th scope="col">{{__('Job title')}}</th> 
-                                <td>{{(app()->getLocale() == 'ar') ? $user->sub_special->ar_name ?? '' : $user->sub_special->name ?? ''}}</td>
+                                <th scope="col">{{__('Specialization')}}</th> 
+                                <td>{{(app()->getLocale() == 'ar') ? $user->special->ar_name ?? '' : $user->special->name ?? ''}}</td>
                               </tr> 
+                              <th scope="row">{{__('Job Level')}}</th>
+                                <td>{{ $user->level ?? ''}}</td> 
+                              </tr>
                               <tr>
                                 <th scope="row">{{__('Gender')}}</th>
                                 <td>{{(app()->getLocale() == 'ar') ? $user->ar_gender : $user->gender}}</td> 
@@ -167,12 +170,13 @@
                                 
                     @foreach ($user->educations as $education) 
                 
+                      @if($user->educations->contains($education)) 
                         @if(app()->getLocale() == 'ar')
                         <div class="card-body d-flex justify-content-between">
                         <table class="table table-borderless">
                           <tr> 
                               <th scope="col"> {{__('Qualification')}}  </th> 
-                              <td> <span>{{$education->sub_special->ar_name ?? ''}}</span> - <span>{{$user->role->ar_name}}</span> - <span>{{$education->ar_qualification}}</span></td>
+                              <td> <span>{{$education['special']['ar_name'] ?? ''}}</span> - <span>{{$user->role->ar_name}}</span> - <span>{{$education->ar_qualification}}</span></td>
                           </tr> 
                           <tr> 
                              <th scope="col">{{__('University')}}</th>
@@ -206,7 +210,7 @@
                            <table class="table table-borderless">
                              <tr> 
                                 <th scope="col"> {{__('Qualification')}}  </th> 
-                                <td><span>{{$user->role->name}}</span> - <span>{{$user->sub_special->name ?? ''}}</span> -  <span>{{$education->qualification}}</span></td>  
+                                <td><span>{{$user->role->name}}</span> - <span>{{$education['special']['name'] ?? ''}}</span> -  <span>{{$education->qualification}}</span></td>  
                              </tr> 
                              <tr> 
                                 <th scope="col">{{__('University Of')}}</th>
@@ -235,7 +239,7 @@
                             </div>
                           
                             @endif
-                                  
+                            @endif 
                                 @endforeach
                             </div>
                           </div>
@@ -314,7 +318,7 @@
                             <div class=""> 
                               @foreach ($user->exps as $expert)
                               
-                           
+                              @if($user->exps->contains($expert)) 
                                 @if(app()->getLocale() == 'ar')
                                 <div class="card-body d-flex justify-content-between">
                                 <table class="table table-borderless">
@@ -323,8 +327,8 @@
                                     <td><span>{{$expert->end_year - $expert->start_year}}  {{__('Year')}}</span> &  <span>{{abs($expert->end_month - $expert->start_month)}} {{__('Month')}}</span> </td>
                                     </tr> 
                                      <tr> 
-                                     <th scope="col">{{__('Job Title')}}</th> 
-                                     <td>{{$expert->level->ar_name}}</td> 
+                                     <th scope="col">{{__('Job Level')}}</th> 
+                                     <td>{{$expert->level ?? ''}}</td> 
                                   </tr> 
                                   <tr> 
                                      <th scope="col">{{__('Inistitute')}} </th> 
@@ -337,7 +341,7 @@
                                     
                                     <tr> 
                                     <th scope="col">{{__('File')}}</th> 
-                                   <td> <form method = "POST" action ="{{route('download' ,$user->id)}}" enctype="multipart/form-data"> 
+                                   <td> <form method = "POST" action ="{{route('user.download' ,$user->id)}}" enctype="multipart/form-data"> 
                                         @csrf
                                         <input  type ="hidden" name='f' value ="{{$expert->expert_pdf}}">
                                         <button class ="delete m-btn"> {{__('Download')}}  </button>
@@ -361,8 +365,8 @@
                                         <td><span>{{$expert->end_year - $expert->start_year}}  {{__('Years')}}</span> &  <span>{{abs($expert->end_month - $expert->start_month)}} </span> </td>
                                     </tr>  
                                   <tr> 
-                                    <th scope="col"> {{__('Job Title')}}  </th>  
-                                    <td> {{$expert->level->name}} </td> 
+                                    <th scope="col"> {{__('Job Level')}}  </th>  
+                                    <td> {{$expert->level ?? ''}} </td> 
                                   </tr>
                                   <tr>
                                     <th scope="col">{{__('Inistitute')}} </th> 
@@ -374,7 +378,7 @@
                                     </tr>
                                     <tr> 
                                     <th scope="col">{{__('File')}}</th> 
-                                   <td> <form method = "POST" action ="{{route('download' ,$user->id)}}" enctype="multipart/form-data"> 
+                                   <td> <form method = "POST" action ="{{route('user.download' ,$user->id)}}" enctype="multipart/form-data"> 
                                         @csrf
                                         <input  type ="hidden" name='f' value ="{{$expert->expert_pdf}}">
                                         <button class ="delete m-btn"> <i class="fa fa-download" aria-hidden="true"></i> Download </button>
@@ -390,6 +394,7 @@
                                   </form>
                                   </div>
                                   @endif
+                                 @endif
                               @endforeach
                 
                             </div>
@@ -413,7 +418,7 @@
                                    <th scope="col"> {{__('Name')}}  </th> 
                             
                                    <td>
-                                       <form method = "POST" action ="{{route('download' ,$user->id)}}" enctype="multipart/form-data"> 
+                                       <form method = "POST" action ="{{route('user.download' ,$user->id)}}" enctype="multipart/form-data"> 
                                         @csrf
                                         <input  type ="hidden" name='f' value ="{{$file->attch}}">
                                         <input  type ="hidden" name='name' value ="{{app()->getLocale() == 'ar' ? $file->ar_name : $file->name}}">
@@ -702,10 +707,10 @@
                     </div>
                     <div class="form-group col-md-6"> 
                           <label for="inputEmail4">{{__('Special')}}</label>
-                          <select name="sub_special_id" id="inputState" class="form-control">
+                          <select name="special_id" id="inputState" class="form-control">
                                  <option selected disabled>{{__('Special')}}</option>
-                                  @foreach ($sub_specials as $sub_special)  
-                                <option  value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
+                                  @foreach ($specials as $special)  
+                                <option  value="{{ $special->id }}">{{ app()->getLocale() == 'ar'  ? $special->ar_name: $special->name }}</option>
                               @endforeach
                           </select>
                     </div>
@@ -823,20 +828,15 @@
 
                       <div class="form-group col-md-6">
                           <label for="inputEmail4">{{__('Job Level')}}</label>
-                          <select name="level_id" id="inputState" class="form-control">
-                              <option selected disabled>{{__('Job Level')}}</option>
-                              @foreach ($levels as $level)  
-                              <option  value="{{ $level->id }}">{{ $level->ar_name }}</option>
-                              @endforeach
-                            </select>
+                            <input type="text" class="form-control" id="inputAddress2"  name="level" placeholder ="مثلا : اخصائي">
                         </div>
 
                       <div class="form-group col-md-6">
                         <label for="inputEmail4">{{__('Specialization')}}</label>
-                        <select name="sub_special_id" id="inputState" class="form-control">
+                        <select name="special_id" id="inputState" class="form-control">
                             <option selected disabled>{{__('Specialization')}}</option>
-                            @foreach ($sub_specials as $sub_special)  
-                            <option  value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
+                            @foreach ($specials as $special)  
+                            <option  value="{{ $special->id }}">{{ app()->getLocale() == 'ar' ? $special->ar_name?? '' : $special->name ?? '' }}</option>
                             @endforeach
                            </select>
                         </div>
@@ -930,7 +930,7 @@
                             <select name="birth_country_id" id="inputState" class="form-control">
                                 <option selected disabled>{{__('Nationality')}}</option>
                                 @foreach ($countries as $country) 
-                                <option {{$user->ar_birth == $country->ar_name ? 'selected' : ''}} value="{{ $country->id }}">{{ $country->ar_name }}</option>
+                                <option {{$user->ar_birth == $country->ar_name ? 'selected' : ''}} value="{{ $country->id }}">{{app()->getLocale() == 'ar' ?  $country->ar_name: $country->ar_name }}</option>
                                 @endforeach
                               </select>
                           </div> 
@@ -944,7 +944,7 @@
                               <select name="country_id" id="inputState" class="form-control">
                                   <option selected disabled>{{__('Current Housing')}}</option>
                                   @foreach ($countries as $country) 
-                                  <option {{$user->country_id == $country->id ? 'selected' : ''}} value="{{ $country->id }}">{{ $country->ar_name }}</option>
+                                  <option {{$user->country_id == $country->id ? 'selected' : ''}} value="{{ $country->id }}">{{ app()->getLocale() == 'ar' ? $country->ar_name : $country->name }}</option>
                                   @endforeach
                                 </select>
                             </div>
@@ -954,19 +954,24 @@
                               <select name="role_id" id="inputState" class="form-control">
                                   <option selected disabled>{{__('Role')}}</option>
                                   @foreach ($roles as $role)  
-                                  <option {{ $user->role_id == $role->id ? 'selected' : ''}} value="{{ $role->id }}">{{ $role->ar_name }}</option>
+                                  <option {{ $user->role_id == $role->id ? 'selected' : ''}} value="{{ $role->id }}">{{ app()->getLocale() == 'ar' ? $role->ar_name : $role->name }}</option>
                                   @endforeach
                                 </select>
                             </div>
                             
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                             <label for="inputEmail4">{{__('Job title')}}</label>
-                            <select name="sub_special_id" id="inputState" class="form-control">
+                            <select name="special_id" id="inputState" class="form-control">
                                 <option selected disabled>{{__('Job title')}}</option>
-                                @foreach ($sub_specials as $sub_special)  
-                                <option {{$user->sub_special_id == $sub_special->id ? 'selected' : ''}} value="{{ $sub_special->id }}">{{ $sub_special->ar_name }}</option>
+                                @foreach ($specials as $special)  
+                                <option {{$user->special_id == $special->id ? 'selected' : ''}} value="{{ $special->id }}">{{ app()->getLocale() == 'ar' ? $special->ar_name : $special->name }}</option>
                                 @endforeach
                             </select>
+                           </div>
+                           
+                           <div class="form-group col-md-6">
+                            <label for="inputEmail4">{{__('Job Level')}}</label>
+                            <input type="text"  width="276" class="form-control" name="level" value="{{$user->level}}" placeholder ="مثلا : اخصائي" />
                            </div>
                           
                            <div class="form-group col-md-6">

@@ -18,6 +18,7 @@ use App\Reference;
 use App\Language;
 use App\Education;
 use App\SubSpecial;
+use App\Special;
 use Illuminate\Http\Request;
 use App\Notifications\ApllyJob;
 use Illuminate\Support\Facades\DB;
@@ -73,7 +74,6 @@ class UserController extends Controller
     {
         $guid = Guid::latest()->take(1)->first();
         $expert = '';
-    if(Auth::guard('web')->check()) {
         $user = User::findOrFail(Auth::user()->id);
         $user->load(['exps','educations' , 'languages' , 'files','references']);
         $expert = Exp::where('user_id' , $user->id)->first();
@@ -87,22 +87,21 @@ class UserController extends Controller
             $about = About::latest()->take(1)->first();
             $cities = City::all();
             $sub_specials = SubSpecial::all();
+            $specials = Special::all();
             $levels = Level::all();
             $roles = Role::all();
             $countries = Country::all();
-           return view('dashboard.users.add_new_cv',compact(['about','user' , 'cities','countries','sub_specials','levels','roles']));
+           return view('dashboard.users.add_new_cv',compact(['about','user' , 'cities','countries','sub_specials','levels','roles','specials']));
         } else {
             return view('dashboard.users.account_result',compact(['jobs','user','guid']));
         }
     }
-    }
 
     public function myCv()
     {
-        if(Auth::guard('web')->check()) {
         $user = User::findOrFail(Auth::user()->id);
-        $user->load(['exps','educations.sub_special' , 'languages' , 'files','references','role','city','country','sub_special','level']);
-        // dd( $user->educations);
+        $user->load(['exps','educations.special' , 'languages' , 'files','references','role','city','country','sub_special','level','special']);
+        // dd($user);
         $expert = Exp::where('user_id', $user->id)->first();
         $education = Education::where('user_id', $user->id)->first();
         $language = Language::where('user_id', $user->id)->first();
@@ -112,6 +111,8 @@ class UserController extends Controller
         $sub_specials = SubSpecial::all();
         $levels = Level::all();
         $roles = Role::all();
+        $specials = Special::all();
+
         $jobs = Job::where('role_id', $user->role_id)->where('selected',0)->orWhere('country_id',$user->country_id)->get();
         $countries = Country::all();
         $count =  $this->pcount('users' ,'User', $user->id);
@@ -121,11 +122,11 @@ class UserController extends Controller
         $educount =  $this->pcount('education' ,'Education', $education->id ?? '');
         $langcount =  $this->pcount('languages' , 'Language' , $language->id ?? '' );
         $filecount =  $this->pcount('files' , 'File' , $file->id ?? '' );
-        
+
         //return $count + $expcount;
 
         if($expcount != null){
-           $count =  $count + 30;
+          $count =  $count + 30;
         } if(!is_null($educount)) {
             $count =  $count + 15;
         } if($langcount  != null) {
@@ -137,10 +138,12 @@ class UserController extends Controller
         if($filecount  != null) {
             $count =  $count + 15;
         }
-        // return $x;
+
         
         // $count = abs($count + ($expcount ?? '' + $educount ?? '' + $langcount ?? '' ) -  $x);
         }
+
+
         if($user->visit_count <= 1) {
            $about = About::latest()->take(1)->first();
             $cities = City::all();
@@ -148,11 +151,10 @@ class UserController extends Controller
             $levels = Level::all();
             $roles = Role::all();
             $countries = Country::all();
-           return view('dashboard.users.add_new_cv',compact(['about','user' , 'cities','countries','sub_specials','levels','roles']));
+           return view('dashboard.users.add_new_cv',compact(['about','user' , 'cities','countries','sub_specials','levels','roles','specials']));
         } else {
-            return view('dashboard.users.my_cv' , compact(['user','result', 'count' , 'cities','countries','sub_specials','levels','roles','expert']));
-        }} else {
-            return redirect()->route('login' ,app()->getLocale());
+            // dd($specials);
+            return view('dashboard.users.my_cv' , compact(['user','result', 'count' , 'cities','countries','sub_specials','levels','roles','expert','specials']));
         }
     }
 
@@ -167,8 +169,9 @@ class UserController extends Controller
                 'grade' => 'required',
                 'ar_university' => 'required',
                 'university' => 'required',
-                'sub_special_id' => 'required'
+                'special_id' => 'required'
             ]);
+            
 
             $edu = Education::create([
                 'user_id' => $request->user_id,
@@ -176,7 +179,7 @@ class UserController extends Controller
                 'grade' => $request->grade,
                 'ar_university' =>$request->ar_university,
                 'university' => $request->university,
-                'sub_special_id' => $request->sub_special_id,
+                'special_id' => $request->special_id,
                 'ar_qualification' => $this->qualification[$request->qualification],
                 'qualification' => $request->qualification,
             ]);
@@ -280,8 +283,8 @@ class UserController extends Controller
           default:
                 $request->validate([
                     'role_id' => 'required',
-                    'sub_special_id' => 'required',
-                    'level_id' => 'required',
+                    'special_id' => 'required',
+                    'level' => 'required',
                     'country_id' => 'required',
                     'cert_pdf' => 'required',
                     'start_year' => 'required|int',
@@ -323,7 +326,7 @@ class UserController extends Controller
             
             $expert->country_id = $request->country_id;
             $expert->role_id = $request->role_id;
-            $expert->level_id = $request->level_id;
+            $expert->level = $request->level;
             $expert->sub_special_id = $request->sub_special_id;
             
         if($expert->save()) {
@@ -344,8 +347,9 @@ class UserController extends Controller
     {
         $education = Education::findOrFail($id);
         $sub_specials = SubSpecial::all();
+        $specials = Special::all();
 
-        return view('dashboard.users.education_edit', compact(['education','id','sub_specials']));
+        return view('dashboard.users.education_edit', compact(['education','id','sub_specials','specials']));
     }
 
     public function exp_edit($id , $locale)
@@ -354,11 +358,12 @@ class UserController extends Controller
            $expert = Exp::findOrFail($id);
            $cities = City::all();
             $sub_specials = SubSpecial::all();
+            $specials = Special::all();
             $levels = Level::all();
             $roles = Role::all();
             $countries = Country::all();
 
-        return view('dashboard.users.experiense_edit', compact('expert','id' , 'cities','countries','sub_specials','levels','roles'));
+        return view('dashboard.users.experiense_edit', compact('expert','id' , 'cities','countries','sub_specials','levels','roles','specials'));
     }
     
     public function lang_edit($locale , $id)
@@ -391,7 +396,7 @@ class UserController extends Controller
                 $request->validate([
                     'role_id' => 'required',
                     'sub_special_id' => 'required',
-                    'level_id' => 'required',
+                    'level' => 'required',
                     'country_id' => 'required',
                     'cert_pdf' => 'required',
                     'start_month' => 'required|int',
@@ -428,8 +433,8 @@ class UserController extends Controller
             $expert->end_month = $request->end_month;
         }
 
-        if($request->has('level_id')) {
-            $expert->level_id = $request->level_id;
+        if($request->has('level')) {
+            $expert->level = $request->level;
          }
         
 
@@ -479,8 +484,8 @@ class UserController extends Controller
         $edu->grade = $request->grade;
     }
     
-        if($request->has('sub_special_id')){
-            $edu->sub_special_id = $request->sub_special_id;
+        if($request->has('special_id')){
+            $edu->special_id = $request->sub_special;
         }
 
     if($edu->save()){
@@ -624,7 +629,7 @@ class UserController extends Controller
         }
 
         if($request->has('new_form')) {
-            $user->visit_count +=1;
+            $user->visit_count = 2;
         }
 
         if($request->has('city_id')) {
@@ -641,9 +646,13 @@ class UserController extends Controller
         if($request->has('role_id')){
             $user->role_id = $request->role_id;
         }
-        if($request->has('sub_special_id')){
-            $user->sub_special_id = $request->sub_special_id;
+        if($request->has('special_id')){
+            $user->special_id = $request->special_id;
         } 
+        
+        if($request->has('level')) {
+           $user->level = $request->level;
+        }
 
         if($user->save()) {
             if($user->email_verified_at == null && $user->email != $request->email) {
@@ -722,10 +731,9 @@ class UserController extends Controller
 
 
     public function pdf( $locale , $id) {
-
         $user = User::findOrFail($id);
         $expert = Exp::where('user_id', $user->id)->first();
-        $user->load(['exps','educations']);
+        $user->load(['exps','educations' , 'languages' , 'files','references','country','city','special','role']);
 
         return view('dashboard.users.pdf' , compact(['user', 'expert']));
 
@@ -737,5 +745,18 @@ class UserController extends Controller
         return view('dashboard.users.guid' , compact('guid'));
 
     }
+    
+    public function download (Request $request , $id)
+    {
+      
+     if(\Auth::user()->id == $id) {
+         
+         return \Storage::download($request->f);
+     } 
+     else {
+         \Session::flash('error' , app()->getLocale() == 'ar' ? 'ليس لديك صلاحيه كافيه':'Access deny');
+         return back();
+     }
+  }
 
 }

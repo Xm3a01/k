@@ -34,21 +34,21 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                       <label for="inputEmail4">{{__('Name')}} </label>
-                      <input type="text" class="form-control" value="{{$user->ar_name}}"  name="ar_name"  placeholder="{{__('First Name')}} ">
+                      <input type="text" class="form-control" value="{{$user->ar_name}}"  name="ar_name"  placeholder="{{__('First Name')}} " required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputEmail4"> {{__('Name by English')}}  </label>
-                        <input type="text" class="form-control" name="name" value="{{$user->name}}"   placeholder="{{__('Name by English')}}">
+                        <input type="text" class="form-control" name="name" value="{{$user->name}}"   placeholder="{{__('Name by English')}}" required>
                       </div>
                   </div>
                   <div class="form-row">
                   <div class="form-group col-md-6">
                       <label for="inputEmail4">{{__('Last Name')}} </label>
-                      <input type="text" class="form-control" value="{{$user->ar_last_name}}"  name="ar_last_name"  placeholder="{{__('Last Name')}} ">
+                      <input type="text" class="form-control" value="{{$user->ar_last_name}}"  name="ar_last_name"  placeholder="{{__('Last Name')}} "  required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputEmail4"> {{__('Last Name by English')}}  </label>
-                        <input type="text" class="form-control" name="last_name" value="{{$user->last_name}}"   placeholder="{{__('Last Name by English')}}">
+                        <input type="text" class="form-control" name="last_name" value="{{$user->last_name}}"   placeholder="{{__('Last Name by English')}}" required>
                       </div>
                   </div>
                 <!-- -->
@@ -56,11 +56,11 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label>{{__('Birth Date')}}</label>
-                    <input type="date" id="datepicker" width="276" class="form-control" name="brithDate"  value ="{{$user->birthdate}}"/>
+                    <input type="date" id="datepicker" width="276" class="form-control" name="brithDate"  value ="{{$user->birthdate}}" required/>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="inputEmail4">{{__('Place of Birth')}}</label>
-                   <select name="brith_country_id" id="inputState" class="form-control">
+                   <select name="birth_country_id" id="inputState" class="form-control" required>
                       <option selected disabled>{{__('Place of Birth')}}</option>
                       @foreach ($countries as $country)    
                       <option value="{{$country->id}}">{{(app()->getLocale() == 'ar') ? $country->ar_name : $country->name}}</option>
@@ -72,8 +72,8 @@
                 <div class="form-row">
                   <div class="form-group col-md-12">
                       <label for="inputEmail4">{{__('Current Housing')}}</label>
-                      <select name="country_id" id="inputState" class="form-control">
-                          <option selected disabled>{{__('Place of Birth')}}</option>
+                      <select name="country_id" id="inputState" class="form-control" required>
+                          <option selected disabled>{{__('Current Housing')}}</option>
                           @foreach ($countries as $country)    
                           <option value="{{$country->id}}">{{(app()->getLocale() == 'ar') ? $country->ar_name : $country->name}}</option>
                           @endforeach
@@ -84,7 +84,7 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="inputState">{{__('Religion')}}</label>
-                    <select id="inputState" class="form-control" name="religion">
+                    <select id="inputState" class="form-control" name="religion" required>
                       <option value="{{$user->religion}}">{{(app()->getLocale() == 'ar') ? $user->ar_religion : $user->religion}}</option>
                       <option value="Muslime">{{__('Muslime')}}</option>
                       <option value="Christian">{{__('Christian')}}</option>
@@ -94,7 +94,7 @@
 
                   <div class="form-group col-md-6">
                     <label for="inputState">{{__('Social Status')}} </label>
-                    <select id="inputState" class="form-control" name="social_status"> //
+                    <select id="inputState" class="form-control" name="social_status" required> 
                       <option value="{{$user->social_status}}">{{(app()->getLocale() == 'ar') ? $user->ar_social_status : $user->social_status}}</option>
                       <option value="Married">{{__('Married')}}</option>
                       <option value="Single">{{__('Single')}}</option>
@@ -107,11 +107,11 @@
 
                    <div class="form-group col-md-6">
                    <label for="inputState">{{__('Passport No.')}}</label> 
-                   <input type="text" class="form-control"   placeholder="" name="idint_1" value="{{$user->idint_1}}">
+                   <input type="text" class="form-control"   placeholder="" name="idint_1" value="{{$user->idint_1}}" required>
                      </div>
                      <div class="form-group col-md-6">
                        <label for="inputAddress2">{{__('National No.')}}</label>
-                       <input type="text" class="form-control" id="inputAddress2" placeholder="" name="idint_2" value="{{$user->idint_2}}">
+                       <input type="text" class="form-control" id="inputAddress2" placeholder="" name="idint_2" value="{{$user->idint_2}}" required>
                      </div> 
                  </div>
                   
@@ -125,16 +125,16 @@
                 <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputAddress"> {{__('Phone Number')}}  </label>
-                    <input name="phone" type="text" class="form-control" id="inputAddress" value="{{$user->phone}}" placeholder="  {{__('Enter Phone Number')}}">
+                    <input name="phone" type="text" class="form-control" id="inputAddress" value="{{$user->phone}}" placeholder="  {{__('Enter Phone Number')}}" required>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="inputAddress">{{__('E-Mail Address')}}</label>
-                    <input name="email" type="text" class="form-control" id="inputAddress"  value="{{$user->email}}" placeholder="  {{__('Enter E-Mail Address')}}  ">
+                    <input name="email" type="text" class="form-control" id="inputAddress"  value="{{$user->email}}" placeholder="  {{__('Enter E-Mail Address')}}" required>
                   </div> 
   
                     <div class="form-group col-md-12">
                       <label for="inputCity"> {{__('City')}}</label>
-                      <select name="city_id" id="inputState" class="form-control">
+                      <select name="city_id" id="inputState" class="form-control" required>
                           <option selected disabled>{{__('City')}}</option>
                           @foreach ($cities as $city)    
                           <option value="{{$city->id}}">{{(app()->getLocale() == 'ar') ? $city->ar_name : $city->name}}</option>

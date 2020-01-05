@@ -112,6 +112,7 @@
                                                 @endforeach
             
                                             </tbody>
+                                            {{$countries->links()}}
                                         </table>
                                     </div>
                                 </div>
