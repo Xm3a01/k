@@ -15,7 +15,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12 col-lg-8 mb-5">
-            <form id="regForm" action="{{route('users.update', [ app()->getLocale(), $user->id ])}}" class="p-5 bg-white shadow rounded" method="POST" autocomplete="off">     
+            <form id="regForm" action="{{route('users.update', $user->id)}}" class="p-5 bg-white shadow rounded" method="POST" autocomplete="off">     
                 @csrf
                 @method('PUT')
                 <input type="hidden" name="select" value="user_edit">

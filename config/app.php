@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'ar_name' => env('AR_APP_NAME' ,'امواج الخليج'),
+    // 'ar_name' => env('APP_NAME' ,'امواج الخليج'),
     'name' => env('APP_NAME', 'Amwaj Elkhleeg'),
 
     /*

@@ -154,7 +154,7 @@ class UserController extends Controller
            return view('dashboard.users.add_new_cv',compact(['about','user' , 'cities','countries','sub_specials','levels','roles','specials']));
         } else {
             // dd($specials);
-            return view('dashboard.users.my_cv' , compact(['user','result', 'count' , 'cities','countries','sub_specials','levels','roles','expert','specials']));
+            return view('dashboard.users.my_cv' , compact(['user', 'count' , 'cities','countries','sub_specials','levels','roles','expert','specials']));
         }
     }
 
@@ -389,7 +389,7 @@ class UserController extends Controller
 
 
    
-    public function update(Request $request, $locale, $id)
+    public function update(Request $request, $id)
     {
 
         if($request->has('expert_form')) {
@@ -539,7 +539,7 @@ class UserController extends Controller
         
          if($file->save()){
             \Session::flash('success', app()->getLocale() == 'ar' ? 'تمت التعديل بنجاح':'Edit successflly');
-            return redirect()->route('web.mycv',app()->getLocale());
+            return redirect()->route('web.mycv');
         }
         
     }
@@ -562,7 +562,7 @@ class UserController extends Controller
         
          if($ref->save()){
             \Session::flash('success', app()->getLocale() == 'ar' ? 'تمت التعديل بنجاح':'Edit successflly');
-            return redirect()->route('web.mycv',app()->getLocale());
+            return redirect()->route('web.mycv');
         }
         
     }
@@ -661,7 +661,7 @@ class UserController extends Controller
                \Session::flash('success' ,app()->getLocale() == 'ar' ? 'تم الحفظ بنجاح':' Data saved successfully');
          }
         }
-        return redirect()->route('web.mycv',app()->getLocale());
+        return redirect()->route('web.mycv');
 }
 
     public function destroy(Request $request , $locale , $id)
@@ -673,34 +673,34 @@ class UserController extends Controller
                 \Storage::delete($file->attch);
                 $file->delete();
                 \Session::flash('success' , app()->getLocale() == 'ar' ? 'تم الحذف بنجاح': 'Deleted successfully');
-                return redirect()->route('web.mycv' , app()->getLocale());
+                return redirect()->route('web.mycv');
                 break;
              case 'ref':
                  $ref = Reference::findOrFail($id);
                  $ref->delete();
                  \Session::flash('success' , app()->getLocale() == 'ar' ? 'تم الحذف بنجاح': 'Deleted successfully');
-                 return redirect()->route('web.mycv' , app()->getLocale());
+                 return redirect()->route('web.mycv');
                  break;
             case 'expert_delete':
                  $expert = Exp::findOrFail($id);
                  \Storage::delete($expert->expert_pdf);
                  $expert->delete();
                  \Session::flash('success' , app()->getLocale() == 'ar' ? 'تم الحذف بنجاح': 'Deleted successfully');
-                 return redirect()->route('web.mycv' , app()->getLocale());
+                 return redirect()->route('web.mycv');
                  break;
                  
             case 'lang':
                  $lang = Language::findOrFail($id);
                  $lang->delete();
                  \Session::flash('success' , app()->getLocale() == 'ar' ? 'تم الحذف بنجاح': 'Deleted successfully');
-                 return redirect()->route('web.mycv' , app()->getLocale());
+                 return redirect()->route('web.mycv');
                  break;
                  
             case 'edu':
                  $edu = Education::findOrFail($id);
                  $edu->delete();
                  \Session::flash('success' , app()->getLocale() == 'ar' ? 'تم الحذف بنجاح': 'Deleted successfully');
-                 return redirect()->route('web.mycv' , app()->getLocale());
+                 return redirect()->route('web.mycv');
                  break;
         }
     }

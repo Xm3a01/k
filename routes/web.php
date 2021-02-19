@@ -1,9 +1,9 @@
-<?php
+ <?php
 use App\Country;
 use Illuminate\Http\Request; 
 use App\Notifications\WelcomeUser;
 
-Route::get('/', function () {return redirect(app()->getLocale());});
+// Route::get('/', function () {return redirect(app()->getLocale());});
 
 Route::group(['prefix' => 'dashboard' , 'middleware' => 'auth:admin'] , function(){
     //about browes
@@ -83,7 +83,7 @@ Route::group(['prefix' => 'admins'], function(){
   Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
 
 });
-Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}'], 'middleware' => 'setlocale'], 
+Route::group(['middleware' => 'setlocale'], 
 function() {
     
      Route::get('/','Browse\BrowseController@home_page')->name('home');  
@@ -166,3 +166,5 @@ Route::get('/test',function() {
     return 'Email send';
 
 });
+
+Route::get('/locale/{locale}', 'LocaleController@index')->name('lang');

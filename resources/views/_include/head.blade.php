@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @if(app()->getLocale() == 'ar')
-<title> {{ config('app.ar_name' )}} </title>
+<title> {{ config('app.name' )}} </title>
 @else
 <title> {{ config('app.name' )}} </title>
 @endif 
@@ -16,7 +16,7 @@
 
 <link rel="stylesheet" href="{{asset('asset/css/bootstrap.min.css')}}">
 <link rel="stylesheet" href="{{asset('asset/css/magnific-popup.css')}}">
-<link rel="stylesheet" href=" {{asset('asset/css/jquery-ui.css')}} ">
+<link rel="stcomposer update laravel/frameworkylesheet" href=" {{asset('asset/css/jquery-ui.css')}} ">
 <link rel="stylesheet" href=" {{asset('asset/css/owl.carousel.min.css')}} ">
 <link rel="stylesheet" href=" {{asset('asset/css/owl.theme.default.min.css')}} ">
 <link rel="stylesheet" href=" {{asset('asset/css/bootstrap-datepicker.css')}} ">

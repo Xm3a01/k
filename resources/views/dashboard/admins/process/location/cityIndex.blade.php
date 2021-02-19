@@ -110,7 +110,7 @@
                                         @endforeach
                                         
                                         </tbody>
-                            {{cities->links()}}
+                            {{$cities->links()}}
                                     </table>
                                   </div>
                                </div>

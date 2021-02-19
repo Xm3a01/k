@@ -41,7 +41,7 @@
                 </div>
                 <div class="modal-body p-4" id="result"> 
                     <div class="row justify-content-center">
-                        <form class="form-row col-md-6" action="{{route('users.update',[app()->getLocale() , $user->id])}}" method="POST" autocomplete="off">
+                        <form class="form-row col-md-6" action="{{route('users.update', $user->id)}}" method="POST" autocomplete="off">
                           @csrf
                           @method('PUT')
                           <input name="user_id" value = "{{$user->id}}">
